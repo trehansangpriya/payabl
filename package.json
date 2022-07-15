@@ -9,9 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@emotion/react": "^11.9.3",
-    "@emotion/styled": "^11.9.3",
-    "@mui/material": "^5.9.0",
     "autoprefixer": "^10.4.7",
     "dayjs": "^1.11.3",
     "firebase": "^9.9.0",
