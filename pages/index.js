@@ -1,11 +1,10 @@
 import React from 'react'
-import dayjs from 'dayjs'
+import { Button } from '@mui/material'
 const Home = () => {
-  const now = dayjs()
-  console.log(now)
+
   return (
     <div>
-      Home
+
     </div>
   )
 }
