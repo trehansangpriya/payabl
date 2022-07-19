@@ -1,13 +1,24 @@
-import { Container, Spacer } from '@/Components/utility'
-import { privateRoute } from '@/Routes/privateRoute'
 import React from 'react'
+import { Container } from '@/Components/utility'
+import { privateRoute } from '@/Routes/privateRoute'
+import useGlobals from '@/Contexts/useGlobals';
 const Home = ({ auth }) => {
   const { user, userData, logOut } = auth
+  const { displayAlert } = useGlobals()
   return (
-    <div className='flex flex-col justify-center items-center gap-5'>
-      Home
-      {user && <button onClick={logOut}>Log Out</button>}
-      {user && userData && `Welcome, ${userData?.displayName}`}
+    <div>
+      <Container
+        gap={'16px'}
+      >
+        Home
+        {user && <button onClick={logOut}>Log Out</button>}
+        {user && userData && `Welcome, ${userData?.displayName}`}
+        <button
+          onClick={() => displayAlert(true, 'error', 'Hello')}
+        >
+          Show Alert
+        </button>
+      </Container>
     </div>
   )
 }

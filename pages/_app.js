@@ -1,3 +1,4 @@
+import { Alert } from '@/Components/utility'
 import { AuthProvider } from '@/Contexts/useAuth'
 import { GlobalProvider } from '@/Contexts/useGlobals'
 import '@/Styles/globals.css'
@@ -6,6 +7,7 @@ function MyApp({ Component, pageProps }) {
     <GlobalProvider>
       <AuthProvider>
         <Component {...pageProps} />
+        <Alert />
       </AuthProvider>
     </GlobalProvider>
   )
