@@ -44,6 +44,8 @@ const Button = ({
             onClick={onClick}
             onSubmit={onSubmit}
             disabled={loading || disabled}
+            id='button'
+            {...props}
         >
             {iconLeft && <span className={`mr-[8px]`}>{iconLeft}</span>}
             {children}
