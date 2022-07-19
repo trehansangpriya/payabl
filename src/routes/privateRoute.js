@@ -7,8 +7,8 @@ export function privateRoute(Component) {
         const auth = useAuth()
         const router = useRouter()
         if (!auth.user) {
-            router.push('/auth')
-            return 'Loading...'
+            router.push('/login')
+            return <div>Loading...</div>
         }
         return <Component auth={auth} {...props} />
     }

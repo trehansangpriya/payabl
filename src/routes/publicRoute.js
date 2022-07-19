@@ -8,7 +8,7 @@ export function publicRoute(Component) {
         const router = useRouter()
         if (auth.user) {
             router.push('/')
-            return 'Loading...'
+            return <div>Loading...</div>
         }
         return <Component auth={auth} {...props} />
     }

@@ -1,10 +1,14 @@
+import { privateRoute } from '@/Routes/privateRoute'
 import React from 'react'
-const Home = () => {
+const Home = ({ auth }) => {
+  const { user, userData, logOut } = auth
   return (
-    <div>
+    <div className='flex flex-col justify-center items-center gap-5'>
       Home
+      {user && <button onClick={logOut}>Log Out</button>}
+      {user && `Welcome, ${userData.displayName}`}
     </div>
   )
 }
 
-export default Home
+export default privateRoute(Home)
