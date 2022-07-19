@@ -3,6 +3,11 @@ import React from 'react'
 const Container = ({
     children,
     width,
+    minWidth,
+    maxWidth,
+    height,
+    minHeight,
+    maxHeight,
     padding,
     margin,
     align,
@@ -17,6 +22,11 @@ const Container = ({
     // Container Styles
     const styles = {
         width: width ? width : '100%',
+        minWidth: minWidth ? minWidth : '0%',
+        maxWidth: maxWidth ? maxWidth : '100%',
+        height: height ? height : '100%',
+        minHeight: minHeight ? minHeight : '0%',
+        maxHeight: maxHeight ? maxHeight : '100%',
         padding: padding ? padding : '0px',
         margin: margin ? margin : '0px',
         display: display ? display : 'flex',

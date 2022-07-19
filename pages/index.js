@@ -9,15 +9,14 @@ const Home = ({ auth }) => {
     <div>
       <Container
         gap={'16px'}
+        padding='12px'
+        minHeight='100vh'
       >
-        Home
-        {user && <button onClick={logOut}>Log Out</button>}
+        <h1>
+          Home
+        </h1>
         {user && userData && `Welcome, ${userData?.displayName}`}
-        <button
-          onClick={() => displayAlert(true, 'error', 'Hello')}
-        >
-          Show Alert
-        </button>
+        {user && <button onClick={logOut}>Log Out</button>}
       </Container>
     </div>
   )
