@@ -6,7 +6,7 @@ const Home = ({ auth }) => {
     <div className='flex flex-col justify-center items-center gap-5'>
       Home
       {user && <button onClick={logOut}>Log Out</button>}
-      {user && `Welcome, ${userData.displayName}`}
+      {user && userData && `Welcome, ${userData?.displayName}`}
     </div>
   )
 }
