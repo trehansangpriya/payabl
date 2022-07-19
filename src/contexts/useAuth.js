@@ -1,4 +1,4 @@
-import { GoogleAuthProvider, onAuthStateChanged, signInWithRedirect, signOut } from "firebase/auth";
+import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signInWithRedirect, signOut } from "firebase/auth";
 import React, { createContext, useEffect, useState, useMemo, useContext } from "react";
 import { auth, db } from "@/Firebase/index";
 import useGlobals from "@/Contexts/useGlobals"
@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }) => {
     }), [])
     const provider = new GoogleAuthProvider()
     const signInWithGoogle = () => (
-        signInWithRedirect(auth, provider)
+        signInWithPopup(auth, provider)
     )
     const logOut = () => {
         setLoading(true)
@@ -54,8 +54,7 @@ export const AuthProvider = ({ children }) => {
         })
     }
 
-    console.log(user)
-    // value using useMemo
+    // values to be passed to children
     const value = {
         user,
         setUser,
