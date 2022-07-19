@@ -46,6 +46,7 @@ const Alert = ({ show, message, variant, dummy }) => {
             onClick={() => {
                 !dummy && setAlertShow(!alertShow)
             }}
+            id='alert'
         >
             {alertIcon}
             <span>
