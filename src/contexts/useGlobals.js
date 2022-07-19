@@ -26,12 +26,12 @@ export const GlobalProvider = ({ children }) => {
         }), 2000)
     }
 
-    const value = useMemo(() => ({
+    const value = {
         loading,
         setLoading,
         showAlert,
         displayAlert,
-    }), [loading, showAlert])
+    }
 
     return (
         <GlobalContext.Provider value={value}>
