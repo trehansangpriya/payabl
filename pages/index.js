@@ -1,7 +1,9 @@
 import React from 'react'
-import { Container } from '@/Components/utility'
+import { Button, Container } from '@/Components/utility'
 import { privateRoute } from '@/Routes/privateRoute'
 import useGlobals from '@/Contexts/useGlobals';
+import { FiLogOut } from 'react-icons/fi'
+
 const Home = ({ auth }) => {
   const { user, userData, logOut } = auth
   const { displayAlert } = useGlobals()
@@ -16,7 +18,15 @@ const Home = ({ auth }) => {
           Home
         </h1>
         {user && userData && `Welcome, ${userData?.displayName}`}
-        {user && <button onClick={logOut}>Log Out</button>}
+        {user &&
+          <Button
+            color='error'
+            iconLeft={<FiLogOut />}
+            onClick={logOut}
+          // disabled={true}
+          >
+            Log Out
+          </Button>}
       </Container>
     </div>
   )
