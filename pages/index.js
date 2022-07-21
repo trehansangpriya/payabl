@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Container } from '@/Components/utility'
+import { Alert, Button, Container, Loading } from '@/Components/utility'
 import { privateRoute } from '@/Routes/privateRoute'
 import useGlobals from '@/Contexts/useGlobals';
 import { FiLogOut } from 'react-icons/fi'
@@ -23,7 +23,6 @@ const Home = ({ auth }) => {
             color='error'
             iconLeft={<FiLogOut />}
             onClick={logOut}
-          // disabled={true}
           >
             Log Out
           </Button>}
