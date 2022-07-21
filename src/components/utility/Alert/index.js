@@ -3,7 +3,7 @@ import { FiXCircle, FiAlertTriangle, FiCheckCircle, FiInfo } from 'react-icons/f
 import useGlobals from '@/Contexts/useGlobals'
 
 const Alert = ({ show, message, variant, dummy }) => {
-    const { showAlert } = useGlobals()
+    const { alert } = useGlobals()
     const [alertVariant, setAlertVariant] = useState('')
     const [alertIcon, setAlertIcon] = useState(null)
     const [alertMessage, setAlertMessage] = useState('')
@@ -29,16 +29,20 @@ const Alert = ({ show, message, variant, dummy }) => {
             setAlertShow(show)
         }
         else {
-            setAlertVariant(variants[showAlert.variant])
-            setAlertIcon(icons[showAlert.variant])
-            setAlertMessage(showAlert.message)
-            setAlertShow(showAlert.show)
+            setAlertVariant(variants[alert.variant])
+            setAlertIcon(icons[alert.variant])
+            setAlertMessage(alert.message)
+            setAlertShow(alert.show)
         }
-    }, [dummy, message, show, variant, showAlert])
+    }, [dummy, message, show, variant, alert])
 
     return (
         <div className={[
-            'p-[16px] m-1 flex justify-start items-center gap-2 w-full max-w-[320px] text-contentl shadow-default rounded font-button cursor-pointer',
+            'p-[16px] m-1',
+            'flex justify-center items-center gap-2',
+            'w-fit max-w-[320px]',
+            'text-sm font-medium',
+            'shadow-default rounded cursor-pointer',
             alertVariant,
             dummy ? '' : 'fixed transition-all duration-200 bottom-[-10%] z-50  left-[50%] translate-x-[-50%]',
             !dummy && (alertShow ? 'bottom-[20px] opacity-100 visible' : 'bottom-[-10px] opacity-0 invisible'),
