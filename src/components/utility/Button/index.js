@@ -33,7 +33,7 @@ const Button = ({
     return (
         <button
             className={[
-                'font-medium text-base',
+                'font-medium',
                 'py-[8px] px-[16px] rounded transition-all duration-150',
                 'flex justify-center items-center',
                 !disabled && 'active:scale-[.98] hover:scale-[1.02]',
