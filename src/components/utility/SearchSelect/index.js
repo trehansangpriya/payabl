@@ -60,7 +60,7 @@ const SearchSelect = ({
             })
         })
         setSearchResults(results)
-        console.log(results)
+        // console.log(results)
         return
     }
 
