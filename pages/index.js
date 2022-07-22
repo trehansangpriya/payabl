@@ -1,12 +1,11 @@
 import React from 'react'
-import { Alert, Button, Card, Container, Loading } from '@/Components/utility'
+import { Button, Container } from '@/Components/utility'
 import { privateRoute } from '@/Routes/privateRoute'
-import useGlobals from '@/Contexts/useGlobals';
 import { FiLogOut } from 'react-icons/fi'
 
 const Home = ({ auth }) => {
   const { user, userData, logOut } = auth
-  const { displayAlert } = useGlobals()
+
   return (
     <Container
       gap={'16px'}
@@ -25,6 +24,12 @@ const Home = ({ auth }) => {
         >
           Log Out
         </Button>}
+      <Button
+        color='primary'
+        onClick={() => setToggleModal(true)}
+      >
+        Open Modal
+      </Button>
     </Container>
   )
 }
