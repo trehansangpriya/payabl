@@ -6,7 +6,7 @@ export const GlobalProvider = ({ children }) => {
     const [loading, setLoading] = useState(false)
 
     // App Alerts
-    const [showAlert, setShowAlert] = useState({
+    const [alert, setAlert] = useState({
         show: false,
         message: '',
         variant: '',
@@ -14,12 +14,12 @@ export const GlobalProvider = ({ children }) => {
 
     // Function to Toggle Alert
     const displayAlert = (show, variant, message) => {
-        setShowAlert({
+        setAlert({
             show,
             message,
             variant,
         })
-        setTimeout(() => setShowAlert({
+        setTimeout(() => setAlert({
             show: false,
             message: '',
             variant: '',
@@ -29,7 +29,7 @@ export const GlobalProvider = ({ children }) => {
     const value = {
         loading,
         setLoading,
-        showAlert,
+        alert,
         displayAlert,
     }
 

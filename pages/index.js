@@ -1,13 +1,30 @@
-import { privateRoute } from '@/Routes/privateRoute'
 import React from 'react'
+import { Button, Container } from '@/Components/utility'
+import { privateRoute } from '@/Routes/privateRoute'
+import { FiLogOut } from 'react-icons/fi'
+
 const Home = ({ auth }) => {
   const { user, userData, logOut } = auth
+
   return (
-    <div className='flex flex-col justify-center items-center gap-5'>
-      Home
-      {user && <button onClick={logOut}>Log Out</button>}
+    <Container
+      gap={'16px'}
+      padding='12px'
+      minHeight='100vh'
+    >
+      <h1>
+        Home
+      </h1>
       {user && userData && `Welcome, ${userData?.displayName}`}
-    </div>
+      {user &&
+        <Button
+          color='error'
+          iconLeft={<FiLogOut />}
+          onClick={logOut}
+        >
+          Log Out
+        </Button>}
+    </Container>
   )
 }
 
