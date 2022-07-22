@@ -3,6 +3,7 @@ import React, { createContext, useEffect, useState, useMemo, useContext } from "
 import { auth, db } from "@/Firebase/index";
 import useGlobals from "@/Contexts/useGlobals"
 import { doc, onSnapshot, serverTimestamp, setDoc } from "firebase/firestore";
+import { Loading } from "@/Components/utility";
 
 export const AuthContext = createContext({})
 export const AuthProvider = ({ children }) => {
@@ -70,7 +71,7 @@ export const AuthProvider = ({ children }) => {
     return (
         <AuthContext.Provider value={value}>
             {
-                !authLoading ? children : <div>Loading...</div>
+                !authLoading ? children : <Loading />
             }
         </AuthContext.Provider>
     )
