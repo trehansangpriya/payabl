@@ -24,12 +24,6 @@ const Home = ({ auth }) => {
         >
           Log Out
         </Button>}
-      <Button
-        color='primary'
-        onClick={() => setToggleModal(true)}
-      >
-        Open Modal
-      </Button>
     </Container>
   )
 }
