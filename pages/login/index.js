@@ -35,6 +35,7 @@ const Login = ({ auth }) => {
             <Button
                 iconLeft={<FaGoogle />}
                 onClick={handleSignIn}
+                disabled={loading}
             >Sign In With Google</Button>
             {
                 loading && <Loading inline message='Waiting for you to sign in with Google...' />
