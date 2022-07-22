@@ -50,7 +50,7 @@ const Input = ({
             'flex flex-col max-w-[80%] min-w-[300px]',
             wrapperClass,
             disabled && 'opacity-50',
-            ].join(' ')}>
+        ].join(' ')}>
             {/* Input Label */}
             {showLabel && label &&
                 <label
@@ -67,7 +67,7 @@ const Input = ({
 
             {/* Input Box */}
             <input
-                id={id || 'input'}
+                id={id || name}
                 name={name}
                 type={type}
                 placeholder={placeholder}
