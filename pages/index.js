@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Container } from '@/Components/utility'
+import { Button, Container, Text } from '@/Components/utility'
 import { privateRoute } from '@/Routes/privateRoute'
 import { FiLogOut } from 'react-icons/fi'
 
@@ -12,10 +12,14 @@ const Home = ({ auth }) => {
       padding='12px'
       minHeight='100vh'
     >
-      <h1>
+      <Text tag='h4'>
         Home
-      </h1>
-      {user && userData && `Welcome, ${userData?.displayName}`}
+      </Text>
+      {user && userData && (
+        <Text>
+          {`Welcome, ${userData?.displayName}`}
+        </Text>
+      )}
       {user &&
         <Button
           color='error'

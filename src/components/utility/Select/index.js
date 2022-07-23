@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-const Input = ({
+const Select = ({
     status = 'default',
     type = 'text',
     id,
@@ -9,6 +9,7 @@ const Input = ({
     label,
     showLabel = true,
     value,
+    options,
     onChange,
     onKeyUp,
     disabled = false,
@@ -16,13 +17,13 @@ const Input = ({
     readOnly = false,
     wrapperClass,
     labelClass,
-    inputClass,
+    selectClass,
     helperClass,
     helperText,
     showHelperText = true,
     ...props
 }) => {
-    const inputStatuses = {
+    const selectStatuses = {
         default: 'text-layout-700 placeholder:text-layout-500 bg-layout-100 focus:bg-primary-50 focus:border-2 focus:border-primary-300 focus:text-primary-700',
         primary: 'placeholder:text-layout-500 bg-primary-100 focus:border-2 border-primary-300 text-primary-700',
         error: 'placeholder:text-layout-500 bg-error-100 focus:border-2 border-error-300 text-error-700',
@@ -38,10 +39,10 @@ const Input = ({
         warn: 'text-warn-600',
         info: 'text-info-600',
     }
-    const [inputStatus, setInputStatus] = useState(inputStatuses[status])
+    const [selectStatus, setselectStatus] = useState(selectStatuses[status])
     const [helperTextStatus, setHelperTextStatus] = useState(helperTextStatuses[status])
     useEffect(() => {
-        setInputStatus(inputStatuses[status])
+        setselectStatus(selectStatuses[status])
         setHelperTextStatus(helperTextStatuses[status])
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [status])
@@ -65,8 +66,8 @@ const Input = ({
                 </label>
             }
 
-            {/* Input Box */}
-            <input
+            {/* Select Box */}
+            <select
                 id={id || name}
                 name={name}
                 type={type}
@@ -82,12 +83,29 @@ const Input = ({
                     'w-full px-3 py-2 rounded',
                     'outline-none transition-all',
                     'text-base',
-                    inputStatus,
+                    selectStatus,
                     disabled && 'cursor-not-allowed',
-                    inputClass,
+                    selectClass,
                 ].join(' ')}
                 {...props}
-            />
+            >
+                {/* Placeholder Option */}
+                {placeholder &&
+                    <option
+                        value=''
+                    >
+                        {placeholder}
+                    </option>
+                }
+                {options.map((option, index) => (
+                    <option
+                        key={index}
+                        value={option.value}
+                    >
+                        {option.label}
+                    </option>
+                ))}
+            </select>
 
             {/* Helper Text */}
             {
@@ -105,4 +123,4 @@ const Input = ({
     )
 }
 
-export default Input
+export default Select

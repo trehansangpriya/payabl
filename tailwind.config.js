@@ -69,6 +69,19 @@ module.exports = {
           '800': 'hsla(210, 50%, 20%, 1)',
         },
       },
+      keyframes: {
+        'infinite-progress': {
+          ' 0%': {
+            transform: 'translateX(-100%)',
+          },
+          '100%': {
+            transform: 'translateX(400%)',
+          }
+        }
+      },
+      animation: {
+        'infinite-progress': 'infinite-progress 2s linear infinite',
+      }
     },
   },
   plugins: [],

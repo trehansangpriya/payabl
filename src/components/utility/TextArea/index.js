@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
-const Input = ({
+const TextArea = ({
     status = 'default',
-    type = 'text',
     id,
     name,
     placeholder,
@@ -12,7 +11,7 @@ const Input = ({
     onChange,
     onKeyUp,
     disabled = false,
-    required = true,
+    required = false,
     readOnly = false,
     wrapperClass,
     labelClass,
@@ -20,6 +19,10 @@ const Input = ({
     helperClass,
     helperText,
     showHelperText = true,
+    rows = '2',
+    resize = true,
+    maxLength = '300',
+    minLength = '0',
     ...props
 }) => {
     const inputStatuses = {
@@ -38,6 +41,7 @@ const Input = ({
         warn: 'text-warn-600',
         info: 'text-info-600',
     }
+
     const [inputStatus, setInputStatus] = useState(inputStatuses[status])
     const [helperTextStatus, setHelperTextStatus] = useState(helperTextStatuses[status])
     useEffect(() => {
@@ -46,30 +50,31 @@ const Input = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [status])
     return (
-        <div className={[
-            'flex flex-col max-w-[80%] min-w-[300px]',
-            wrapperClass,
-            disabled && 'opacity-50',
-        ].join(' ')}>
-            {/* Input Label */}
-            {showLabel && label &&
+        <div
+            className={[
+                'flex flex-col max-w-[80%] min-w-[300px]',
+                wrapperClass,
+                disabled && 'opacity-50',
+            ].join(' ')}
+        >
+            {/* Label */}
+            {
+                showLabel && label &&
                 <label
                     className={[
                         'text-sm mb-1 ml-1',
                         labelClass,
                     ].join(' ')}
-                    htmlFor={name}
                 >
                     {label}
                     {required && <span className='text-error-400'> *</span>}
                 </label>
             }
 
-            {/* Input Box */}
-            <input
+            {/* Textarea */}
+            <textarea
                 id={id || name}
                 name={name}
-                type={type}
                 placeholder={placeholder}
                 value={value}
                 onChange={onChange}
@@ -78,16 +83,20 @@ const Input = ({
                 required={required}
                 readOnly={readOnly}
                 autoComplete='off'
+                rows={rows}
+                maxLength={maxLength}
+                minLength={minLength}
                 className={[
                     'w-full px-3 py-2 rounded',
                     'outline-none transition-all',
                     'text-base',
+                    !resize && 'resize-none',
                     inputStatus,
                     disabled && 'cursor-not-allowed',
                     inputClass,
                 ].join(' ')}
                 {...props}
-            />
+            ></textarea>
 
             {/* Helper Text */}
             {
@@ -105,4 +114,4 @@ const Input = ({
     )
 }
 
-export default Input
+export default TextArea
