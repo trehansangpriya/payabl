@@ -5,9 +5,6 @@ const Switch = ({
     color = 'primary',
     state = false,
     onChange = () => { },
-    icon,
-    iconOn,
-    iconOff,
     ...props
 }) => {
     const switchColors = {
@@ -31,7 +28,7 @@ const Switch = ({
                 disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer',
                 state ? switchColor : 'bg-layout-200',
             ].join(' ')}
-            onClick={!disabled ? onChange : () => { }}
+            onClick={!disabled ? () => { onChange(!state) } : () => { }}
             {...props}
         >
             <div className={[
