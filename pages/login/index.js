@@ -61,7 +61,7 @@ const Login = ({ auth }) => {
                 ].join(' ')}
             >
                 <Text
-                    // tag='h1'
+                    tag='h1'
                     className='text-6xl'
                 >
                     Payabl
