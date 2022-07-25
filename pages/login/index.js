@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Container, Loading, Text } from '@/Components/utility'
+import { Button, Container, Loading, Text, textStyles } from '@/Components/utility'
 import { publicRoute } from '@/Routes/publicRoute'
 import { FaGoogle } from 'react-icons/fa';
 import useGlobals from '@/Contexts/useGlobals';
@@ -57,15 +57,17 @@ const Login = ({ auth }) => {
                 id="login-wrapper"
                 className={[
                     'w-full h-full p-4',
-                    'flex flex-col gap-6 justify-center'
+                    'flex flex-col gap-6'
                 ].join(' ')}
             >
-                <Text
-                    tag='h1'
-                    className='text-6xl'
+                <h1
+                    className={[
+                        textStyles['h1'],
+                        'text-6xl'
+                    ].join(' ')}
                 >
                     Payabl
-                </Text>
+                </h1>
                 <Button
                     // className='w-full'
                     iconLeft={<FaGoogle />}
