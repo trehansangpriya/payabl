@@ -41,7 +41,7 @@ const Login = ({ auth }) => {
             <Container
                 id="logo-wrapper"
                 className={[
-                    'w-full h-full',
+                    'w-full h-[40%]',
                     'flex justify-start items-center',
                 ].join(' ')}
             >
@@ -57,7 +57,7 @@ const Login = ({ auth }) => {
                 id="login-wrapper"
                 className={[
                     'w-full h-full p-4',
-                    'flex flex-col gap-6 justify-end'
+                    'flex flex-col gap-6 justify-center'
                 ].join(' ')}
             >
                 <Text
@@ -67,7 +67,7 @@ const Login = ({ auth }) => {
                     Payabl
                 </Text>
                 <Button
-                    className='w-full'
+                    // className='w-full'
                     iconLeft={<FaGoogle />}
                     onClick={handleSignIn}
                     disabled={loading}
