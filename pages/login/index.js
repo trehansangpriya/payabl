@@ -62,8 +62,7 @@ const Login = ({ auth }) => {
             >
                 <h1
                     className={[
-                        textStyles['h1'],
-                        'text-6xl'
+                        'font-bold text-6xl'
                     ].join(' ')}
                 >
                     Payabl
