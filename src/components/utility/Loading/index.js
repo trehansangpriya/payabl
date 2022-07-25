@@ -23,7 +23,7 @@ const Loading = ({
     if (modal) {
         return (
             <div className='w-full h-screen fixed top-0 right-0 bg-black bg-opacity-40 flex  items-center justify-center z-50'>
-                <div className="bg-white py-10 rounded shadow min-w-[280px] flex flex-col gap-2 items-center justify-center">
+                <div className="bg-white py-10 px-4 rounded shadow min-w-[280px] flex flex-col gap-2 items-center justify-center">
                     <Image
                         src="/assets/gifs/loading.gif"
                         alt="Loading"
