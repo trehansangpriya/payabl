@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 const Text = ({
     children,
@@ -23,9 +23,18 @@ const Text = ({
         'u': 'text-underline',
         'code': 'font-mono',
     }
+    const [textStyle, setTextStyle] = useState(textStyles[tag])
+    const [textClass, setTextClass] = useState(className)
+    const [textClassName, setTextClassName] = useState('')
+    useEffect(() => {
+        setTextStyle(textStyles[tag])
+        setTextClass(className)
+        setTextClassName(textStyle + ' ' + textClass)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [tag, className])
     return (
         React.createElement(tag, {
-            className: `${textStyles[tag] || ''} ${className || ''}`,
+            className: textClassName,
             ...props,
         }, children)
     )

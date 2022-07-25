@@ -34,40 +34,47 @@ const Login = ({ auth }) => {
             id='login-screen'
             className={[
                 'h-screen flex flex-col justify-start',
-                'lg:flex-row'
+                'md:flex-row'
             ].join(' ')}
         >
-            {/* Lg: Left Sm: Top */}
+            {/* md: Left Sm: Top */}
             <Container
                 id="logo-wrapper"
                 className={[
                     'w-full h-[40%]',
+                    'md:h-full',
                     'flex justify-start items-center',
                 ].join(' ')}
             >
-                <Image
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
                     src='/assets/images/logo.png'
                     alt='Payabl'
-                    width={360}
-                    height={360}
                 />
             </Container>
-            {/* Lg: Right Sm: Bottom */}
+            {/* md: Right Sm: Bottom */}
             <Container
                 id="login-wrapper"
                 className={[
                     'w-full h-full p-4',
-                    'flex flex-col gap-6 justify-center'
+                    'md:h-full',
+                    'flex flex-col gap-3 justify-center',
                 ].join(' ')}
             >
-                <Text
-                    tag='h1'
-                    className='text-6xl'
+                <h1
+                    className={[
+                        'font-bold text-6xl'
+                    ].join(' ')}
                 >
                     Payabl
-                </Text>
+                </h1>
+                <h2
+                    className='font-medium text-2xl'
+                >
+                    Take control of your money.
+                </h2>
                 <Button
-                    // className='w-full'
+                    className='w-full md:w-fit'
                     iconLeft={<FaGoogle />}
                     onClick={handleSignIn}
                     disabled={loading}
