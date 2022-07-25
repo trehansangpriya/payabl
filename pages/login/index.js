@@ -60,12 +60,12 @@ const Login = ({ auth }) => {
                     'flex flex-col gap-6 justify-center'
                 ].join(' ')}
             >
-                <h1
+                <Text
                     // tag='h1'
-                    className='font-bold text-6xl'
+                    className='text-6xl'
                 >
                     Payabl
-                </h1>
+                </Text>
                 <Button
                     // className='w-full'
                     iconLeft={<FaGoogle />}
