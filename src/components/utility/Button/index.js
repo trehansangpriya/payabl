@@ -36,7 +36,7 @@ const Button = ({
         <button
             className={[
                 'font-medium',
-                'py-[8px] px-[16px] rounded transition-all duration-150',
+                'p-3 rounded transition-all duration-150',
                 'flex justify-center items-center',
                 !disabled && 'active:scale-[.98] hover:scale-[1.02]',
                 !disabled ? buttonColor : 'bg-layout-300 text-layout-100 cursor-not-allowed',
