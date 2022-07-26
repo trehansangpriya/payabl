@@ -3,7 +3,7 @@ import NextLink from 'next/link'
 
 const Link = ({
     children,
-    color = 'primary',
+    color = 'default',
     className,
     href,
     as = href,
@@ -16,6 +16,7 @@ const Link = ({
     useEffect(() => {
         // Link Colors
         const linkColors = {
+            default: 'text-layout-800',
             primary: 'text-primary-500 hover:text-primary-600 active:text-primary-600',
             error: 'text-error-500 hover:text-error-600 active:text-error-600',
             success: 'text-success-500 hover:text-success-600 active:text-success-600',
