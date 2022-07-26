@@ -1,13 +1,15 @@
 import React from 'react'
 import { privateRoute } from '@/Routes/privateRoute'
-import { AppScreen } from '@/Components/app'
+import { PageScreen } from '@/Components/app'
 import { Button, Text } from '@/Components/utility'
 import { FiLogOut } from 'react-icons/fi'
 
 const Profile = ({ auth }) => {
     const { user, logOut } = auth
     return (
-        <AppScreen>
+        <PageScreen
+            label='Profile'
+        >
             <Text tag='h4'>
                 Profile
             </Text>
@@ -19,7 +21,7 @@ const Profile = ({ auth }) => {
                 >
                     Log Out
                 </Button>}
-        </AppScreen>
+        </PageScreen>
     )
 }
 
