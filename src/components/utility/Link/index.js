@@ -17,7 +17,7 @@ const Link = ({
         // Link Colors
         const linkColors = {
             default: 'text-layout-800',
-            primary: 'text-primary-500 hover:text-primary-600 active:text-primary-600',
+            primary: 'text-primary-600 hover:text-primary-700 active:text-primary-700',
             error: 'text-error-500 hover:text-error-600 active:text-error-600',
             success: 'text-success-500 hover:text-success-600 active:text-success-600',
             warning: 'text-warning-500 hover:text-warning-600 active:text-warning-600',
