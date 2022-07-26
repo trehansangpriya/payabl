@@ -2,6 +2,7 @@ import React from 'react'
 import { Button, Container, Text } from '@/Components/utility'
 import { privateRoute } from '@/Routes/privateRoute'
 import { FiLogOut } from 'react-icons/fi'
+import { FAB } from '@/Components/app'
 
 const Home = ({ auth }) => {
   const { user, userData, logOut } = auth
@@ -28,6 +29,9 @@ const Home = ({ auth }) => {
         >
           Log Out
         </Button>}
+      <FAB
+        label='Add'
+      />
     </Container>
   )
 }
