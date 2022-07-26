@@ -4,9 +4,11 @@ import { FiPlus } from 'react-icons/fi'
 const FAB = ({
     label,
     icon = <FiPlus />,
+    showIcon = true,
     color = 'primary',
     onClick,
     className,
+    disabled,
     ...props
 }) => {
     const FABColors = {
@@ -26,15 +28,16 @@ const FAB = ({
             onClick={onClick}
             {...props}
             className={[
-                'flex justify-center items-center gap-2',
+                'flex justify-center items-center gap-1',
                 'font-medium',
                 'p-4 rounded-full transition-all duration-150',
                 'fixed bottom-0 right-0 mb-4 mr-4',
-                FABColor,
+                !disabled && 'active:scale-[.98] hover:scale-[1.02]',
+                !disabled ? FABColor : 'bg-layout-300 text-layout-100 cursor-not-allowed',
                 className,
             ].join(' ')}
         >
-            {icon && <span>{icon}</span>}
+            {showIcon && icon && <span>{icon}</span>}
             {label && <span>{label}</span>}
         </button>
     )
