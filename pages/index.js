@@ -9,25 +9,13 @@ const Home = ({ auth }) => {
 
   return (
     <Container
-      gap={'16px'}
-      padding='12px'
-      minHeight='100vh'
+      className={[
+        'flex flex-col gap-2',
+        'min-h-screen',
+        'p-2 py-[80px]',
+      ].join(' ')}
     >
-      <AppTopBar
-        userData={userData}
-        rightContent={
-          <>
-            <Button
-              onClick={logOut}
-              color='error'
-              iconLeft={<FiLogOut />}
-            >
-              Logout
-            </Button>
-            <FiLogOut />
-          </>
-        }
-      />
+      <AppTopBar />
       <Text tag='h4'>
         Home
       </Text>

@@ -3,12 +3,12 @@ import useAuth from '@/Contexts/useAuth'
 import React from 'react'
 
 const AppTopBar = ({
-    userData,
     rightContent,
 }) => {
+    const { userData } = useAuth()
     return (
         <div
-            className='flex justify-between items-center w-full p-2 shadow'
+            className='flex justify-between items-center w-full p-2 shadow fixed top-0 right-0 left-0 z-10 bg-layout-100'
         >
             {/* Left Content */}
             <Link
