@@ -13,7 +13,21 @@ const Home = ({ auth }) => {
       padding='12px'
       minHeight='100vh'
     >
-      <AppTopBar />
+      <AppTopBar
+        userData={userData}
+        rightContent={
+          <>
+            <Button
+              onClick={logOut}
+              color='error'
+              iconLeft={<FiLogOut />}
+            >
+              Logout
+            </Button>
+            <FiLogOut />
+          </>
+        }
+      />
       <Text tag='h4'>
         Home
       </Text>
