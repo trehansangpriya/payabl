@@ -29,6 +29,7 @@ const FAB = ({
                 'flex justify-center items-center gap-2',
                 'font-medium',
                 'p-4 rounded-full transition-all duration-150',
+                'fixed bottom-0 right-0 mb-4 mr-4',
                 FABColor,
                 className,
             ].join(' ')}
