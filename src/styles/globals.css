@@ -8,8 +8,10 @@ body {
 	margin: 0;
 	font-family: 'Poppins', sans-serif;
 	overflow-x: hidden;
-	overflow-y: hidden;
 	font-weight: 400;
+}
+#appScreen,#pageScreen{
+	overflow-y: hidden;
 }
 
 a {
