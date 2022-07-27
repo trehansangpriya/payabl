@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
     const [userData, setUserData] = useState(null)
 
     // Global Context states
-    const { setLoading } = useGlobals()
+    const { setLoading, displayAlert } = useGlobals()
 
     useEffect(() => onAuthStateChanged(auth, (user) => {
         if (user) {
@@ -48,11 +48,16 @@ export const AuthProvider = ({ children }) => {
     )
     const logOut = () => {
         setLoading(true)
-        signOut(auth).catch(error => {
-            setError(error)
-        }).finally(() => {
-            setLoading(false)
-        })
+        signOut(auth)
+            .then(() => {
+                displayAlert(true, 'success', 'Logged Out')
+                setLoading(false)
+            })
+            .catch(error => {
+                setError(error)
+            }).finally(() => {
+                setLoading(false)
+            })
     }
 
     // values to be passed to children
@@ -71,7 +76,7 @@ export const AuthProvider = ({ children }) => {
     return (
         <AuthContext.Provider value={value}>
             {
-                !authLoading ? children : <Loading />
+                !authLoading && !dataLoading ? children : <Loading />
             }
         </AuthContext.Provider>
     )
