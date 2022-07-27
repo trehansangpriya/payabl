@@ -32,7 +32,7 @@ const Link = ({
                     'font-medium',
                     'transition-all duration-150',
                     'flex justify-center items-center',
-                    !disabled && 'active:scale-[.98] hover:scale-[1.02]',
+                    !disabled && 'active:scale-[.98] hover:scale-[1.01]',
                     !disabled ? linkColor : 'text-layout-300  pointer-events-none cursor-not-allowed',
                     className
                 ].join(' ')}
