@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-const Form = ({ children, onSubmit, allowSubmit, setAllowSubmit, errors, className = '', ...formProps }) => {
+const Form = ({ children, onSubmit = () => { }, allowSubmit = true, setAllowSubmit = () => { }, errors = {}, className = '', ...formProps }) => {
     const handleSubmit = (e) => {
         e.preventDefault()
         if (allowSubmit) {
