@@ -102,6 +102,7 @@ const Progress = ({
                                     'flex items-center justify-center',
                                     value === max ? valueColors['success'] : valueColor,
                                     valueClassName,
+                                    infinite && 'hidden'
                                 ].join(' ')}>
                                     {value}%
                                 </div>
@@ -127,8 +128,8 @@ const Progress = ({
                     className={[
                         'w-full h-full rounded-full',
                         'transition-all duration-300 ease-in-out',
+                        !infinite && value !== max && 'animate-pulse',
                         infinite && 'animate-infinite-progress',
-                        value !== max && 'animate-pulse',
                         value === max ? progressColors['success'] : progressColor,
                         progressBarClassName,
                     ].join(' ')}
