@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react'
 
 const Select = ({
+    children,
     status = 'default',
-    type = 'text',
     id,
     name,
     placeholder,
     label,
     showLabel = true,
     value,
-    options,
     onChange,
     onKeyUp,
     disabled = false,
@@ -70,7 +69,6 @@ const Select = ({
             <select
                 id={id || name}
                 name={name}
-                type={type}
                 placeholder={placeholder}
                 value={value}
                 onChange={onChange}
@@ -97,14 +95,8 @@ const Select = ({
                         {placeholder}
                     </option>
                 }
-                {options.map((option, index) => (
-                    <option
-                        key={index}
-                        value={option.value}
-                    >
-                        {option.label}
-                    </option>
-                ))}
+                {/* Options */}
+                {children}
             </select>
 
             {/* Helper Text */}
@@ -124,3 +116,20 @@ const Select = ({
 }
 
 export default Select
+
+export const SelectOption = ({
+    value,
+    children,
+    className = '',
+    ...props
+}) => {
+    return (
+        <option
+            className={`w-full ${className}`}
+            value={value}
+            {...props}
+        >
+            {children}
+        </option>
+    )
+}
