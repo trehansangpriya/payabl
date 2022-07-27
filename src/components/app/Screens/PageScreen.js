@@ -8,17 +8,19 @@ const PageScreen = ({
     label,
 }) => {
     return (
-        <Container
-            className={[
-                'flex flex-col gap-2',
-                'min-h-screen',
-                'p-2 py-[64px]',
-                'relative bg-layout-100',
-                className,
-            ].join(' ')}
-        >
+        <Container>
             <PageTopBar label={label} />
-            {children}
+            <Container
+                className={[
+                    'flex flex-col gap-2 w-full h-[85vh]',
+                    'p-2 pb-[64px]',
+                    'relative',
+                    'overflow-y-scroll',
+                    className,
+                ].join(' ')}
+            >
+                {children}
+            </Container>
         </Container>
     )
 }
