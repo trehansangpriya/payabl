@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 const BottomBar = () => {
     return (
         <div
-            className='flex justify-evenly items-center w-full p-2 shadow fixed bottom-0 right-0 left-0 z-10 bg-layout-100 max-h-[60px]'
+            className='flex justify-evenly items-center w-full p-2 fixed bottom-0 right-0 left-0 z-10 bg-layout-100 border-t-[1px] border-layout-200 max-h-[60px]'
         >
             {bottomBarLinks.map((link, index) => {
                 return (
