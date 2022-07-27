@@ -8,7 +8,7 @@ const Loading = ({
 }) => {
     if (inline) {
         return (
-            <div className="flex w-full justify-center mt-5 gap-2 items-center">
+            <div className="flex w-full justify-center m-1 gap-2 items-center">
                 <Image
                     src="/assets/gifs/loading.gif"
                     alt="Loading..."
