@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useMemo, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 
 export const GlobalContext = createContext({})
 export const GlobalProvider = ({ children }) => {
