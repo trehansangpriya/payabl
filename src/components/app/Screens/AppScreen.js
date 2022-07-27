@@ -9,7 +9,9 @@ const AppScreen = ({
 }) => {
     const { userData } = useAuth()
     return (
-        <Container>
+        <Container
+            id='appScreen'
+        >
             {
                 userData && !userData.profileComplete && (
                     <Banner

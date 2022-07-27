@@ -8,7 +8,9 @@ const PageScreen = ({
     label,
 }) => {
     return (
-        <Container>
+        <Container
+            id='pageScreen'
+        >
             <PageTopBar label={label} />
             <Container
                 className={[
