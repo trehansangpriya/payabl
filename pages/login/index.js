@@ -1,18 +1,18 @@
 import React, { useState } from 'react'
-import { Button, Container, Loading, Text } from '@/Components/utility'
+import { Button, Container, Loading } from '@/Components/utility'
 import { publicRoute } from '@/Routes/publicRoute'
 import { FaGoogle } from 'react-icons/fa';
 import useGlobals from '@/Contexts/useGlobals';
-import Image from 'next/image';
+import useAuth from '@/Contexts/useAuth';
 
-const Login = ({ auth }) => {
-    // Sign in with Google from Firebase
-    const { signInWithGoogle } = auth
+const Login = () => {
+    // Sign in with Google function from Firebase
+    const { signInWithGoogle } = useAuth()
 
     // Display alert message (show,variant,message)
     const { displayAlert } = useGlobals()
 
-    // Loading
+    // Local Loading state
     const [loading, setLoading] = useState(false)
 
     // Sign in with Google

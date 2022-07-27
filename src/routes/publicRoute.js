@@ -11,6 +11,6 @@ export function publicRoute(Component) {
             router.push('/')
             return <Loading />
         }
-        return <Component auth={auth} {...props} />
+        return <Component {...props} />
     }
 }

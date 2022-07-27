@@ -11,6 +11,6 @@ export function privateRoute(Component) {
             router.push('/login')
             return <Loading />
         }
-        return <Component auth={auth} {...props} />
+        return <Component {...props} />
     }
 }
