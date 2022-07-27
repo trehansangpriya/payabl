@@ -1,10 +1,12 @@
 import React from 'react'
 import { Avatar, Banner } from '@/Components/utility'
 import countryCodesData from '@/Data/countryCodesData'
+import { FiEdit } from 'react-icons/fi'
 
 const UserProfile = ({
     userData,
     addPhoneBannerOnClick,
+    profilePictureOnClick,
 }) => {
     return (
         <>
@@ -16,6 +18,10 @@ const UserProfile = ({
                 src={userData.photoURL}
                 alt={userData.displayName}
                 pointer
+                onClick={profilePictureOnClick}
+                bordered
+                color='primary'
+                borderIcon={<FiEdit />}
             />
             {/* User Name */}
             {
