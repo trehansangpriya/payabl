@@ -8,7 +8,7 @@ const AppTopBar = ({
     const { userData } = useAuth()
     return (
         <div
-            className='flex justify-between items-center w-full p-2 shadow fixed top-0 right-0 left-0 z-10 bg-layout-100 max-h-[60px]'
+            className='flex justify-between items-center w-full p-2 z-10 bg-layout-100 max-h-[60px] border-b-[1px] border-layout-200'
         >
             {/* Left Content */}
             <Link
