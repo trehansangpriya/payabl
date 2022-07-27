@@ -1,10 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
-const Form = ({ children, onSubmit, className = '', ...formProps }) => {
+const Form = ({ children, onSubmit, allowSubmit, setAllowSubmit, errors, className = '', ...formProps }) => {
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        if (allowSubmit) {
+            onSubmit()
+        }
+    }
+    useEffect(() => {
+        setAllowSubmit(!Object.values(errors).filter(err => err.status !== 'success').length > 0)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [errors])
     return (
         <form
-            className={`w-fit ${className}`}
-            onSubmit={onSubmit}
+            className={`w-fit max-w-[80%] min-w-[300px] ${className}`}
+            onSubmit={handleSubmit}
             autoComplete='off'
             {...formProps}
         >
