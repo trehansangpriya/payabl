@@ -38,7 +38,7 @@ const Button = ({
                 'font-medium',
                 'p-3 rounded transition-all duration-150',
                 'flex justify-center items-center',
-                !disabled && 'active:scale-[.98] hover:scale-[1.02]',
+                !disabled && 'active:scale-[.98] hover:scale-[1.005]',
                 !disabled ? buttonColor : 'bg-layout-300 text-layout-100 cursor-not-allowed',
                 className
             ].join(' ')}
