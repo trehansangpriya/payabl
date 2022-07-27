@@ -8,6 +8,7 @@ const Avatar = ({
     alt,
     text,
     icon = <FiUser size={22} />,
+    borderIcon,
     fontSize = '18px',
     size = '48px',
     bordered = false,
@@ -33,12 +34,22 @@ const Avatar = ({
     }
     return (
         <div className={[
-            'flex items-center justify-center rounded-full w-fit',
+            'flex items-center justify-center rounded-full w-fit relative',
             bordered && `border-[3px] border-solid ${avatarBorderColors[color]}`,
             'hover:contrast-[90%] transition-all',
         ].join(' ')}
             {...props}
         >
+            {borderIcon && (
+                <div className={[
+                    'absolute bottom-0 right-0 z-10',
+                    'flex items-center justify-center p-2 rounded-full',
+                    pointer && 'cursor-pointer',
+                    avatarColors[color],
+                ].join(' ')}>
+                    {borderIcon}
+                </div>
+            )}
             <div
                 className={[
                     'flex items-center justify-center rounded-full m-[2px]',
