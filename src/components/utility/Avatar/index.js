@@ -33,7 +33,7 @@ const Avatar = ({
     }
     return (
         <div className={[
-            'flex items-center justify-center rounded-full',
+            'flex items-center justify-center rounded-full w-fit',
             bordered && `border-[3px] border-solid ${avatarBorderColors[color]}`,
             'hover:contrast-[90%] transition-all',
         ].join(' ')}
