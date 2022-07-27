@@ -45,7 +45,7 @@ const Alert = ({ show, message, variant, dummy }) => {
             'shadow-default rounded cursor-pointer',
             alertVariant,
             dummy ? '' : 'fixed transition-all duration-200 bottom-[-10%] z-50  left-[50%] translate-x-[-50%]',
-            !dummy && (alertShow ? 'bottom-[20px] opacity-100 visible' : 'bottom-[-10px] opacity-0 invisible'),
+            !dummy && (alertShow ? 'bottom-[64px] opacity-100 visible' : 'bottom-[-10px] opacity-0 invisible'),
         ].join(' ')}
             onClick={() => {
                 !dummy && setAlertShow(!alertShow)
