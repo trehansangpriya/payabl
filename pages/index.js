@@ -5,7 +5,7 @@ import { AppScreen, FAB } from '@/Components/app'
 
 const Home = () => {
   return (
-    <AppScreen>
+    <AppScreen title={'Dashboard'}>
       <Text tag='h4'>
         Home
       </Text>

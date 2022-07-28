@@ -5,7 +5,7 @@ import React from 'react'
 
 const Transactions = () => {
     return (
-        <AppScreen>
+        <AppScreen title={'Transactions'}>
             <Text tag='h4'>
                 Transactions
             </Text>

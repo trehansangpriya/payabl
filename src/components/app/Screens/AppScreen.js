@@ -2,16 +2,21 @@ import React from 'react'
 import { AppTopBar, BottomBar } from '@/Components/app'
 import { Banner, Container, Link } from '@/Components/utility'
 import useAuth from '@/Contexts/useAuth'
+import Head from 'next/head'
 
 const AppScreen = ({
     children,
     className,
+    title,
 }) => {
     const { userData } = useAuth()
     return (
         <Container
             id='appScreen'
         >
+            <Head>
+                <title>{title}</title>
+            </Head>
             {
                 userData && !userData.profileComplete && (
                     <Banner

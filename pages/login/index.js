@@ -4,6 +4,7 @@ import { publicRoute } from '@/Routes/publicRoute'
 import { FaGoogle } from 'react-icons/fa';
 import useGlobals from '@/Contexts/useGlobals';
 import useAuth from '@/Contexts/useAuth';
+import Head from 'next/head';
 
 const Login = () => {
     // Sign in with Google function from Firebase
@@ -37,6 +38,9 @@ const Login = () => {
                 'md:flex-row'
             ].join(' ')}
         >
+            <Head>
+                <title>Login</title>
+            </Head>
             {/* md: Left Sm: Top */}
             <Container
                 id="logo-wrapper"

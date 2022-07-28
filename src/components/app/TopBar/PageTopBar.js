@@ -3,7 +3,7 @@ import React from 'react'
 import { FiArrowLeft } from 'react-icons/fi'
 
 const PageTopBar = ({
-    label
+    title
 }) => {
     const router = useRouter()
     // Go back to previous page
@@ -27,7 +27,7 @@ const PageTopBar = ({
                 <span
                     className='font-semibold text-xl'
                 >
-                    {label}
+                    {title}
                 </span>
             </div>
         </div>

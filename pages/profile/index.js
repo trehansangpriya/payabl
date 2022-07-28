@@ -15,7 +15,7 @@ const Profile = () => {
     const [editProfilePictureModal, setEditProfilePictureModal] = useState(false)
 
     return (
-        <PageScreen label='Profile' className='items-center'>
+        <PageScreen title='Profile' className='items-center'>
             <Spacer h='24px' />
             {/* User Profile */}
             <UserProfile userData={userData} addPhoneBannerOnClick={() => setAddPhoneNumberModal(!addPhoneNumberModal)} profilePictureOnClick={() => setEditProfilePictureModal(!editProfilePictureModal)} />
@@ -32,16 +32,14 @@ const Profile = () => {
             <Modal
                 isOpen={addPhoneNumberModal}
                 onClose={() => setAddPhoneNumberModal(false)}
-                title={'Add Phone Number'}
-                className='justify-center'>
+                title={'Add Phone Number'}>
                 <PhoneNumberForm afterSubmitActions={() => setAddPhoneNumberModal(false)} />
             </Modal>
             {/* Edit Profile Picture Modal */}
             <Modal
                 isOpen={editProfilePictureModal}
                 onClose={() => setEditProfilePictureModal(false)}
-                title={'Edit Profile Picture'}
-                className='justify-center'>
+                title={'Edit Profile Picture'}>
                 <ProfilePictureUpload afterSubmitActions={() => setEditProfilePictureModal(false)} />
             </Modal>
         </PageScreen>

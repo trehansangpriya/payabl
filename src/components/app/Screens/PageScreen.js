@@ -1,17 +1,21 @@
 import { Container } from '@/Components/utility'
 import React from 'react'
 import { PageTopBar } from '@/Components/app/'
+import Head from 'next/head'
 
 const PageScreen = ({
     children,
     className,
-    label,
+    title,
 }) => {
     return (
         <Container
             id='pageScreen'
         >
-            <PageTopBar label={label} />
+            <Head>
+                <title>{title}</title>
+            </Head>
+            <PageTopBar title={title} />
             <Container
                 className={[
                     'flex flex-col gap-2 w-full h-[85vh]',
