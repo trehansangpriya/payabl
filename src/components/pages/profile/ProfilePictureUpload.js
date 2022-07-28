@@ -31,7 +31,7 @@ const ProfilePictureUpload = ({
     const handleImageUpload = (e) => {
         setLoading(true)
         const fileName = user.displayName.split(' ')[0].toLowerCase()
-        const profilePictureRef = ref(storage, `users/${fileName}${image.type.split('/')[1]}`)
+        const profilePictureRef = ref(storage, `users/${fileName}.${image.type.split('/')[1]}`)
         const uploadProfilePicture = uploadBytesResumable(profilePictureRef, image)
         uploadProfilePicture.on(
             'state_changed',
@@ -75,7 +75,7 @@ const ProfilePictureUpload = ({
                 }}
                 disabled={loading}
             />
-            <Button type='submit' color='primary' className='w-full' disabled={loading}>
+            <Button type='submit' color='primary' className='lg:w-full' disabled={loading}>
                 Upload
             </Button>
             {
