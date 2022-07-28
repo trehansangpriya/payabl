@@ -23,7 +23,7 @@ const Modal = ({
                         </div>
                     </>
                 )}
-                <div className={`w-full flex ${className}`}>
+                <div className={`w-full flex justify-center items-center ${className}`}>
                     {children}
                 </div>
             </div>
