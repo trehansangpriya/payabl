@@ -33,7 +33,6 @@ const PhoneNumberForm = ({
 
     // Add Phone Number to Firebase
     const handleAddPhoneNumber = () => {
-        console.log('Adding Phone Number:C')
         setLoading(true)
         setErrors({})
         setAllowSubmit(false)
@@ -109,6 +108,7 @@ const PhoneNumberForm = ({
             <Button
                 disabled={loading || !allowSubmit}
                 type='submit'
+                className='lg:w-full'
             >
                 Add Phone Number
             </Button>
