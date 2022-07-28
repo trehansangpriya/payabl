@@ -39,20 +39,11 @@ const useValidation = () => {
             })
             return
         }
-        if (value !== '' && value <= 0) {
+        if (value !== '' && value <= moreThan) {
             setErrors({
                 ...errors, [input]: {
                     status: 'error',
-                    helperText: 'This field must be greater than 0'
-                }
-            })
-            return
-        }
-        if (value !== '' && value < moreThan) {
-            setErrors({
-                ...errors, [input]: {
-                    status: 'error',
-                    helperText: 'Minimum - ' + moreThan
+                    helperText: 'Minimum - ' + (moreThan + 1)
                 }
             })
             return
