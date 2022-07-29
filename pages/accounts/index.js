@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { AppScreen, FAB } from '@/Components/app'
-import { AccountForm } from '@/Components/pages/accounts'
+import { AccountForm, ViewAllAccounts } from '@/Components/pages/accounts'
 import { Modal, Text } from '@/Components/utility'
 import { privateRoute } from '@/Routes/privateRoute'
 
@@ -9,13 +9,16 @@ const Accounts = () => {
     const [addAccountModal, setAddAccountModal] = useState(false)
     return (
         <AppScreen title={'Accounts'}>
-            <Text tag='h4'>
-                Accounts
-            </Text>
+            {/* All Accounts added by the user */}
+            <ViewAllAccounts />
+            {/* ------------------------------------------------------------- */}
+            {/* FAB to add a new account */}
             <FAB
                 label={'Add Account'}
                 onClick={() => setAddAccountModal(true)}
             />
+
+            {/* Add Account Modal */}
             <Modal
                 isOpen={addAccountModal}
                 onClose={() => setAddAccountModal(false)}
