@@ -11,6 +11,12 @@ body {
   font-weight: 400;
   -webkit-tap-highlight-color: transparent;
 }
+#__next {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  position: relative;
+}
 #appScreen,
 #pageScreen {
   overflow-y: hidden;
