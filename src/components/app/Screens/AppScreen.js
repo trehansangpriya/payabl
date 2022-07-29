@@ -13,6 +13,7 @@ const AppScreen = ({
     return (
         <Container
             id='appScreen'
+            className={'lg:w-[40%] lg:border-2 h-screen w-full'}
         >
             <Head>
                 <title>{title}</title>
@@ -35,7 +36,7 @@ const AppScreen = ({
             <Container
                 className={[
                     'flex flex-col gap-2 w-full h-[85vh]',
-                    'p-2 pb-[64px]',
+                    'p-2 pb-[100px]',
                     'relative',
                     'overflow-y-scroll',
                     className,
