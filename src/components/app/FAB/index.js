@@ -31,7 +31,7 @@ const FAB = ({
                 'flex justify-center items-center gap-1',
                 'font-medium',
                 'p-4 rounded-full transition-all duration-150',
-                'fixed bottom-0 right-0 mb-[76px] mr-4 shadow-md',
+                'fixed bottom-0 left-2/4 -translate-x-1/2 mb-[76px] mr-4 shadow-lg',
                 !disabled && 'active:scale-[.98] hover:scale-[1.02]',
                 !disabled ? FABColor : 'bg-layout-300 text-layout-100 cursor-not-allowed',
                 className,
