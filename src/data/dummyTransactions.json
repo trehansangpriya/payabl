@@ -1,0 +1,50 @@
+[
+    {
+        "id": "1",
+        "txnTitle": "Test",
+        "txnDate": "2019-01-01",
+        "txnAmount": 100,
+        "txnType": "DEBIT",
+        "txnAccount": "BC2RAV0Gkk5k7oqUIKs5"
+    },
+    {
+        "id": "2",
+        "txnTitle": "Test 2",
+        "txnDate": "2019-01-01",
+        "txnAmount": 200,
+        "txnType": "CREDIT",
+        "txnAccount": "BC2RAV0Gkk5k7oqUIKs5"
+    },
+    {
+        "id": "3",
+        "txnTitle": "Test 3",
+        "txnDate": "2019-01-01",
+        "txnAmount": 300,
+        "txnType": "DEBIT",
+        "txnAccount": "BC2RAV0Gkk5k7oqUIKs5"
+    },
+    {
+        "id": "4",
+        "txnTitle": "Test 4",
+        "txnDate": "2019-01-01",
+        "txnAmount": 300,
+        "txnType": "DEBIT",
+        "txnAccount": "lMKBerF16X71rTLRJc2k"
+    },
+    {
+        "id": "5",
+        "txnTitle": "Test 5",
+        "txnDate": "2019-01-01",
+        "txnAmount": 300000,
+        "txnType": "CREDIT",
+        "txnAccount": "BC2RAV0Gkk5k7oqUIKs5"
+    },
+    {
+        "id": "6",
+        "txnTitle": "Test 6",
+        "txnDate": "2019-01-01",
+        "txnAmount": 2000,
+        "txnType": "CREDIT",
+        "txnAccount": "lMKBerF16X71rTLRJc2k"
+    }
+]
