@@ -11,6 +11,7 @@ const PageScreen = ({
     return (
         <Container
             id='pageScreen'
+            className={'lg:w-[40%] relative lg:border-2 h-screen w-full'}
         >
             <Head>
                 <title>{title}</title>
