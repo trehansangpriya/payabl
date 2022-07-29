@@ -9,6 +9,7 @@ const Container = ({
         <div
             id='container'
             className={[
+                'relative',
                 className,
             ].join(' ')} {...props}
         >
