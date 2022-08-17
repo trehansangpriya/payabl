@@ -1,12 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { AppScreen, FAB } from '@/Components/app'
-import { AccountForm, ViewAllAccounts } from '@/Components/pages/accounts'
-import { Modal, Text } from '@/Components/utility'
+import { ViewAllAccounts } from '@/Components/pages/accounts'
 import { privateRoute } from '@/Routes/privateRoute'
+import { useRouter } from 'next/router'
 
 const Accounts = () => {
-    // Add Account Modal
-    const [addAccountModal, setAddAccountModal] = useState(false)
+    const router = useRouter()
     return (
         <AppScreen title={'Accounts'}>
             {/* All Accounts added by the user */}
@@ -15,20 +14,9 @@ const Accounts = () => {
             {/* FAB to add a new account */}
             <FAB
                 label={'Add Account'}
-                onClick={() => setAddAccountModal(true)}
+                // onClick={() => setAddAccountModal(true)}
+                onClick={() => router.push('/accounts/add')}
             />
-
-            {/* Add Account Modal */}
-            <Modal
-                isOpen={addAccountModal}
-                onClose={() => setAddAccountModal(false)}
-                title={'Add Account'}
-            >
-                <AccountForm
-                    task={'add'}
-                    afterSubmitActions={() => setAddAccountModal(false)}
-                />
-            </Modal>
         </AppScreen>
     )
 }

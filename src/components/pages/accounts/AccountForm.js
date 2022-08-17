@@ -58,12 +58,12 @@ const AccountForm = ({
                     displayAlert(true, 'error', err.message)
                 })
                 .finally(() => {
-                    setLoading(false)
                     setAccountName('')
                     setAccountType('')
                     setAccountOpeningBalance('')
                     setAccountDescription('')
                     setAccountCreditLimit('')
+                    setLoading(false)
                     afterSubmitActions()
                 })
         } else if (task === 'edit') {
@@ -77,7 +77,7 @@ const AccountForm = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [accountType])
     return (
-        <Form className='flex flex-col gap-3' errors={errors} allowSubmit={allowSubmit} setAllowSubmit={setAllowSubmit} onSubmit={handleAddAccount} >
+        <Form className='flex flex-col gap-3 justify-center items-center' errors={errors} allowSubmit={allowSubmit} setAllowSubmit={setAllowSubmit} onSubmit={handleAddAccount} >
             <Input
                 id={'accountName'}
                 label={'Account Name'}
@@ -175,7 +175,7 @@ const AccountForm = ({
             <Button
                 type='submit'
                 disabled={loading || !allowSubmit}
-                className='lg:w-full'
+                className='w-full'
             >
                 Add Account
             </Button>
