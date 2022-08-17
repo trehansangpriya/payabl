@@ -13,7 +13,7 @@ const Form = ({ children, onSubmit = () => { }, allowSubmit = true, setAllowSubm
     }, [errors])
     return (
         <form
-            className={`w-fit max-w-[80%] min-w-[300px] ${className}`}
+            className={`w-full max-w-[80%] min-w-[300px] ${className}`}
             onSubmit={handleSubmit}
             autoComplete='off'
             {...formProps}

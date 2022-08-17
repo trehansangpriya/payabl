@@ -23,7 +23,7 @@ const Input = ({
     ...props
 }) => {
     const inputStatuses = {
-        default: 'text-layout-700 placeholder:text-layout-500 bg-layout-100 focus:bg-primary-50 focus:border-2 focus:border-primary-300 focus:text-primary-700',
+        default: 'text-layout-700 placeholder:text-layout-500 bg-white focus:bg-primary-50 focus:border-2 focus:border-primary-300 focus:text-primary-700',
         primary: 'placeholder:text-layout-500 bg-primary-100 focus:border-2 border-primary-300 text-primary-700',
         error: 'placeholder:text-layout-500 bg-error-100 focus:border-2 border-error-300 text-error-700',
         success: 'placeholder:text-layout-500 bg-success-100 focus:border-2 border-success-300 text-success-700',
@@ -47,7 +47,7 @@ const Input = ({
     }, [status])
     return (
         <div className={[
-            'flex flex-col max-w-[80%] min-w-[300px]',
+            'flex flex-col w-full min-w-[300px]',
             wrapperClass,
             disabled && 'opacity-50',
         ].join(' ')}>
