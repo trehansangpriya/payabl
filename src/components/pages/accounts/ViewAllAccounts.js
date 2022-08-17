@@ -3,7 +3,7 @@ import { db } from '@/Firebase/index'
 import { collection, onSnapshot } from 'firebase/firestore'
 import useAuth from '@/Contexts/useAuth'
 import AccountCard, { AccountSkeleton } from './AccountCard'
-import { Container, Loading } from '@/Components/utility'
+import { Container, Loading, Seperator } from '@/Components/utility'
 
 const ViewAllAccounts = () => {
     // Local Loading
@@ -28,7 +28,12 @@ const ViewAllAccounts = () => {
                 <AccountSkeleton />
             </>
                 : (
-                    accounts.map(account => <AccountCard key={account.id} account={account} />)
+                    accounts.map(account => (
+                        <>
+                            <AccountCard key={account.id} account={account} />
+                            <Seperator />
+                        </>
+                    ))
                 )}
         </Container>
     )
