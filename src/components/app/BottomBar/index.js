@@ -8,7 +8,7 @@ const BottomBar = ({
 }) => {
     return (
         <div
-            className={`flex justify-evenly items-center p-2 absolute w-full left-0 bottom-0 right-0 bg-layout-100 border-t-[1px] border-layout-200 max-h-[60px] ${className}`}
+            className={`flex justify-evenly items-center p-2 fixed lg:absolute w-full left-0 bottom-0 right-0 bg-layout-100 border-t-[1px] border-layout-200 max-h-[60px] ${className}`}
         >
             {bottomBarLinks.map((link, index) => {
                 return (
