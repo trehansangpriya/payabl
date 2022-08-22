@@ -58,6 +58,61 @@ const useValidation = () => {
 
     }
 
+    const checkAmount = (value, input, errors, setErrors, required = true, lessThan = 0, msg = 'Minimum - ') => {
+        if (required && value === '') {
+            setErrors({
+                ...errors, [input]: {
+                    status: 'error',
+                    helperText: 'This field is required'
+                }
+            })
+            return
+        }
+        if (value !== '' && !validator.isNumeric(value)) {
+            setErrors({
+                ...errors, [input]: {
+                    status: 'error',
+                    helperText: 'This field must be a number'
+                }
+            })
+            return
+        }
+        // if (value !== '' && value === 0) {
+        //     setErrors({
+        //         ...errors, [input]: {
+        //             status: 'error',
+        //             helperText: 'Amount cannot be zero'
+        //         }
+        //     })
+        //     return
+        // }
+        if (value !== '' && value <= 0) {
+            setErrors({
+                ...errors, [input]: {
+                    status: 'error',
+                    helperText: 'Amount cannot be zero or negative'
+                }
+            })
+            return
+        }
+        if (value !== '' && value > lessThan) {
+            setErrors({
+                ...errors, [input]: {
+                    status: 'error',
+                    helperText: msg + lessThan
+                }
+            })
+            return
+        }
+        setErrors({
+            ...errors, [input]: {
+                status: 'success',
+                helperText: ''
+            }
+        })
+        return
+    }
+
     const checkPhoneNumber = (value, input, errors, setErrors) => {
         if (value === '') {
             setErrors({
@@ -146,6 +201,7 @@ const useValidation = () => {
     return {
         checkEmpty,
         checkNumber,
+        checkAmount,
         checkPhoneNumber,
         checkEmail,
         checkURL,
