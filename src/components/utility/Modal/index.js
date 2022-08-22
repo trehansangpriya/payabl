@@ -14,7 +14,7 @@ const Modal = ({
     }
     return (
         <div className='w-full h-screen fixed top-0 right-0 bg-black bg-opacity-40 flex  items-center justify-center z-50'>
-            <div className="bg-white p-4 rounded shadow min-w-[320px] max-w-[90%] lg:max-w-[40%] flex flex-col gap-4 items-center justify-center w-fit">
+            <div className="bg-layout-100 p-4 rounded shadow min-w-[320px] max-w-[90%] lg:max-w-[40%] flex flex-col gap-4 items-center justify-center w-fit">
                 {title && (
                     <>
                         <div className='w-full flex justify-between items-center gap-2'>

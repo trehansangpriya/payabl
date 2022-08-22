@@ -5,9 +5,11 @@ const SearchSelect = ({
     status = 'default',
     data = [],
     search = [],
+    searchLength = 0,
     display = [],
     select = () => { },
     noResults = () => { },
+    noResultsText = 'No Results Found',
     placeholder,
     label,
     showLabel = true,
@@ -21,13 +23,14 @@ const SearchSelect = ({
     helperClass,
     helperText,
     showHelperText = true,
+    onChange = () => { },
     ...props
 }) => {
     const [searchValue, setSearchValue] = useState('')
     const [searchResults, setSearchResults] = useState(data)
 
     const inputStatuses = {
-        default: 'text-layout-700 placeholder:text-layout-500 bg-layout-100 focus:bg-primary-50 focus:border-2 focus:border-primary-300 focus:text-primary-700',
+        default: 'text-layout-700 placeholder:text-layout-500 bg-white focus:bg-primary-50 focus:border-2 focus:border-primary-300 focus:text-primary-700',
         primary: 'placeholder:text-layout-500 bg-primary-100 focus:border-2 border-primary-300 text-primary-700',
         error: 'placeholder:text-layout-500 bg-error-100 focus:border-2 border-error-300 text-error-700',
         success: 'placeholder:text-layout-500 bg-success-100 focus:border-2 border-success-300 text-success-700',
@@ -67,7 +70,7 @@ const SearchSelect = ({
     return (
         <div
             className={[
-                'relative flex flex-col max-w-[80%] min-w-[300px]',
+                'relative flex flex-col w-full min-w-[300px]',
                 wrapperClass,
                 disabled && 'opacity-50',
             ].join(' ')}
@@ -99,12 +102,14 @@ const SearchSelect = ({
                 value={searchValue}
                 onChange={(e) => {
                     setSearchValue(e.target.value)
+                    onChange(e)
                 }}
                 onKeyUp={handleSearch}
                 name={name}
                 required={required}
                 readOnly={readOnly}
                 disabled={disabled}
+                {...props}
             />
             {/* Helper Text */}
             {
@@ -120,7 +125,7 @@ const SearchSelect = ({
             }
             {/* Search Results */}
             {
-                searchValue.length > 0 && (
+                searchValue.length > searchLength && (
                     <div className="flex flex-col absolute bg-white w-full h-[200px] rounded z-10 top-full p-3 overflow-y-scroll border-2 shadow">
                         {
                             searchResults.length > 0 && searchResults.map((item, index) => {
@@ -159,7 +164,7 @@ const SearchSelect = ({
                                         setSearchResults(data)
                                     }}
                                 >
-                                    No Results Found! Click to Add New.
+                                    {noResultsText}! Click to Add New.
                                 </div>
                             )
                         }

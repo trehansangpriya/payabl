@@ -36,9 +36,10 @@ const FAB = ({
                 !disabled ? FABColor : 'bg-layout-300 text-layout-100 cursor-not-allowed',
                 className,
             ].join(' ')}
+            {...props}
         >
             {showIcon && icon && <span>{icon}</span>}
-            {label && <span>{label}</span>}
+            {label && <span className='whitespace-nowrap'>{label}</span>}
         </button>
     )
 }
