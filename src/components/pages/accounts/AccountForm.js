@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Form, Input, Loading, Select, SelectOption } from '@/Components/utility'
+import { Button, Form, Input, Select, SelectOption } from '@/Components/utility'
 import useValidation from '@/Hooks/useValidation'
 import accountTypes from '@/Data/accountTypes'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { db } from '@/Firebase/index'
 import useAuth from '@/Contexts/useAuth'
 import useGlobals from '@/Contexts/useGlobals'
+import { FiLoader } from 'react-icons/fi'
 
 const AccountForm = ({
     task,
@@ -45,9 +46,15 @@ const AccountForm = ({
                 accountName,
                 accountType,
                 // if accountType is credit, add accountCreditLimit
-                ...(accountType === 'Credit Card' && { accountCreditLimit: +accountCreditLimit }),
+                ...(accountType === 'Credit Card' && {
+                    accountCreditLimit: +accountCreditLimit,
+                    creditLeft: +accountCreditLimit,
+                }),
                 // if accountType is not credit, add accountOpeningBalance
-                ...(accountType !== 'Credit Card' && { accountOpeningBalance: +accountOpeningBalance }),
+                ...(accountType !== 'Credit Card' && {
+                    accountOpeningBalance: +accountOpeningBalance,
+                    balance: +accountOpeningBalance,
+                }),
                 accountDescription,
                 createdAt: serverTimestamp(),
             })
@@ -176,14 +183,10 @@ const AccountForm = ({
                 type='submit'
                 disabled={loading || !allowSubmit}
                 className='w-full'
+                iconLeft={loading && <FiLoader size={18} className='animate-spin' />}
             >
-                Add Account
+                {!loading && 'Add Account'}
             </Button>
-            {
-                loading && (
-                    <Loading inline message={'Adding'} />
-                )
-            }
         </Form>
     )
 }

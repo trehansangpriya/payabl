@@ -1,28 +1,21 @@
-import React, { useEffect, useState } from 'react'
-import { Card, Container, Pill, Seperator, Text } from '@/Components/utility'
+import React from 'react'
+import { Card, Pill, Seperator } from '@/Components/utility'
 import Image from 'next/image'
 import useAccountCalculations from '@/Hooks/useAccountCalculations'
-import dummyTransactions from '@/Data/dummyTransactions'
 const AccountCard = ({
     account,
 }) => {
-    const { id, accountName, accountDescription, accountType, accountOpeningBalance, accountCreditLimit } = account
+    const { id, accountName, accountDescription, accountType, accountOpeningBalance, accountCreditLimit, balance, creditLeft } = account
 
     const pillColors = {
         'Bank': 'primary',
         'Physical Wallet': 'success',
         'Digital Wallet': 'warn',
-        'Credit Card': 'error',
+        'Credit Card': 'info',
     }
 
     // useAccountCalculations Hook
-    const { accountBalance, truncateAmount } = useAccountCalculations()
-
-    const txns = dummyTransactions.filter(txn => txn.txnAccount === id)
-    const balance = accountBalance(
-        txns,
-        accountType === 'Credit Card' ? accountCreditLimit : accountOpeningBalance
-    )
+    const { truncateAmount } = useAccountCalculations()
 
     return (
         <Card
@@ -57,7 +50,8 @@ const AccountCard = ({
                         {accountType === 'Credit Card' ? 'Limit Remaining' : 'Current Balance'}
                     </small>
                     <p className='text-xl font-bold'>
-                        ₹{truncateAmount(balance)}
+                        {accountType === 'Credit Card' ? <> ₹{truncateAmount(creditLeft)} </> : <>  ₹{truncateAmount(balance)} </>}
+
                     </p>
                 </div>
             </div>
@@ -77,8 +71,8 @@ export const AccountSkeleton = ({
     // render items times
 
     return [...Array(items)].map((e, i) => (
-        <>
-            <Card key={i} className={'justify-start items-center animate-pulse shadow-none'} >
+        <div key={i}>
+            <Card className={'justify-start items-center animate-pulse shadow-none'} >
                 <div className={'flex w-full gap-2 items-center justify-between'} >
                     <div className="flex flex-col gap-1">
                         <h5 className='h-6 w-20 rounded-full bg-layout-300'></h5>
@@ -91,6 +85,6 @@ export const AccountSkeleton = ({
                 </div>
             </Card>
             <Seperator />
-        </>
+        </div>
     ))
 }
