@@ -1040,6 +1040,11 @@ electron-to-chromium@^1.4.188:
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.191.tgz#01dd4bf32502a48ce24bf3890b5553a1c5f93539"
   integrity sha512-MeEaiuoSFh4G+rrN+Ilm1KJr8pTTZloeLurcZ+PRcthvdK1gWThje+E6baL7/7LoNctrzCncavAG/j/vpES9jg==
 
+emoji-picker-react@^3.6.1:
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/emoji-picker-react/-/emoji-picker-react-3.6.1.tgz#dc066f4d6bd407bfd7aebb18d8a0ef8171584b07"
+  integrity sha512-bJNvpdf3wO+1z4V/GKZC159zSAgUjLP8gdgGzvi/sFjy11Zpi/O9a8/G2rpQwy+QBePnmvS1F+MqcNVJvilEGA==
+
 emoji-regex@^8.0.0:
   version "8.0.0"
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-8.0.0.tgz#e818fd69ce5ccfcb404594f842963bf53164cc37"
