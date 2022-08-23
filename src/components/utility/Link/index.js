@@ -22,6 +22,7 @@ const Link = ({
             success: 'text-success-500 hover:text-success-600 active:text-success-600',
             warning: 'text-warning-500 hover:text-warning-600 active:text-warning-600',
             info: 'text-info-500 hover:text-info-600 active:text-info-600',
+            none: '',
         }
         setLinkColor(linkColors[color])
     }, [color])
