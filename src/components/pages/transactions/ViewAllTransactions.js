@@ -37,7 +37,7 @@ const ViewAllTransactions = () => {
         })
         setTimeout(() => {
             setLoading(false)
-        }, 1000)
+        }, 500)
     }, [user.uid])
 
     return (
