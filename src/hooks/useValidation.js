@@ -58,7 +58,7 @@ const useValidation = () => {
 
     }
 
-    const checkAmount = (value, input, errors, setErrors, required = true, lessThan = 0, msg = 'Minimum - ') => {
+    const checkAmount = (value, input, errors, setErrors, required = true, checkLessThan = false, lessThan = 0, msg = 'Minimum - ') => {
         if (required && value === '') {
             setErrors({
                 ...errors, [input]: {
@@ -95,7 +95,7 @@ const useValidation = () => {
             })
             return
         }
-        if (value !== '' && value > lessThan) {
+        if (value !== '' && checkLessThan && value > lessThan) {
             setErrors({
                 ...errors, [input]: {
                     status: 'error',
