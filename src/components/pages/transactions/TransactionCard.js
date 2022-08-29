@@ -30,7 +30,7 @@ const TransactionCard = ({ txn = {}, account = {}, category = {} }) => {
             rounded
             hover
             className={[
-                'justify-start items-center',
+                'flex-col justify-center items-start gap-1',
             ].join(' ')} >
             <div className={'flex w-full gap-2 items-center justify-between'} >
                 <div className="flex flex-col gap-1">
@@ -70,6 +70,15 @@ const TransactionCard = ({ txn = {}, account = {}, category = {} }) => {
                     </p>
                 </div>
             </div>
+            {
+                transactionNote && (
+                    <div>
+                        <p className={'text-sm text-layout-500'}>
+                            {transactionNote}
+                        </p>
+                    </div>
+                )
+            }
         </Card>
     )
 }
@@ -105,7 +114,7 @@ export const TransactionSkeleton = ({
                     </div>
                 </div>
             </Card>
-            <Seperator />
+            <Seperator className='mt-1' />
         </div>
     ))
 }

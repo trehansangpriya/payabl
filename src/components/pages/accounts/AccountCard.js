@@ -112,7 +112,7 @@ export const AccountSkeleton = ({
                     </div>
                 </div>
             </Card>
-            <Seperator />
+            <Seperator className='mt-1' />
         </div>
     ))
 }

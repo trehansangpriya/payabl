@@ -58,7 +58,7 @@ const ViewAllTransactions = () => {
                                 categories.find(category => category.id === transaction.transactionCategoryID)
                             }
                         />
-                        <Seperator />
+                        <Seperator className='mt-1' />
                     </div>
                 ))
             )

@@ -9,7 +9,6 @@ import useGlobals from '@/Contexts/useGlobals'
 import { FiLoader } from 'react-icons/fi'
 
 const AccountForm = ({
-    task,
     afterSubmitActions = () => { },
 }) => {
     // Auth Context
@@ -40,40 +39,37 @@ const AccountForm = ({
         setLoading(true)
         setErrors({})
         setAllowSubmit(false)
-        if (task === 'add') {
-            // Add Account to Firebase
-            addDoc(collection(db, 'users', user.uid, 'accounts'), {
-                accountName,
-                accountType,
-                // if accountType is credit, add accountCreditLimit
-                ...(accountType === 'Credit Card' && {
-                    accountCreditLimit: +accountCreditLimit,
-                }),
-                // if accountType is not credit, add accountOpeningBalance
-                ...(accountType !== 'Credit Card' && {
-                    accountOpeningBalance: +accountOpeningBalance,
-                }),
-                accountDescription,
-                createdAt: serverTimestamp(),
+
+        // Add Account to Firebase
+        addDoc(collection(db, 'users', user.uid, 'accounts'), {
+            accountName,
+            accountType,
+            // if accountType is credit, add accountCreditLimit
+            ...(accountType === 'Credit Card' && {
+                accountCreditLimit: +accountCreditLimit,
+            }),
+            // if accountType is not credit, add accountOpeningBalance
+            ...(accountType !== 'Credit Card' && {
+                accountOpeningBalance: +accountOpeningBalance,
+            }),
+            accountDescription,
+            createdAt: serverTimestamp(),
+        })
+            .then(() => {
+                displayAlert(true, 'success', 'Account Added')
             })
-                .then(() => {
-                    displayAlert(true, 'success', 'Account Added')
-                })
-                .catch(err => {
-                    displayAlert(true, 'error', err.message)
-                })
-                .finally(() => {
-                    setAccountName('')
-                    setAccountType('')
-                    setAccountOpeningBalance('')
-                    setAccountDescription('')
-                    setAccountCreditLimit('')
-                    setLoading(false)
-                    afterSubmitActions()
-                })
-        } else if (task === 'edit') {
-            // Edit Account in Firebase
-        }
+            .catch(err => {
+                displayAlert(true, 'error', err.message)
+            })
+            .finally(() => {
+                setAccountName('')
+                setAccountType('')
+                setAccountOpeningBalance('')
+                setAccountDescription('')
+                setAccountCreditLimit('')
+                setLoading(false)
+                afterSubmitActions()
+            })
     }
     useEffect(() => {
         // delete accountCreditLimit and accountOpeningBalance from errors object

@@ -31,7 +31,7 @@ const ViewAllAccounts = () => {
                     accounts.map((account) => (
                         <div key={account.id}>
                             <AccountCard account={account} />
-                            <Seperator />
+                            <Seperator className='mt-1' />
                         </div>
                     ))
                 )}

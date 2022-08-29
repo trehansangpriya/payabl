@@ -12,7 +12,7 @@ const Card = ({
 
     return (
         <div id='card' className={[
-            'p-3 m-1 flex gap-1 transition-all duration-300 ease-in-out bg-layout-100',
+            'p-3 flex gap-1 transition-all duration-300 ease-in-out bg-layout-100',
             pointer && 'cursor-pointer',
             shadow && 'shadow',
             rounded && 'rounded',
