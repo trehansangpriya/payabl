@@ -8,6 +8,7 @@ import { addDoc, collection, doc, onSnapshot, setDoc } from 'firebase/firestore'
 import { db } from '@/Firebase/index'
 import { CategoryModalForm } from '@/Components/pages/transactions'
 import { FiLoader, FiX, FiXCircle } from 'react-icons/fi'
+import useAccountCalculations from '@/Hooks/useAccountCalculations'
 
 const TransactionForm = ({
     task,
@@ -37,6 +38,9 @@ const TransactionForm = ({
     // User Categories
     const [categories, setCategories] = useState([])
 
+    // User Transactions
+    const [allTransactions, setAllTransactions] = useState([])
+
     // Show Add Category Modal
     const [showAddCategoryModal, setShowAddCategoryModal] = useState(false)
     const [tempCategoryName, setTempCategoryName] = useState('')
@@ -54,36 +58,42 @@ const TransactionForm = ({
     // useValidation Hook
     const { checkEmpty, checkAmount } = useValidation()
 
+    // useAccountCalculations Hook
+    const { accountBalance } = useAccountCalculations()
+
     useEffect(() => {
         setLoading(true)
-        const getAccounts = async () => {
-            onSnapshot(collection(db, 'users', user.uid, 'accounts'), snap => {
-                setAccounts(snap.docs.map(doc => ({
-                    id: doc.id,
-                    name: doc.data().accountName,
-                    balance: doc.data().balance,
-                    type: doc.data().accountType,
-                    creditLeft: doc.data().creditLeft,
-                })))
-            })
-        }
-        const getCategories = async () => {
-            onSnapshot(collection(db, 'users', user.uid, 'categories'), snap => {
-                setCategories(snap.docs.map(doc => ({
-                    id: doc.id,
-                    name: doc.data().name,
-                    emoji: doc.data().emoji
-                })))
-            })
-        }
-        if (task === 'add') {
-            getAccounts()
-            getCategories()
-        }
+
+        onSnapshot(collection(db, 'users', user.uid, 'accounts'), snap => {
+            setAccounts(snap.docs.map(doc => ({
+                id: doc.id,
+                name: doc.data().accountName,
+                type: doc.data().accountType,
+                openingBalance: doc.data().accountOpeningBalance,
+                creditLimit: doc.data().accountCreditLimit,
+            })))
+        })
+        onSnapshot(collection(db, 'users', user.uid, 'categories'), snap => {
+            setCategories(snap.docs.map(doc => ({
+                id: doc.id,
+                name: doc.data().name,
+                emoji: doc.data().emoji
+            })))
+        })
+        onSnapshot(collection(db, 'users', user.uid, 'transactions'), snap => {
+            setAllTransactions(snap.docs.map(doc => ({
+                id: doc.id,
+                txnType: doc.data().transactionType,
+                txnAmount: doc.data().transactionAmount,
+                txnAccount: doc.data().transactionAccountID,
+            })))
+        })
         setLoading(false)
     }, [user?.uid, task])
+
     useEffect(() => {
-        setSelectedAccountBalance(transactionAccount.type === 'Credit Card' ? transactionAccount.creditLeft : transactionAccount.balance)
+        setSelectedAccountBalance(accountBalance(allTransactions.filter(txn => txn.txnAccount === transactionAccount.id), transactionAccount.type === 'Credit Card' ? transactionAccount.creditLimit : transactionAccount.openingBalance))
+        // setSelectedAccountBalance(transactionAccount.type === 'Credit Card' ? transactionAccount.creditLeft : transactionAccount.balance)
     }, [transactionAccount])
 
     // Handle Form Submit : Add Transaction to Firebase
@@ -103,24 +113,6 @@ const TransactionForm = ({
                 transactionCategoryID: transactionCategory.id,
                 transactionNote: transactionNote,
             }).then(() => {
-                // Update Account Balance
-                setDoc(doc(db, 'users', user.uid, 'accounts', transactionAccount.id), {
-                    ...(transactionAccount.type === 'Credit Card' ? (
-                        transactionType === 'Expense' ? {
-                            creditLeft: transactionAccount.creditLeft - +transactionAmount,
-                        } : {
-                            creditLeft: transactionAccount.creditLeft + +transactionAmount,
-                        }) : (
-                        transactionType === 'Expense' ? {
-                            balance: transactionAccount.balance - +transactionAmount,
-                        } : {
-                            balance: transactionAccount.balance + +transactionAmount,
-                        }
-                    ))
-                }, {
-                    merge: true
-                })
-                // displayAlert('Transaction Added', 'success')
                 displayAlert(true, 'success', 'Transaction Added')
             }).catch(err => {
                 displayAlert(true, 'error', err.message)
@@ -203,14 +195,7 @@ const TransactionForm = ({
                 {
                     accounts.map((account, index) => (
                         <SelectOption key={index} value={index}>
-                            {account.name} {
-                                account.type === 'Credit Card' ? <>
-                                    (Credit Left: ₹{account.creditLeft})
-                                </> :
-                                    <>
-                                        (Balance: ₹{account.balance})
-                                    </>
-                            }
+                            {account.name}
                         </SelectOption>
                     ))
                 }
@@ -260,7 +245,7 @@ const TransactionForm = ({
                             value={transactionAmount}
                             onChange={(e) => {
                                 setTransactionAmount(e.target.value)
-                                checkAmount(e.target.value, 'transactionAmount', errors, setErrors, true, selectedAccountBalance, "Account Balance ₹ ")
+                                checkAmount(e.target.value, 'transactionAmount', errors, setErrors, true, transactionType === 'Expense' ? true : false, selectedAccountBalance, "Account Balance ₹ ")
                             }}
                             status={errors?.transactionAmount?.status}
                             helperText={errors?.transactionAmount?.helperText}

@@ -50,7 +50,7 @@ const TransactionCard = ({ txn = {}, account = {}, category = {} }) => {
                             color={accountPillColors[accountType]}
                             icon={
                                 <Image
-                                    src={`/assets/icons/accountTypes/${accountType.replace(/\s/g, '').toLowerCase()}.png`}
+                                    src={`/assets/icons/accountTypes/${accountType?.replace(/\s/g, '').toLowerCase()}.png`}
                                     width={10}
                                     height={10}
                                     alt={accountType}
