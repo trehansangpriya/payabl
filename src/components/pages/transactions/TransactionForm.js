@@ -201,6 +201,20 @@ const TransactionForm = ({
                 }
             </Select>
             {
+                selectedAccountBalance && (
+                    <div className='flex w-full gap-2 items-center'>
+                        <Pill>
+                            {
+                                transactionAccount.type === 'Credit Card'
+                                    ? <span>Credit Left:</span>
+                                    : <span>Balance:</span>
+                            }
+                            ₹{selectedAccountBalance}
+                        </Pill>
+                    </div>
+                )
+            }
+            {
                 transactionAccount && (
                     <>
                         <Input
@@ -255,7 +269,7 @@ const TransactionForm = ({
                         <SearchSelect
                             label={'Category'}
                             name={'transactionCategory'}
-                            placeholder={'Select Category'}
+                            placeholder={'Enter Category'}
                             data={categories}
                             disabled={loading || transactionCategory}
                             display={['name', 'emoji']}

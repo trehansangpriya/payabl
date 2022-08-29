@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Button, Card, Form, Input, Modal, Pill } from '@/Components/utility'
 // import Picker from 'emoji-picker-react'
 import dynamic from 'next/dynamic';
-import { FiSmile, FiXCircle } from 'react-icons/fi'
+import { FiLoader, FiSmile, FiXCircle } from 'react-icons/fi'
 import useValidation from '@/Hooks/useValidation'
 import useGlobals from '@/Contexts/useGlobals';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
@@ -67,8 +67,6 @@ const CategoryModalForm = ({
                 setLoading(false)
                 displayAlert(true, 'error', err.message)
             })
-            setLoading(false)
-            // onClose()
         }
     }
     return (
@@ -106,13 +104,14 @@ const CategoryModalForm = ({
                     </div>
                     {
                         showEmojiPicker && (
-                            <div className="absolute top-[120%] left-0">
-                                <Picker onEmojiClick={
-                                    (event, emoji) => {
-                                        setCategoryEmoji(emoji.emoji)
-                                        setShowEmojiPicker(false)
-                                    }
-                                } />
+                            <div className="flex justify-center mt-1">
+                                <Picker
+                                    onEmojiClick={
+                                        (event, emoji) => {
+                                            setCategoryEmoji(emoji.emoji)
+                                            setShowEmojiPicker(false)
+                                        }
+                                    } />
                             </div>
                         )
                     }
@@ -133,8 +132,12 @@ const CategoryModalForm = ({
                     disabled={loading}
                     className='w-full'
                     onClick={handleAddCategory}
+                    iconLeft={loading && <FiLoader size={18} className='animate-spin' />}
                 >
-                    Add Category
+                    {
+                        !loading && 'Add Category'
+                    }
+
                 </Button>
             </div>
         </Modal>
