@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card, Pill, Seperator } from '@/Components/utility'
 import Image from 'next/image'
 import useAccountCalculations from '@/Hooks/useAccountCalculations'
 import Link from 'next/link'
+import { collection, onSnapshot } from 'firebase/firestore'
+import { db } from '@/Firebase/index';
+import useAuth from '@/Contexts/useAuth'
 const AccountCard = ({
     account,
 }) => {
-    const { id, accountName, accountDescription, accountType, accountOpeningBalance, accountCreditLimit, balance, creditLeft } = account
+    const { user } = useAuth()
+
+    const { id, accountName, accountDescription, accountType, accountOpeningBalance, accountCreditLimit } = account
 
     const pillColors = {
         'Bank': 'primary',
@@ -15,8 +20,27 @@ const AccountCard = ({
         'Credit Card': 'info',
     }
 
+    const [txns, setTxns] = useState([])
+    const [balance, setBalance] = useState('')
+
     // useAccountCalculations Hook
-    const { truncateAmount } = useAccountCalculations()
+    const { truncateAmount, accountBalance } = useAccountCalculations()
+
+    useEffect(() => {
+        onSnapshot(collection(db, 'users', user.uid, 'transactions'), (snapshot) => {
+            setTxns(snapshot.docs.filter(
+                (doc) => doc.data().transactionAccountID === id
+            ).map(doc => ({
+                txnAmount: doc.data().transactionAmount,
+                txnType: doc.data().transactionType,
+            })))
+        })
+    }, [user.uid, id])
+
+    useEffect(() => {
+        setBalance(accountBalance(txns, accountType === 'Credit Card' ? accountCreditLimit : accountOpeningBalance))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [txns])
 
     return (
         <Link href={`/accounts/${id}`}>
@@ -53,8 +77,7 @@ const AccountCard = ({
                                 {accountType === 'Credit Card' ? 'Limit Remaining' : 'Current Balance'}
                             </small>
                             <p className='text-lg font-semibold'>
-                                {accountType === 'Credit Card' ? <> ₹{truncateAmount(creditLeft)} </> : <>  ₹{truncateAmount(balance)} </>}
-
+                                {truncateAmount(balance)}
                             </p>
                         </div>
                     </div>

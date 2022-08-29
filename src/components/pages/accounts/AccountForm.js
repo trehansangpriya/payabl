@@ -48,12 +48,10 @@ const AccountForm = ({
                 // if accountType is credit, add accountCreditLimit
                 ...(accountType === 'Credit Card' && {
                     accountCreditLimit: +accountCreditLimit,
-                    creditLeft: +accountCreditLimit,
                 }),
                 // if accountType is not credit, add accountOpeningBalance
                 ...(accountType !== 'Credit Card' && {
                     accountOpeningBalance: +accountOpeningBalance,
-                    balance: +accountOpeningBalance,
                 }),
                 accountDescription,
                 createdAt: serverTimestamp(),
