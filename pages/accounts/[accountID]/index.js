@@ -53,6 +53,7 @@ const ViewAccout = () => {
             txnAmount: transaction.transactionAmount,
         }))
         setBalance(accountBalance(txns, accountData.accountType === 'Credit Card' ? accountData.accountCreditLimit : accountData.accountOpeningBalance))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [transactions])
     return (
         <PageScreen
