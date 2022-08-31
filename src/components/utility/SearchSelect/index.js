@@ -23,11 +23,13 @@ const SearchSelect = ({
     helperClass,
     helperText,
     showHelperText = true,
+    enterToSelect = false,
     onChange = () => { },
     ...props
 }) => {
     const [searchValue, setSearchValue] = useState('')
     const [searchResults, setSearchResults] = useState(data)
+    const [highlightedIndex, setHighlightedIndex] = useState(0)
 
     const inputStatuses = {
         default: 'text-layout-700 placeholder:text-layout-500 bg-white focus:bg-primary-50 focus:border-2 focus:border-primary-300 focus:text-primary-700',
@@ -109,6 +111,33 @@ const SearchSelect = ({
                 required={required}
                 readOnly={readOnly}
                 disabled={disabled}
+                onKeyDown={(e) => {
+                    if (e.key === 'Enter' && enterToSelect) {
+                        e.preventDefault()
+                        if (searchResults.length > 0) {
+                            select(searchResults[highlightedIndex])
+                            setSearchValue('')
+                            setSearchResults(data)
+                        }
+                        if (searchResults.length === 0) {
+                            noResults()
+                            setSearchValue('')
+                            setSearchResults(data)
+                        }
+                    }
+                    if (e.key === 'ArrowDown' && enterToSelect) {
+                        e.preventDefault()
+                        if (highlightedIndex < searchResults.length - 1) {
+                            setHighlightedIndex(highlightedIndex + 1)
+                        }
+                    }
+                    if (e.key === 'ArrowUp' && enterToSelect) {
+                        e.preventDefault()
+                        if (highlightedIndex > 0) {
+                            setHighlightedIndex(highlightedIndex - 1)
+                        }
+                    }
+                }}
                 {...props}
             />
             {/* Helper Text */}
@@ -132,7 +161,10 @@ const SearchSelect = ({
                                 return (
                                     <div
                                         key={index}
-                                        className='flex items-center justify-between p-2 w-full font-medium hover:bg-primary-100 rounded cursor-pointer'
+                                        className={[
+                                            'flex items-center justify-between p-2 w-full font-medium rounded cursor-pointer',
+                                            enterToSelect && highlightedIndex === index ? 'bg-primary-100' : 'hover:bg-primary-100'
+                                        ].join(' ')}
                                         onClick={() => {
                                             select(item)
                                             setSearchValue('')
@@ -157,7 +189,9 @@ const SearchSelect = ({
                         {
                             searchResults.length === 0 && (
                                 <div
-                                    className='flex items-center justify-center p-2 w-full font-medium rounded hover:bg-primary-100 cursor-pointer'
+                                    className={['flex items-center justify-center p-2 w-full font-medium rounded cursor-pointer',
+                                        enterToSelect ? 'bg-primary-100' : 'hover:bg-primary-100'
+                                    ].join(' ')}
                                     onClick={() => {
                                         noResults()
                                         setSearchValue('')

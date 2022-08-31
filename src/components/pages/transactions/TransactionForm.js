@@ -7,11 +7,10 @@ import transactionTypes from '@/Data/transactionTypes'
 import { addDoc, collection, doc, onSnapshot, setDoc } from 'firebase/firestore'
 import { db } from '@/Firebase/index'
 import { CategoryModalForm } from '@/Components/pages/transactions'
-import { FiLoader, FiX, FiXCircle } from 'react-icons/fi'
+import { FiLoader, FiX } from 'react-icons/fi'
 import useAccountCalculations from '@/Hooks/useAccountCalculations'
 
 const TransactionForm = ({
-    task,
     afterSubmitActions = () => { },
 }) => {
     // Auth Context
@@ -89,50 +88,84 @@ const TransactionForm = ({
             })))
         })
         setLoading(false)
-    }, [user?.uid, task])
+    }, [user?.uid])
 
     useEffect(() => {
         setSelectedAccountBalance(accountBalance(allTransactions.filter(txn => txn.txnAccount === transactionAccount.id), transactionAccount.type === 'Credit Card' ? transactionAccount.creditLimit : transactionAccount.openingBalance))
         // setSelectedAccountBalance(transactionAccount.type === 'Credit Card' ? transactionAccount.creditLeft : transactionAccount.balance)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [transactionAccount])
+
+    useEffect(() => {
+        if (tempCategoryName === '') {
+            return
+        }
+        if (tempCategoryName.length > 0 && transactionCategory === '') {
+            setErrors({
+                ...errors,
+                transactionCategory: {
+                    status: 'error',
+                    helperText: 'Please click to select a category'
+                }
+            })
+            return
+        }
+        if (tempCategoryName.length > 0 && transactionCategory !== '') {
+            setErrors({
+                ...errors,
+                transactionCategory: {
+                    status: 'success',
+                    helperText: ''
+                }
+            })
+            return
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [tempCategoryName, transactionCategory])
 
     // Handle Form Submit : Add Transaction to Firebase
     const handleAddTransaction = (e) => {
         setLoading(true)
         setErrors({})
         setAllowSubmit(false)
-        if (task === 'add') {
-            // Add Transaction to Firebase
-            console.log('add transaction')
-            addDoc(collection(db, 'users', user.uid, 'transactions'), {
-                transactionTitle: transactionTitle,
-                transactionDate: new Date(transactionDate),
-                transactionAmount: +transactionAmount,
-                transactionType: transactionType,
-                transactionAccountID: transactionAccount.id,
-                transactionCategoryID: transactionCategory.id,
-                transactionNote: transactionNote,
-            }).then(() => {
-                displayAlert(true, 'success', 'Transaction Added')
-            }).catch(err => {
-                displayAlert(true, 'error', err.message)
-                console.log(err)
-            }).finally(() => {
-                // clear fields
-                setTransactionTitle('')
-                setTransactionDate('')
-                setTransactionAmount('')
-                setTransactionType('')
-                setTransactionAccount('')
-                setTransactionCategory('')
-                setTransactionNote('')
-                setLoading(false)
-                afterSubmitActions()
+        if (transactionCategory === '') {
+            setErrors({
+                ...errors, transactionCategory: {
+                    status: 'error',
+                    helperText: 'Please click to select a category'
+                }
             })
-        } else if (task === 'edit') {
-            // Edit Transaction in Firebase
-            console.log('edit transaction')
-        }
+            console.log('errors', errors)
+            setLoading(false)
+            return
+        };
+        // Add Transaction to Firebase
+        console.log('add transaction')
+        addDoc(collection(db, 'users', user.uid, 'transactions'), {
+            transactionTitle: transactionTitle,
+            transactionDate: new Date(transactionDate),
+            transactionAmount: +transactionAmount,
+            transactionType: transactionType,
+            transactionAccountID: transactionAccount.id,
+            transactionCategoryID: transactionCategory.id,
+            transactionNote: transactionNote,
+        }).then(() => {
+            displayAlert(true, 'success', 'Transaction Added')
+        }).catch(err => {
+            displayAlert(true, 'error', err.message)
+            console.log(err)
+        }).finally(() => {
+            // clear fields
+            setTransactionTitle('')
+            setTransactionDate('')
+            setTransactionAmount('')
+            setTransactionType('')
+            setTransactionAccount('')
+            setTransactionCategory('')
+            setTransactionNote('')
+            setLoading(false)
+            afterSubmitActions()
+        })
     }
 
     return (
@@ -266,37 +299,45 @@ const TransactionForm = ({
                             showHelperText={errors?.transactionAmount?.helperText}
                             disabled={loading}
                         />
-                        <SearchSelect
-                            label={'Category'}
-                            name={'transactionCategory'}
-                            placeholder={'Enter Category'}
-                            data={categories}
-                            disabled={loading || transactionCategory}
-                            display={['name', 'emoji']}
-                            search={['name']}
-                            noResultsText={'No Categories Found'}
-                            noResults={() => setShowAddCategoryModal(true)}
-                            required={true}
-                            onChange={(e) => {
-                                setTempCategoryName(e.target.value)
-                            }}
-                            select={(category) => {
-                                setTransactionCategory(category)
-                            }}
-                        />
-                        {transactionCategory && <div className='flex w-full gap-2 items-center'>
-                            <span>Selected: </span>
-                            <Pill
-                                className='cursor-pointer'
-                                onClick={() => {
-                                    setTransactionCategory('')
-                                }} icon={<span>{transactionCategory.emoji}</span>}>{transactionCategory.name} <FiX /></Pill>
-                        </div>}
+                        {
+                            transactionCategory ?
+                                <div className='flex flex-col w-full gap-2 items-start justify-center'>
+                                    <span className='text-sm ml-1'>Category</span>
+                                    <Pill
+                                        className='cursor-pointer'
+                                        onClick={() => {
+                                            setTransactionCategory('')
+                                        }} icon={<span>{transactionCategory.emoji}</span>}>{transactionCategory.name} <FiX /></Pill>
+                                </div>
+                                :
+                                <SearchSelect
+                                    label={'Category'}
+                                    name={'transactionCategory'}
+                                    placeholder={'Enter Category'}
+                                    data={categories}
+                                    disabled={loading || transactionCategory}
+                                    display={['name', 'emoji']}
+                                    search={['name']}
+                                    noResultsText={'No Categories Found'}
+                                    noResults={() => setShowAddCategoryModal(true)}
+                                    required={true}
+                                    status={errors?.transactionCategory?.status}
+                                    helperText={errors?.transactionCategory?.helperText}
+                                    onChange={(e) => {
+                                        setTempCategoryName(e.target.value)
+                                    }}
+                                    select={(category) => {
+                                        setTransactionCategory(category)
+                                    }}
+                                    enterToSelect={true}
+                                />
+                        }
                         <CategoryModalForm
                             isOpen={showAddCategoryModal}
                             onClose={() => setShowAddCategoryModal(false)}
                             title={'Add New Category'}
                             text={tempCategoryName}
+                            setTransactionCategory={setTransactionCategory}
                         />
                         <Input
                             id={'transactionNote'}
