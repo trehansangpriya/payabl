@@ -4,7 +4,7 @@ import dayjs from 'dayjs'
 import Image from 'next/image'
 import React from 'react'
 
-const TransactionCard = ({ txn = {}, account = {}, category = {} }) => {
+const TransactionCard = ({ txn = {}, account = {}, category = {}, showAccount = true }) => {
     const { id, transactionTitle, transactionAmount, transactionDate, transactionType, transactionAccountID, transactionCategoryID, transactionNote } = txn
 
     const { accountName, accountDescription, accountType, accountOpeningBalance, accountCreditLimit, balance, creditLeft } = account
@@ -47,18 +47,29 @@ const TransactionCard = ({ txn = {}, account = {}, category = {} }) => {
                         </Pill>
                         <Pill
                             size='10px'
-                            color={accountPillColors[accountType]}
-                            icon={
-                                <Image
-                                    src={`/assets/icons/accountTypes/${accountType?.replace(/\s/g, '').toLowerCase()}.png`}
-                                    width={10}
-                                    height={10}
-                                    alt={accountType}
-                                />
-                            }
+                            icon={<span>🗓</span>}
                         >
-                            {accountName} / {dayjs(transactionDate.toDate()).format('MMM D, YYYY')}
+                            {dayjs(transactionDate.toDate()).format('MMM D, YY')}
                         </Pill>
+                        {
+                            showAccount && (
+                                <Pill
+                                    size='10px'
+                                    color={accountPillColors[accountType]}
+                                    icon={
+                                        <Image
+                                            src={`/assets/icons/accountTypes/${accountType?.replace(/\s/g, '').toLowerCase()}.png`}
+                                            width={10}
+                                            height={10}
+                                            alt={accountType}
+                                        />
+                                    }
+                                >
+                                    {accountName}
+                                    {/* / {dayjs(transactionDate.toDate()).format('MMM D, YYYY')} */}
+                                </Pill>
+                            )
+                        }
                     </div>
                 </div>
                 <div className="flex flex-col items-end">
