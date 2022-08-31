@@ -109,6 +109,7 @@ const ViewAccout = () => {
                                                             txn={transaction}
                                                             account={accountData}
                                                             category={categories.find((category) => category.id === transaction.transactionCategoryID)}
+                                                            showAccount={false}
                                                         />
                                                         <Seperator className='mt-1' />
                                                     </div>
