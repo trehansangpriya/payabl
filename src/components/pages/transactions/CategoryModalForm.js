@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Card, Form, Input, Modal, Pill } from '@/Components/utility'
+import { Button, Input, Modal, Pill } from '@/Components/utility'
 // import Picker from 'emoji-picker-react'
 import dynamic from 'next/dynamic';
 import { FiLoader, FiSmile, FiXCircle } from 'react-icons/fi'
-import useValidation from '@/Hooks/useValidation'
 import useGlobals from '@/Contexts/useGlobals';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/Firebase/index';
@@ -15,6 +14,7 @@ const CategoryModalForm = ({
     onClose,
     title,
     text,
+    setTransactionCategory,
 }) => {
     // Auth Context
     const { user } = useAuth()
@@ -24,8 +24,6 @@ const CategoryModalForm = ({
     // Local Loading State
     const [loading, setLoading] = useState(false)
 
-    // useValidation Hook
-    const { checkEmpty } = useValidation()
 
     const [categoryName, setCategoryName] = useState('')
     const [categoryEmoji, setCategoryEmoji] = useState('')
@@ -54,7 +52,7 @@ const CategoryModalForm = ({
                 emoji: categoryEmoji,
                 createdAt: serverTimestamp(),
                 updatedAt: serverTimestamp(),
-            }).then(() => {
+            }).then((doc) => {
                 // clear form
                 setCategoryName('')
                 setCategoryEmoji('')
@@ -63,6 +61,11 @@ const CategoryModalForm = ({
                 setLoading(false)
                 onClose()
                 displayAlert(true, 'success', 'New category added')
+                setTransactionCategory({
+                    id: doc.id,
+                    name: categoryName,
+                    emoji: categoryEmoji,
+                })
             }).catch(err => {
                 setLoading(false)
                 displayAlert(true, 'error', err.message)
