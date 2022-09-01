@@ -10,7 +10,7 @@ import { accountPillColors } from '@/Data/accountTypes';
 import useAccountCalculations from '@/Hooks/useAccountCalculations';
 import { TransactionCard } from '@/Components/pages/transactions';
 
-const ViewAccout = () => {
+const Account = () => {
     const { user } = useAuth()
     const router = useRouter()
     const { accountID } = router.query
@@ -127,4 +127,4 @@ const ViewAccout = () => {
     )
 }
 
-export default ViewAccout
+export default Account
