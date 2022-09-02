@@ -24,7 +24,7 @@ const Pill = ({
     return (
         <div className={[
             'flex gap-1 items-center justify-center px-2 py-1 rounded-full w-fit',
-            'font-semibold',
+            'font-semibold whitespace-nowrap',
             pillColor,
             className,
         ].join(' ')}
