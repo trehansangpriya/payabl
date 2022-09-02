@@ -56,40 +56,27 @@ const Transactions = () => {
     }, [user.uid])
 
     useEffect(() => {
-        setLoading(true)
         if (filters.transactionAccountID !== '' && filters.transactionCategoryID !== '') {
             setFilteredTransactions(transactions.filter(transaction => transaction.transactionAccountID === filters.transactionAccountID && transaction.transactionCategoryID === filters.transactionCategoryID))
-            setTimeout(() => {
-                setLoading(false)
-            }, 500)
             return
         }
         else if (filters.transactionAccountID !== '') {
             setFilteredTransactions(transactions.filter(transaction => transaction.transactionAccountID === filters.transactionAccountID))
-            setTimeout(() => {
-                setLoading(false)
-            }, 500)
             return
         }
         else if (filters.transactionCategoryID !== '') {
             setFilteredTransactions(transactions.filter(transaction => transaction.transactionCategoryID === filters.transactionCategoryID))
-            setTimeout(() => {
-                setLoading(false)
-            }, 500)
             return
         }
         else {
             setFilteredTransactions(transactions)
-            setTimeout(() => {
-                setLoading(false)
-            }, 500)
             return
         }
     }, [filters, transactions])
     return (
         <AppScreen title={'Transactions'}>
             {
-                !loading && filteredTransactions.length !== 0 && (
+                !loading && transactions.length !== 0 && (
                     // Filters 
                     <div className="flex justify-between items-center pt-2 px-1">
                         <div className="flex gap-1 items-center">
