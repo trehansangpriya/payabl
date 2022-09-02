@@ -36,7 +36,7 @@ const AppScreen = ({
             <Container
                 className={[
                     'flex flex-col gap-2 w-full h-[85vh]',
-                    'p-2 pb-[100px]',
+                    'p-2 pb-[120px]',
                     'relative',
                     'overflow-y-scroll',
                     className,
