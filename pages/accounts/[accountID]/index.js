@@ -1,21 +1,18 @@
+import React, { useEffect, useState } from 'react'
 import { PageScreen } from '@/Components/app'
 import { collection, doc, onSnapshot } from 'firebase/firestore'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
 import { db } from '@/Firebase/index';
 import useAuth from '@/Contexts/useAuth';
-import { Pill, Seperator, Spacer } from '@/Components/utility';
-import Image from 'next/image';
-import { accountPillColors } from '@/Data/accountTypes';
 import useAccountCalculations from '@/Hooks/useAccountCalculations';
-import { TransactionCard } from '@/Components/pages/transactions';
+import { ViewAccount, ViewAccountSkeleton } from '@/Components/pages/accounts';
 
 const Account = () => {
     const { user } = useAuth()
     const router = useRouter()
     const { accountID } = router.query
 
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
 
     const [accountData, setAccountData] = useState({})
     const [transactions, setTransactions] = useState([])
@@ -25,9 +22,15 @@ const Account = () => {
 
     const { accountBalance } = useAccountCalculations()
 
+
+
     useEffect(() => {
+        setLoading(true)
         onSnapshot(doc(db, 'users', user.uid, 'accounts', accountID), (doc) => {
-            setAccountData(doc.data())
+            setAccountData({
+                id: doc.id,
+                ...doc.data()
+            })
         })
         onSnapshot(collection(db, 'users', user.uid, 'categories'), (snapshot) => {
             setCategories(snapshot.docs.map(doc => ({
@@ -44,7 +47,9 @@ const Account = () => {
             const filteredTransactions = transactions.filter((transaction) => transaction.transactionAccountID === accountID)
             setTransactions(filteredTransactions)
         })
-        setLoading(false)
+        setTimeout(() => {
+            setLoading(false)
+        }, 500)
     }, [accountID, user.uid])
 
     useEffect(() => {
@@ -61,65 +66,14 @@ const Account = () => {
             className={'px-4 py-5'}
         >
             {
-                loading ? <div className={'text-center'}>Loading...</div> :
+                loading ? <ViewAccountSkeleton /> :
                     (
-                        <div className={'flex flex-col gap-2'}>
-                            <div className={'flex items-center gap-2'}>
-                                <h1 className={'font-semibold text-2xl'}>{accountData.accountName}</h1>
-                                <Pill
-                                    size='18px'
-                                    color={accountPillColors[accountData?.accountType]}
-                                    icon={
-                                        <Image
-                                            src={`/assets/icons/accountTypes/${accountData?.accountType?.replace(/\s/g, '').toLowerCase()}.png`}
-                                            width={20}
-                                            height={20}
-                                            alt={accountData.accountType}
-                                        />
-                                    }
-                                >{accountData.accountType}</Pill>
-                            </div>
-                            <div className='text-sm text-layout-500'>
-                                {accountData.accountDescription}
-                            </div>
-                            <h2 className='flex flex-col'>
-                                {
-                                    accountData.accountType === 'Credit Card'
-                                        ? <span>Credit Left</span>
-                                        : <span>Balance</span>
-                                }
-                                <span className='text-3xl font-semibold'>
-                                    ₹{balance}
-                                </span>
-                            </h2>
-                            <Spacer h={'8px'} />
-                            {
-                                transactions.length > 0
-                                    ? (
-                                        <div className="flex flex-col gap-1 w-full">
-                                            <Seperator text={'Transactions'} />
-                                            {
-                                                transactions.sort((a, b) =>
-                                                    a.transactionDate.toDate() > b.transactionDate.toDate() ? -1 : 1
-                                                ).map((transaction) => (
-                                                    <div
-                                                        key={transaction.id}
-                                                    >
-                                                        <TransactionCard
-                                                            txn={transaction}
-                                                            account={accountData}
-                                                            category={categories.find((category) => category.id === transaction.transactionCategoryID)}
-                                                            showAccount={false}
-                                                        />
-                                                        <Seperator className='mt-1' />
-                                                    </div>
-                                                ))
-                                            }
-                                        </div>
-                                    )
-                                    : <div className={'text-center'}>No Transactions</div>
-                            }
-                        </div>
+                        <ViewAccount
+                            accountData={accountData}
+                            balance={balance}
+                            transactions={transactions}
+                            categories={categories}
+                        />
                     )
             }
 

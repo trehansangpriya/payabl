@@ -1,3 +1,5 @@
 export { default as AccountForm } from './AccountForm'
 export { default as ViewAllAccounts } from './ViewAllAccounts'
 export { default as AccountCard, AccountSkeleton } from './AccountCard'
+export { default as ViewAccount, ViewAccountSkeleton } from './account/ViewAccount'
+export { default as EditAccountForm } from './account/EditAccountForm'
