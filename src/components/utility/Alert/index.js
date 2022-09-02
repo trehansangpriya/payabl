@@ -53,7 +53,7 @@ const Alert = ({ show, message, variant, dummy }) => {
             id='alert'
         >
             {alertIcon}
-            <span>
+            <span className='whitespace-nowrap'>
                 {alertMessage}
             </span>
         </div>
