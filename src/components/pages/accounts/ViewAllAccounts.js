@@ -28,12 +28,15 @@ const ViewAllAccounts = () => {
                 <AccountSkeleton />
             </>
                 : (
-                    accounts.map((account) => (
+                    accounts.length !== 0 ? accounts.map((account) => (
                         <div key={account.id}>
                             <AccountCard account={account} />
                             <Seperator className='mt-1' />
                         </div>
                     ))
+                        : <div className='text-center text-gray-500 p-3'>
+                            No accounts found
+                        </div>
                 )}
         </Container>
     )

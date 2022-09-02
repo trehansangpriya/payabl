@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import useAuth from '@/Contexts/useAuth'
 import useGlobals from '@/Contexts/useGlobals'
-import { Button, Form, Input, Pill, SearchSelect, Select, SelectOption } from '@/Components/utility'
+import { Button, Form, Input, Link, Pill, SearchSelect, Select, SelectOption } from '@/Components/utility'
 import useValidation from '@/Hooks/useValidation'
 import transactionTypes from '@/Data/transactionTypes'
 import { addDoc, collection, doc, onSnapshot, setDoc } from 'firebase/firestore'
@@ -168,7 +168,7 @@ const TransactionForm = ({
         })
     }
 
-    return (
+    return accounts.length !== 0 ? (
         <Form
             className='flex flex-col items-center justify-center gap-3'
             errors={errors}
@@ -367,6 +367,18 @@ const TransactionForm = ({
             }
 
         </Form>
+    ) : (
+        <div className='text-center text-gray-500 p-3'>
+            No accounts found! <br /> Please add an account first.
+            <br/>
+            <br/>
+            <Link
+                href={'/accounts/add'}
+                color='primary'
+            >
+                Add Account
+            </Link>
+        </div>
     )
 }
 
