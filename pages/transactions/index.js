@@ -20,7 +20,7 @@ const Transactions = () => {
     // All Categories
     const [categories, setCategories] = useState([])
     // Local Loading
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     // filter
     const [filters, setFilters] = useState({
         transactionAccountID: '',
@@ -56,221 +56,246 @@ const Transactions = () => {
     }, [user.uid])
 
     useEffect(() => {
+        setLoading(true)
         if (filters.transactionAccountID !== '' && filters.transactionCategoryID !== '') {
             setFilteredTransactions(transactions.filter(transaction => transaction.transactionAccountID === filters.transactionAccountID && transaction.transactionCategoryID === filters.transactionCategoryID))
+            setTimeout(() => {
+                setLoading(false)
+            }, 500)
+            return
         }
         else if (filters.transactionAccountID !== '') {
             setFilteredTransactions(transactions.filter(transaction => transaction.transactionAccountID === filters.transactionAccountID))
+            setTimeout(() => {
+                setLoading(false)
+            }, 500)
+            return
         }
         else if (filters.transactionCategoryID !== '') {
             setFilteredTransactions(transactions.filter(transaction => transaction.transactionCategoryID === filters.transactionCategoryID))
+            setTimeout(() => {
+                setLoading(false)
+            }, 500)
+            return
         }
         else {
             setFilteredTransactions(transactions)
+            setTimeout(() => {
+                setLoading(false)
+            }, 500)
+            return
         }
     }, [filters, transactions])
     return (
         <AppScreen title={'Transactions'}>
-            <div className="flex justify-between items-center">
-                {/* Filters */}
-                <div className="flex gap-2 pt-2 px-1">
-                    {/* Account Filter */}
-                    <div className="flex relative">
-                        <div className="flex cursor-pointer border border-layout-200 rounded" id="trigger" onClick={() => {
-                            setShowAccountFilter(!showAccountFilter)
-                        }}>
-                            {
-                                filters.transactionAccountID === '' ? (
-                                    <div className='select-none py-1 px-2 '>
-                                        <span className='flex justify-center items-center gap-1'>
-                                            <FiFilter />
-                                            Accounts
-                                        </span>
-                                    </div>
-                                ) : (
-                                    <div className='select-none py-1 px-2 bg-primary-50 text-primary-700 font-medium rounded'>
-                                        <div className="flex gap-1 items-center">
-                                            <div className='flex justify-center items-center'>
-                                                <Image
-                                                    src={`/assets/icons/accountTypes/${accounts.find(account => account.id === filters.transactionAccountID).accountType?.replace(/\s/g, '').toLowerCase()}.png`}
-                                                    width={20}
-                                                    height={20}
-                                                    alt={accounts.find(account => account.id === filters.transactionAccountID).accountType}
-                                                />
+            {
+                !loading && filteredTransactions.length !== 0 && (
+                    // Filters 
+                    <div className="flex justify-between items-center pt-2 px-1">
+                        <div className="flex gap-1 items-center">
+                            {/* Account Filter */}
+                            <div className="flex relative">
+                                <div className="flex cursor-pointer border border-layout-200 rounded-full" id="trigger" onClick={() => {
+                                    setShowAccountFilter(!showAccountFilter)
+                                    setShowCategoryFilter(false)
+                                }}>
+                                    {
+                                        filters.transactionAccountID === '' ? (
+                                            <div className='select-none py-1 px-2 '>
+                                                <span className='flex justify-center items-center gap-1 text-sm'>
+                                                    <FiFilter />
+                                                    Accounts
+                                                </span>
                                             </div>
-                                            <span>
-                                                {accounts.find(account => account.id === filters.transactionAccountID).accountName}
-                                            </span>
-                                        </div>
-                                    </div>
-                                )
-                            }
-                        </div>
-                        {
-                            showAccountFilter &&
-                            <div className="absolute bg-white w-fit h-[200px] overflow-y-scroll p-2 top-full mt-1 flex flex-col z-50 rounded">
-                                <div className={[
-                                    'flex px-2 py-1 rounded justify-between cursor-pointer gap-3',
-                                    'hover:bg-layout-100',
-                                ].join(' ')} key={'all'} onClick={() => {
-                                    setFilters({ ...filters, transactionAccountID: '' })
-                                    setShowAccountFilter(false)
-                                }}
-                                >
-                                    <div className="flex items-center gap-1" >
-                                        <span className='whitespace-nowrap'>
-                                            All Accounts
-                                        </span>
-                                    </div>
-                                    {filters.transactionAccountID === '' && (
-                                        <div className="flex justify-center items-center">
-                                            <FiCheck className='text-primary-500' />
-                                        </div>
-                                    )}
+                                        ) : (
+                                            <div className='select-none py-1 px-2 bg-primary-50 text-primary-700 font-medium rounded-full text-sm'>
+                                                <div className="flex gap-1 items-center">
+                                                    <div className='flex justify-center items-center'>
+                                                        <Image
+                                                            src={`/assets/icons/accountTypes/${accounts.find(account => account.id === filters.transactionAccountID).accountType?.replace(/\s/g, '').toLowerCase()}.png`}
+                                                            width={20}
+                                                            height={20}
+                                                            alt={accounts.find(account => account.id === filters.transactionAccountID).accountType}
+                                                        />
+                                                    </div>
+                                                    <span className='whitespace-nowrap'>
+                                                        {accounts.find(account => account.id === filters.transactionAccountID).accountName}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        )
+                                    }
                                 </div>
                                 {
-                                    accounts.map(account => (
+                                    showAccountFilter &&
+                                    <div className="absolute bg-white max-w-[240px] min-w-[160%] h-fit max-h-[400px] overflow-y-scroll p-2 top-full mt-1 flex flex-col z-50 rounded">
                                         <div className={[
                                             'flex px-2 py-1 rounded justify-between cursor-pointer gap-3',
                                             'hover:bg-layout-100',
-                                        ].join(' ')} key={account.id}
-                                            onClick={() => {
-                                                setFilters({ ...filters, transactionAccountID: account.id })
-                                                setShowAccountFilter(false)
-                                            }}
+                                        ].join(' ')} key={'all'} onClick={() => {
+                                            setFilters({ ...filters, transactionAccountID: '' })
+                                            setShowAccountFilter(false)
+                                        }}
                                         >
                                             <div className="flex items-center gap-1" >
-                                                <div className='flex justify-center items-center'>
-                                                    <Image
-                                                        src={`/assets/icons/accountTypes/${account.accountType?.replace(/\s/g, '').toLowerCase()}.png`}
-                                                        width={20}
-                                                        height={20}
-                                                        alt={account.accountType}
-                                                    />
-                                                </div>
                                                 <span className='whitespace-nowrap'>
-                                                    {account.accountName}
+                                                    All Accounts
                                                 </span>
                                             </div>
-                                            {filters.transactionAccountID === account.id && (
+                                            {filters.transactionAccountID === '' && (
                                                 <div className="flex justify-center items-center">
                                                     <FiCheck className='text-primary-500' />
                                                 </div>
                                             )}
                                         </div>
-                                    ))
+                                        {
+                                            accounts.map(account => (
+                                                <div className={[
+                                                    'flex px-2 py-1 rounded justify-between cursor-pointer gap-3',
+                                                    'hover:bg-layout-100',
+                                                ].join(' ')} key={account.id}
+                                                    onClick={() => {
+                                                        setFilters({ ...filters, transactionAccountID: account.id })
+                                                        setShowAccountFilter(false)
+                                                    }}
+                                                >
+                                                    <div className="flex items-center gap-1" >
+                                                        <div className='flex justify-center items-center'>
+                                                            <Image
+                                                                src={`/assets/icons/accountTypes/${account.accountType?.replace(/\s/g, '').toLowerCase()}.png`}
+                                                                width={20}
+                                                                height={20}
+                                                                alt={account.accountType}
+                                                            />
+                                                        </div>
+                                                        <span className='whitespace-nowrap'>
+                                                            {account.accountName}
+                                                        </span>
+                                                    </div>
+                                                    {filters.transactionAccountID === account.id && (
+                                                        <div className="flex justify-center items-center">
+                                                            <FiCheck className='text-primary-500' />
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
                                 }
                             </div>
-                        }
-                    </div>
-                    {/* Category Filter */}
-                    <div className="flex relative">
-                        <div className="flex cursor-pointer border border-layout-200 rounded " id="trigger" onClick={() => {
-                            setShowCategoryFilter(!showCategoryFilter)
-                        }}>
-                            {
-                                filters.transactionCategoryID === '' ?
-                                    (
-                                        <div className='select-none py-1 px-2'>
-                                            <span className='flex justify-center items-center gap-1'>
-                                                <FiFilter />
-                                                Categories
-                                            </span>
-                                        </div>
-                                    ) : (
-                                        <div className='select-none py-1 px-2 bg-primary-50 text-primary-700 font-medium rounded'>
-                                            <div className="flex gap-1 items-center">
-                                                <div className='flex justify-center items-center gap-1'>
-                                                    <span>
-                                                        {categories.find(category => category.id === filters.transactionCategoryID).emoji}
-                                                    </span>
-                                                    <span>
-                                                        {categories.find(category => category.id === filters.transactionCategoryID).name}
+                            {/* Category Filter */}
+                            <div className="flex relative">
+                                <div className="flex cursor-pointer border border-layout-200 rounded-full" id="trigger" onClick={() => {
+                                    setShowCategoryFilter(!showCategoryFilter)
+                                    setShowAccountFilter(false)
+
+                                }}>
+                                    {
+                                        filters.transactionCategoryID === '' ?
+                                            (
+                                                <div className='select-none py-1 px-2'>
+                                                    <span className='flex justify-center items-center gap-1 text-sm'>
+                                                        <FiFilter />
+                                                        Categories
                                                     </span>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    )
-                            }
-                        </div>
-                        {
-                            showCategoryFilter && (
-                                <div className="absolute bg-white w-fit h-[200px] overflow-y-scroll p-2 top-full mt-1 flex flex-col z-50 rounded">
-                                    <div className={[
-                                        'flex px-2 py-1 rounded justify-between cursor-pointer gap-3',
-                                        'hover:bg-layout-100',
-                                    ].join(' ')} key={'all'} onClick={() => {
-                                        setFilters({ ...filters, transactionCategoryID: '' })
-                                        setShowCategoryFilter(false)
+                                            ) : (
+                                                <div className='select-none py-1 px-2 bg-primary-50 text-primary-700 font-medium rounded-full text-sm'>
+                                                    <div className="flex gap-1 items-center">
+                                                        <div className='flex justify-center items-center gap-1'>
+                                                            <span>
+                                                                {categories.find(category => category.id === filters.transactionCategoryID).emoji}
+                                                            </span>
+                                                            <span className='whitespace-nowrap'>
+                                                                {categories.find(category => category.id === filters.transactionCategoryID).name}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )
                                     }
-                                    }
-                                    >
-                                        <div className="flex items-center gap-1" >
-                                            <span className='whitespace-nowrap'>
-                                                All Categories
-                                            </span>
-                                        </div>
-                                        {filters.transactionCategoryID === '' && (
-                                            <div className="flex justify-center items-center">
-                                                <FiCheck className='text-primary-500' />
-                                            </div>
-                                        )}
-                                    </div>
-                                    {
-                                        categories.sort(
-                                            // sort alphabetically 
-                                            (a, b) => a.name.localeCompare(b.name)
-                                        ).map(category => (
+                                </div>
+                                {
+                                    showCategoryFilter && (
+                                        <div className="absolute bg-white max-w-[240px] min-w-[160%] h-fit max-h-[400px] overflow-y-scroll p-2 top-full mt-1 flex flex-col z-50 rounded">
                                             <div className={[
                                                 'flex px-2 py-1 rounded justify-between cursor-pointer gap-3',
                                                 'hover:bg-layout-100',
-                                            ].join(' ')} key={category.id}
-                                                onClick={() => {
-                                                    setFilters({ ...filters, transactionCategoryID: category.id })
-                                                    setShowCategoryFilter(false)
-                                                }
-                                                }
+                                            ].join(' ')} key={'all'} onClick={() => {
+                                                setFilters({ ...filters, transactionCategoryID: '' })
+                                                setShowCategoryFilter(false)
+                                            }
+                                            }
                                             >
                                                 <div className="flex items-center gap-1" >
-                                                    <div className='flex justify-center items-center gap-1'>
-                                                        <span>
-                                                            {category.emoji}
-                                                        </span>
-                                                        <span>
-                                                            {category.name}
-                                                        </span>
-                                                    </div>
+                                                    <span className='whitespace-nowrap'>
+                                                        All Categories
+                                                    </span>
                                                 </div>
-                                                {filters.transactionCategoryID === category.id && (
+                                                {filters.transactionCategoryID === '' && (
                                                     <div className="flex justify-center items-center">
                                                         <FiCheck className='text-primary-500' />
                                                     </div>
                                                 )}
                                             </div>
-                                        ))
-                                    }
-                                </div>
+                                            {
+                                                categories.sort(
+                                                    // sort alphabetically 
+                                                    (a, b) => a.name.localeCompare(b.name)
+                                                ).map(category => (
+                                                    <div className={[
+                                                        'flex px-2 py-1 rounded justify-between cursor-pointer gap-3',
+                                                        'hover:bg-layout-100',
+                                                    ].join(' ')} key={category.id}
+                                                        onClick={() => {
+                                                            setFilters({ ...filters, transactionCategoryID: category.id })
+                                                            setShowCategoryFilter(false)
+                                                        }
+                                                        }
+                                                    >
+                                                        <div className="flex items-center gap-1" >
+                                                            <div className='flex justify-center items-center gap-1'>
+                                                                <span>
+                                                                    {category.emoji}
+                                                                </span>
+                                                                <span className='whitespace-nowrap'>
+                                                                    {category.name}
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        {filters.transactionCategoryID === category.id && (
+                                                            <div className="flex justify-center items-center">
+                                                                <FiCheck className='text-primary-500' />
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                ))
+                                            }
+                                        </div>
+                                    )
+                                }
+                            </div>
+                        </div>
+                        {/* Clear Filters */}
+                        {/* show if any filters are applied */}
+                        {
+                            (filters.transactionAccountID !== '' || filters.transactionCategoryID !== '') && (
+                                <Pill
+                                    size='14px'
+                                    color='primary'
+                                    className='cursor-pointer'
+                                    onClick={() => {
+                                        setFilters({ ...filters, transactionAccountID: '', transactionCategoryID: '' })
+                                    }}
+                                >
+                                    Clear All <FiX />
+                                </Pill>
                             )
                         }
                     </div>
-                    {/* Clear Filters */}
-                </div>
-                {/* show if any filters are applied */}
-                {
-                    (filters.transactionAccountID !== '' || filters.transactionCategoryID !== '') && (
-                        <Pill
-                            size='14px'
-                            color='primary'
-                            className='cursor-pointer'
-                            onClick={() => {
-                                setFilters({ ...filters, transactionAccountID: '', transactionCategoryID: '' })
-                            }}
-                        >
-                            Clear All <FiX />
-                        </Pill>
-                    )
-                }
-            </div>
+                )
+            }
+
 
             {/* Filter Report */}
 
