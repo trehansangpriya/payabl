@@ -39,7 +39,7 @@ const FAB = ({
             {...props}
         >
             {showIcon && icon && <span>{icon}</span>}
-            {label && <span className='whitespace-nowrap'>{label}</span>}
+            {label && <span className='whitespace-nowrap text-sm'>{label}</span>}
         </button>
     )
 }
