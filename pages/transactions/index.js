@@ -285,7 +285,7 @@ const Transactions = () => {
 
             {/* Filter Report */}
             {
-                !loading && transactions.length !== 0 && (
+                !loading && transactions.length !== 0 && filteredTransactions.length !== 0 && (
                     <Overview transactions={filteredTransactions} />
                 )
             }
