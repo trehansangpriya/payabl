@@ -1,5 +1,5 @@
 import { AppScreen, FAB } from '@/Components/app'
-import { ViewAllTransactions } from '@/Components/pages/transactions'
+import { Overview, ViewAllTransactions } from '@/Components/pages/transactions'
 import useAuth from '@/Contexts/useAuth'
 import { privateRoute } from '@/Routes/privateRoute'
 import { collection, onSnapshot } from 'firebase/firestore'
@@ -283,9 +283,12 @@ const Transactions = () => {
                 )
             }
 
-
             {/* Filter Report */}
-
+            {
+                !loading && transactions.length !== 0 && (
+                    <Overview transactions={filteredTransactions} />
+                )
+            }
 
             {/* Transaction List */}
             <ViewAllTransactions

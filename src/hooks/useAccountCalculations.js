@@ -13,23 +13,26 @@ const useAccountCalculations = () => {
             }
         }, openingBalance)
     }
-
-    const accountBalanceWithID = (txns = [], accountID, openingBalance) => {
-        // if transaction type is 'credit' add amount to opening balance
-        // if transaction type is 'debit' subtract amount from opening balance
-        console.log('accountBalanceWithID', accountID);
-        console.log('accountBalanceWithID', txns);
-        return txns.filter(txn => txn.txnAccount === accountID).reduce((acc, txn) => {
+    const getTotalIncome = (txns = []) => {
+        return txns.reduce((acc, txn) => {
             if (txn.txnType === 'Income') {
                 const balance = acc + txn.txnAmount
                 return balance
             }
-            if (txn.txnType === 'Expense') {
-                const balance = acc - txn.txnAmount
+            return acc
+        }, 0)
+    }
+
+    const getTotalExpense = (txns = []) => {
+        return txns.reduce((acc, txn) => {
+            if (txn.transactionType === 'Expense') {
+                const balance = acc + txn.transactionAmount
                 return balance
             }
-        }, openingBalance)
+            return acc
+        }, 0)
     }
+
     const truncateAmount = (amount) => {
         // if amount is > 999 then divide by 1000 and add a K at the end
         if (amount > 999 && amount < 10000) {
@@ -48,7 +51,8 @@ const useAccountCalculations = () => {
     }
     return {
         accountBalance,
-        accountBalanceWithID,
+        getTotalIncome,
+        getTotalExpense,
         truncateAmount
     }
 }
