@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import useAccountCalculations from '@/Hooks/useAccountCalculations'
 import { FiDownload, FiUpload } from 'react-icons/fi'
-import { Pill } from '@/Components/utility'
 
 const Overview = ({
     transactions,
@@ -16,7 +15,7 @@ const Overview = ({
     }, [transactions])
     return (
         <div className='flex justify-around p-1 gap-2 font-medium' >
-            <div className="flex gap-2 justify-center items-center text-success-600 border border-success-600 w-full p-2 bg-success-100 rounded-full">
+            <div className="flex gap-2 justify-center items-center text-success-600 w-full p-2 rounded shadow">
                 <FiDownload />
                 <span className='text-lg'>
                     ₹{totalIncome}
