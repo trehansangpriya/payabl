@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import useAccountCalculations from '@/Hooks/useAccountCalculations'
 import { FiDownload, FiUpload } from 'react-icons/fi'
+import { Seperator } from '@/Components/utility'
 
 const Overview = ({
     transactions,
@@ -14,26 +15,33 @@ const Overview = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [transactions])
     return (
-        <div className='flex justify-around p-1 gap-2 font-medium' >
-            <div className="flex gap-2 justify-center items-center text-success-600 w-full p-2 rounded shadow">
-                <FiDownload />
-                <span className='text-lg'>
-                    ₹{totalIncome}
-                </span>
-                {/* <span className='text-xs'>
-                    Total Income
-                </span> */}
+        <>
+            <Seperator />
+            <div className='flex justify-around items-center p-1 gap-2 font-medium' >
+                <div className="flex flex-col gap-1 justify-center items-center text-success-600 w-full p-2">
+                    <FiDownload />
+                    <span className='text-lg'>
+                        ₹{totalIncome}
+                    </span>
+                    {/* <span className='text-xs'>
+                        Income
+                    </span> */}
+                </div>
+                <div className='text-layout-300'>
+                    |
+                </div>
+                <div className="flex flex-col gap-1 justify-center items-center text-error-600 w-full p-2">
+                    <FiUpload />
+                    <span className='text-lg'>
+                        ₹{totalExpense}
+                    </span>
+                    {/* <span className='text-xs'>
+                        Expense
+                    </span> */}
+                </div>
             </div>
-            <div className="flex gap-2 justify-center items-center text-error-600  border border-error-600 w-full p-2 bg-error-100 rounded-full">
-                <FiUpload />
-                <span className='text-lg'>
-                    ₹{totalExpense}
-                </span>
-                {/* <span className='text-xs'>
-                    Total Expense
-                </span> */}
-            </div>
-        </div>
+            <Seperator />
+        </>
     )
 }
 
