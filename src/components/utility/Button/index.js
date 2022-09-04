@@ -39,7 +39,7 @@ const Button = ({
                 'font-medium',
                 'p-3 transition-all duration-150',
                 circle ? 'rounded-full' : 'rounded',
-                'flex justify-center items-center lg:w-fit',
+                'flex justify-center items-center lg:w-fit lg:self-start',
                 !disabled && 'active:scale-[.98] hover:scale-[1.005]',
                 !disabled ? buttonColor : 'bg-layout-300 text-layout-100 cursor-not-allowed',
                 className

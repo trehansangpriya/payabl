@@ -16,18 +16,22 @@ const Profile = () => {
 
     return (
         <PageScreen title='Profile' className='items-center'>
+
             <Spacer h='24px' />
+
             {/* User Profile */}
             <UserProfile userData={userData} addPhoneBannerOnClick={() => setAddPhoneNumberModal(!addPhoneNumberModal)} profilePictureOnClick={() => setEditProfilePictureModal(!editProfilePictureModal)} />
             <Seperator h='24px' />
+
             {/* Logout Button */}
             <Button
                 color='error'
                 iconLeft={<FiLogOut />}
                 onClick={logOut}
-                className='w-full'>
+                className='w-full self-start'>
                 Log Out
             </Button>
+
             {/* PhoneNumber Form Modal */}
             <Modal
                 isOpen={addPhoneNumberModal}
@@ -35,6 +39,7 @@ const Profile = () => {
                 title={'Add Phone Number'}>
                 <PhoneNumberForm afterSubmitActions={() => setAddPhoneNumberModal(false)} />
             </Modal>
+
             {/* Edit Profile Picture Modal */}
             <Modal
                 isOpen={editProfilePictureModal}
@@ -42,6 +47,7 @@ const Profile = () => {
                 title={'Edit Profile Picture'}>
                 <ProfilePictureUpload afterSubmitActions={() => setEditProfilePictureModal(false)} />
             </Modal>
+
         </PageScreen>
     )
 }

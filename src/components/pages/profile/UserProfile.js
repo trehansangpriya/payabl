@@ -9,7 +9,7 @@ const UserProfile = ({
     profilePictureOnClick,
 }) => {
     return (
-        <>
+        <div className='w-full px-2 flex flex-col gap-2'>
             {/* User Avatar */}
             <Avatar
                 size='128px'
@@ -75,7 +75,7 @@ const UserProfile = ({
                     </Banner>
                 )
             }
-        </>
+        </div>
     )
 }
 
