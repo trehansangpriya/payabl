@@ -5,3 +5,6 @@ export { default as TransactionCard, TransactionSkeleton } from './TransactionCa
 export { default as Overview } from './Overview'
 export { default as Filters } from './Filters'
 export { default as DateFilter } from './DateFilter'
+
+export { default as ViewTransaction, ViewTransactionSkeleton } from './transaction/ViewTransaction'
+export { default as EditTransactionForm } from './transaction/EditTransactionForm'

@@ -33,7 +33,12 @@ const Pill = ({
             }}
             {...props}
         >
-            {icon && icon}
+
+            {icon && (
+                <div className='flex justify-center items-center'>
+                   {icon}
+                </div>
+            )}
             {children}
         </div>
     )

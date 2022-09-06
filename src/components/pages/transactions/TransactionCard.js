@@ -2,6 +2,7 @@ import { Card, Pill, Seperator } from '@/Components/utility'
 import useAccountCalculations from '@/Hooks/useAccountCalculations'
 import dayjs from 'dayjs'
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 const TransactionCard = ({ txn = {}, account = {}, category = {}, showAccount = true }) => {
@@ -25,72 +26,76 @@ const TransactionCard = ({ txn = {}, account = {}, category = {}, showAccount = 
     // useCalculations Hook
     const { truncateAmount } = useAccountCalculations()
     return (
-        <Card
-            pointer
-            rounded
-            hover
-            className={[
-                'flex-col justify-center items-start gap-1',
-            ].join(' ')} >
-            <div className={'flex w-full gap-2 items-center justify-between'} >
-                <div className="flex flex-col gap-1">
-                    <h5 className='font-semibold'>
-                        {transactionTitle}
-                    </h5>
+        <Link href={`/transactions/${id}`}>
+            <a>
+                <Card
+                    pointer
+                    rounded
+                    hover
+                    className={[
+                        'flex-col justify-center items-start gap-1',
+                    ].join(' ')} >
+                    <div className={'flex w-full gap-2 items-center justify-between'} >
+                        <div className="flex flex-col gap-1 w-[75%]">
+                            <h5 className='font-semibold'>
+                                {transactionTitle}
+                            </h5>
 
-                    <div className="flex gap-1">
-                        <Pill
-                            size='10px'
-                            icon={<span>{emoji}</span>}
-                        >
-                            {name}
-                        </Pill>
-                        <Pill
-                            size='10px'
-                            icon={<span>🗓</span>}
-                        >
-                            {dayjs(transactionDate.toDate()).format('MMM D, YY')}
-                        </Pill>
-                        {
-                            showAccount && (
+                            <div className="flex flex-1 gap-1 overflow-x-scroll">
                                 <Pill
                                     size='10px'
-                                    color={accountPillColors[accountType]}
-                                    icon={
-                                        <Image
-                                            src={`/assets/icons/accountTypes/${accountType?.replace(/\s/g, '').toLowerCase()}.png`}
-                                            width={10}
-                                            height={10}
-                                            alt={accountType}
-                                        />
-                                    }
+                                    icon={<span>{emoji}</span>}
                                 >
-                                    {accountName}
-                                    {/* / {dayjs(transactionDate.toDate()).format('MMM D, YYYY')} */}
+                                    {name}
                                 </Pill>
-                            )
-                        }
+                                <Pill
+                                    size='10px'
+                                    icon={<span>🗓</span>}
+                                >
+                                    {dayjs(transactionDate.toDate()).format('MMM D, YY')}
+                                </Pill>
+                                {
+                                    showAccount && (
+                                        <Pill
+                                            size='10px'
+                                            color={accountPillColors[accountType]}
+                                            icon={
+                                                <Image
+                                                    src={`/assets/icons/accountTypes/${accountType?.replace(/\s/g, '').toLowerCase()}.png`}
+                                                    width={10}
+                                                    height={10}
+                                                    alt={accountType}
+                                                    layout='fixed'
+                                                />
+                                            }
+                                        >
+                                            {accountName}
+                                        </Pill>
+                                    )
+                                }
+                            </div>
+                        </div>
+                        <div className="flex flex-col items-end w-[25%]">
+                            <p
+                                className={[`text-lg font-medium`,
+                                    transactionType === 'Income' ? 'text-success-600' : 'text-error-600'
+                                ].join(' ')}>
+                                ₹{truncateAmount(transactionAmount)}
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <div className="flex flex-col items-end">
-                    <p
-                        className={[`text-lg font-semibold`,
-                            transactionType === 'Income' ? 'text-success-600' : 'text-error-600'
-                        ].join(' ')}>
-                        ₹{truncateAmount(transactionAmount)}
-                    </p>
-                </div>
-            </div>
-            {
-                transactionNote && (
-                    <div>
-                        <p className={'text-sm text-layout-500'}>
-                            {transactionNote}
-                        </p>
-                    </div>
-                )
-            }
-        </Card>
+                    {
+                        transactionNote && (
+                            <div>
+                                <p className={'text-sm text-layout-500'}>
+                                    {transactionNote}
+                                </p>
+                            </div>
+                        )
+                    }
+                </Card>
+            </a>
+        </Link>
     )
 }
 

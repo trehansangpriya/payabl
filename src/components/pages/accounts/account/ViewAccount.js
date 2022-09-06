@@ -9,6 +9,8 @@ import { useRouter } from 'next/router'
 import { deleteDoc, doc } from 'firebase/firestore'
 import { db } from '@/Firebase/index'
 import useAuth from '@/Contexts/useAuth'
+import useGlobals from '@/Contexts/useGlobals'
+
 
 const ViewAccount = ({
     accountData,
@@ -18,6 +20,7 @@ const ViewAccount = ({
 }) => {
     const router = useRouter()
     const { user } = useAuth()
+    const { displayAlert } = useGlobals()
     const [accountID, setAccountID] = useState(accountData.id)
     const [showEditModal, setShowEditModal] = useState(false)
     const [showDeleteModal, setShowDeleteModal] = useState(false)
@@ -31,6 +34,9 @@ const ViewAccount = ({
             }
         })
         deleteDoc(doc(db, 'users', user.uid, 'accounts', accountID))
+        .then(() => {
+            displayAlert(true,'success', 'Account deleted successfully')
+        })
         router.push('/accounts')
     }
     return (
