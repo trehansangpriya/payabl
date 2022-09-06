@@ -1,15 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { FiCheck } from 'react-icons/fi'
+import { Button } from '@/Components/utility';
 
 const Dropdown = ({
     className = '',
+    type = 'default',
     children
 
 }) => {
     return (
         // Dropdown container
         <div className={[
-            'relative',
+            type === 'default' ? 'relative' : '',
             className,
         ].join(' ')}>
             {children}
@@ -42,7 +44,7 @@ export const DropdownTrigger = ({
                 className,
             ].join(' ')}>
                 {/* Trigger Icon - left */}
-                {iconPosition === 'left' && (
+                {iconPosition === 'left' && icon && (
                     <div className='flex justify-center items-center'>
                         {icon}
                     </div>
@@ -50,7 +52,7 @@ export const DropdownTrigger = ({
                 {/* Trigger text */}
                 {children}
                 {/* Trigger Icon - right */}
-                {iconPosition === 'right' && (
+                {iconPosition === 'right' && icon && (
                     <div className='flex justify-center items-center'>
                         {icon}
                     </div>
@@ -63,13 +65,103 @@ export const DropdownTrigger = ({
 
 export const DropdownMenu = ({
     children,
-    megaMenu = false,
+    type = 'default',
+    show = false,
+    setShow = () => { },
 }) => {
-    return (
-        <div className='absolute bg-white max-w-[300px] min-w-[160px] h-fit w-fit max-h-[400px] overflow-y-scroll p-2 top-full mt-1 flex flex-col z-50 rounded'>
-            {children}
+    const dropdown = useRef(null)
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (dropdown.current && !dropdown.current.contains(e.target)) {
+                setShow(false)
+            }
+        }
+        document.addEventListener('mousedown', handleClickOutside)
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [show])
+    if (type === 'modal') {
+        return show ? (
+            <div className={[
+                'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-2xl w-full h-full bg-black bg-opacity-50 z-50',
+                'flex justify-center items-center',
+            ].join(' ')}>
+                <div className={[
+                    'bg-white h-fit max-h-[400px] max-w-[50%] md:max-w-[38%] w-full overflow-y-scroll p-2 flex flex-col rounded'
+                ].join(' ')} ref={dropdown}>
+                    {children}
+                </div>
+            </div>
+        ) : null
+    }
+    return show ? (
+        // Dropdown menu
+        <div className='' ref={dropdown}>
+            <div className='absolute top-full mt-1 max-w-[300px] min-w-[160px] w-fit bg-white  h-fit  max-h-[400px] overflow-y-scroll p-2 flex flex-col z-50 rounded'>
+                {children}
+            </div>
         </div>
-    )
+    ) : null
+}
+
+export const DropdownMegaMenu = ({
+    show = false,
+    setShow = () => { },
+    categories = [],
+    components = [],
+    action = () => { },
+}) => {
+    const [categoryIndex, setCategoryIndex] = useState(0)
+    const dropdown = useRef(null)
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (dropdown.current && !dropdown.current.contains(e.target)) {
+                setShow(false)
+            }
+        }
+        document.addEventListener('mousedown', handleClickOutside)
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [show])
+    return show ? (
+        <div className={[
+            'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-2xl w-full h-full bg-black bg-opacity-50 z-50',
+            'flex flex-col justify-center items-center gap-1',
+        ].join(' ')}>
+            <div className="flex flex-col gap-2 bg-white p-2 rounded w-full max-w-[80%] md:max-w-[38%]" ref={dropdown}>
+                <div className={[
+                    'w-full flex gap-2 min-h-[200px] h-fit max-h-[200px]'
+                ].join(' ')} >
+                    <div className="flex flex-col">
+                        {
+                            categories.map((category, index) => (
+                                <span
+                                    className={[
+                                        'cursor-pointer hover:text-primary-500 p-1 select-none',
+                                        categoryIndex === index ? 'text-primary-500' : ''
+                                    ].join(' ')}
+                                    key={index}
+                                    onClick={() => setCategoryIndex(index)}
+                                >
+                                    {category}
+                                </span>
+                            ))
+                        }
+                    </div>
+                    <div className="flex flex-col w-full overflow-y-scroll border-l p-1">
+                        {components[categoryIndex]}
+                    </div>
+                </div>
+                <div className="flex justify-center">
+                    <Button onClick={action}>Apply Filter</Button>
+                </div>
+            </div>
+        </div>
+    ) : null
 }
 
 export const DropdownItem = ({
