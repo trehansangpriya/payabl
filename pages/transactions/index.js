@@ -94,7 +94,11 @@ const Transactions = () => {
                     )
                 }
                 {/* Filters */}
-                <Filters accounts={accounts} categories={categories} filters={filters} setFilters={setFilters} />
+                {
+                    !loading && transactions.length !== 0 && (
+                        <Filters accounts={accounts} categories={categories} filters={filters} setFilters={setFilters} />
+                    )
+                }
             </div>
 
 
