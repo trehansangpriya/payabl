@@ -1,5 +1,4 @@
-import React from 'react'
-import { Button, Seperator } from '@/Components/utility/'
+import React, { useRef, useEffect } from 'react'
 import { FiXCircle } from 'react-icons/fi'
 
 const Modal = ({
@@ -9,12 +8,26 @@ const Modal = ({
     title,
     className,
 }) => {
+    const modal = useRef(null)
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (modal.current && !modal.current.contains(e.target)) {
+                onClose()
+            }
+        }
+        document.addEventListener('mousedown', handleClickOutside)
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isOpen])
+
     if (!isOpen) {
         return null
     }
     return (
         <div className='w-full h-screen fixed top-0 right-0 bg-black bg-opacity-40 flex  items-center justify-center z-50'>
-            <div className="bg-layout-100 p-4 rounded shadow min-w-[320px] max-w-[90%] lg:max-w-[40%] flex flex-col gap-4 items-center justify-center w-fit">
+            <div className="bg-layout-100 p-4 rounded shadow min-w-[320px] max-w-[90%] lg:max-w-[40%] flex flex-col gap-4 items-center justify-center w-fit" ref={modal}>
                 {title && (
                     <>
                         <div className='w-full flex justify-between items-center gap-2'>
