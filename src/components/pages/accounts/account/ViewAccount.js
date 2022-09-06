@@ -116,7 +116,7 @@ const ViewAccount = ({
                     <p>
                         Are you sure you want to delete this account and all its transactions?
                     </p>
-                    <div className={'flex justify-between gap-2'}>
+                    <div className={'flex justify-between lg:justify-center gap-2'}>
                         <Button className={'w-full'} onClick={() => setShowDeleteModal(false)}>
                             Cancel
                         </Button>

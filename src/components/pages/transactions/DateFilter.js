@@ -84,7 +84,7 @@ const DateFilter = ({
     ]
     return (
         <>
-            <Dropdown>
+            <Dropdown type='modal'>
                 <DropdownTrigger
                     containerClassName='bg-primary-50 rounded-full text-primary-700 font-medium'
                     icon={<FiCalendar />}
@@ -104,7 +104,7 @@ const DateFilter = ({
                             )
                         }
                     })}
-                    <span>
+                    {/* <span>
                         {
                             showDropdown ? (
                                 <FiChevronUp />
@@ -112,49 +112,46 @@ const DateFilter = ({
                                 <FiChevronDown />
                             )
                         }
-                    </span>
+                    </span> */}
                 </DropdownTrigger>
-                {
-                    showDropdown && (
-                        <DropdownMenu>
-                            {
-                                dropdownValues.map((item, index) => {
-                                    if (item.label !== 'Custom') {
-                                        return (
-                                            <DropdownItem
-                                                key={index}
-                                                onClick={() => {
-                                                    setFilter(item.value)
-                                                    setShowDropdown(false)
-                                                }}
-                                                selected={item.value.startDate.isSame(startDate) && item.value.endDate.isSame(endDate)}
-                                            >
-                                                {item.label}
-                                            </DropdownItem>
-                                        )
-                                    } else {
-                                        return (
-                                            <DropdownItem
-                                                key={index}
-                                                onClick={() => {
-                                                    setShowCustomDateModal(true)
-                                                }}
-                                                selected={item.value.startDate.isSame(startDate) && item.value.endDate.isSame(endDate)}
-                                            >
-                                                {item.label}
-                                            </DropdownItem>
-                                        )
-                                    }
-                                })
+                <DropdownMenu type='modal' show={showDropdown} setShow={setShowDropdown}>
+                    {
+                        dropdownValues.map((item, index) => {
+                            if (item.label !== 'Custom') {
+                                return (
+                                    <DropdownItem
+                                        key={index}
+                                        onClick={() => {
+                                            setFilter(item.value)
+                                            setShowDropdown(false)
+                                        }}
+                                        selected={item.value.startDate.isSame(startDate) && item.value.endDate.isSame(endDate)}
+                                    >
+                                        {item.label}
+                                    </DropdownItem>
+                                )
+                            } else {
+                                return (
+                                    <DropdownItem
+                                        key={index}
+                                        onClick={() => {
+                                            setShowCustomDateModal(true)
+                                            setShowDropdown(false)
+                                        }}
+                                        selected={item.value.startDate.isSame(startDate) && item.value.endDate.isSame(endDate)}
+                                    >
+                                        {item.label}
+                                    </DropdownItem>
+                                )
                             }
-                        </DropdownMenu>
-                    )
-                }
+                        })
+                    }
+                </DropdownMenu>
+
             </Dropdown>
 
             <Modal title={'Custom Date Range'} isOpen={showCustomDateModal} onClose={() => {
                 setShowCustomDateModal(false)
-                setShowDropdown(false)
             }}
                 className='flex-col gap-2'
             >

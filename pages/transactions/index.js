@@ -93,14 +93,8 @@ const Transactions = () => {
                         <DateFilter filter={dateFilter} setFilter={setDateFilter} />
                     )
                 }
-                <div className='flex-1'>
-                    {/* Filters */}
-                    {
-                        !loading && transactions.length !== 0 && (
-                            <Filters accounts={accounts} categories={categories} filters={filters} setFilters={setFilters} />
-                        )
-                    }
-                </div>
+                {/* Filters */}
+                <Filters accounts={accounts} categories={categories} filters={filters} setFilters={setFilters} />
             </div>
 
 
