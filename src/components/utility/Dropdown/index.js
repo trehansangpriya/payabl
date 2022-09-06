@@ -157,7 +157,7 @@ export const DropdownMegaMenu = ({
                     </div>
                 </div>
                 <div className="flex justify-center">
-                    <Button onClick={action}>Apply Filter</Button>
+                    <Button className={'w-full'} onClick={action}>Apply Filter</Button>
                 </div>
             </div>
         </div>
