@@ -6,6 +6,7 @@ import { collection, doc, onSnapshot } from 'firebase/firestore'
 import { db } from '@/Firebase/index';
 import { ViewTransaction, ViewTransactionSkeleton } from '@/Components/pages/transactions'
 import { Link, Spacer } from '@/Components/utility'
+import { privateRoute } from '@/Routes/privateRoute'
 
 const Transaction = () => {
     const { user } = useAuth()
@@ -74,4 +75,4 @@ const Transaction = () => {
     )
 }
 
-export default Transaction
+export default privateRoute(Transaction)

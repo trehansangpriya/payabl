@@ -1,5 +1,6 @@
 import { PageScreen } from '@/Components/app'
 import { TransactionForm } from '@/Components/pages/transactions'
+import { privateRoute } from '@/Routes/privateRoute'
 import { useRouter } from 'next/router'
 import React from 'react'
 
@@ -18,4 +19,4 @@ const AddTransaction = () => {
     )
 }
 
-export default AddTransaction
+export default privateRoute(AddTransaction)

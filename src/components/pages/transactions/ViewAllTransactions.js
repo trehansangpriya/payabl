@@ -27,7 +27,7 @@ const ViewAllTransactions = ({ transactions, accounts, categories, loading }) =>
                         ))
                             :
                             <div className='text-center text-layout-500 p-3'>
-                                No transactions found <br /> in the selected filters
+                                No transactions found
                             </div>
                     )
             }

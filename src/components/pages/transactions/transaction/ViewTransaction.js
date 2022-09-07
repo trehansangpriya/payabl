@@ -82,12 +82,16 @@ const ViewTransaction = ({
                 >
                     {accounts.find((account) => account.id === txn?.transactionAccountID)?.accountName}
                 </Pill>
-                <Pill
-                    size='12px'
-                    icon={categories.find((category) => category.id === txn?.transactionCategoryID)?.emoji}
-                >
-                    {categories.find((category) => category.id === txn?.transactionCategoryID)?.name}
-                </Pill>
+                {
+                    categories.find((category) => category.id === txn?.transactionCategoryID) && (
+                        <Pill
+                            size='12px'
+                            icon={categories.find((category) => category.id === txn?.transactionCategoryID)?.emoji}
+                        >
+                            {categories.find((category) => category.id === txn?.transactionCategoryID)?.name}
+                        </Pill>
+                    )
+                }
             </div>
             <Spacer h='24px' />
             <div className={'flex items-center gap-3'}>

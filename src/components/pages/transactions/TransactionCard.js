@@ -42,12 +42,16 @@ const TransactionCard = ({ txn = {}, account = {}, category = {}, showAccount = 
                             </h5>
 
                             <div className="flex flex-1 gap-1 overflow-x-scroll">
-                                <Pill
-                                    size='10px'
-                                    icon={<span>{emoji}</span>}
-                                >
-                                    {name}
-                                </Pill>
+                                {
+                                    category.name && (
+                                        <Pill
+                                            size='10px'
+                                            icon={<span>{emoji}</span>}
+                                        >
+                                            {name}
+                                        </Pill>
+                                    )
+                                }
                                 <Pill
                                     size='10px'
                                     icon={<span>🗓</span>}
