@@ -6,6 +6,7 @@ import { db } from '@/Firebase/index';
 import useAuth from '@/Contexts/useAuth';
 import useAccountCalculations from '@/Hooks/useAccountCalculations';
 import { ViewAccount, ViewAccountSkeleton } from '@/Components/pages/accounts';
+import { Link, Spacer } from '@/Components/utility';
 
 const Account = () => {
     const { user } = useAuth()
@@ -27,10 +28,12 @@ const Account = () => {
     useEffect(() => {
         setLoading(true)
         onSnapshot(doc(db, 'users', user.uid, 'accounts', accountID), (doc) => {
-            setAccountData({
-                id: doc.id,
-                ...doc.data()
-            })
+            if (doc.exists()) {
+                setAccountData({
+                    id: doc.id,
+                    ...doc.data()
+                })
+            }
         })
         onSnapshot(collection(db, 'users', user.uid, 'categories'), (snapshot) => {
             setCategories(snapshot.docs.map(doc => ({
@@ -62,19 +65,32 @@ const Account = () => {
     }, [transactions])
     return (
         <PageScreen
-            title={`Account - ${accountData?.accountName}`}
+            title={`Account Details`}
             className={'px-4 py-5'}
         >
             {
                 loading ? <ViewAccountSkeleton /> :
-                    (
+                    ((accountData.id ? (
+
                         <ViewAccount
                             accountData={accountData}
                             balance={balance}
                             transactions={transactions}
                             categories={categories}
                         />
+                    ) : (
+                        <div className={'w-full h-full flex flex-col justify-center items-center text-center text-layout-500'}>
+                            <h1 className={'text-lg font-medium'}>Account #{accountID} does not exist</h1>
+                            <Spacer h={'18px'} />
+                            <Link
+                                href={'/accounts'}
+                                color='primary'
+                            >
+                                Go Back
+                            </Link>
+                        </div>
                     )
+                    ))
             }
 
         </PageScreen>

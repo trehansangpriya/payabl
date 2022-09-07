@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import { collection, doc, onSnapshot } from 'firebase/firestore'
 import { db } from '@/Firebase/index';
 import { ViewTransaction, ViewTransactionSkeleton } from '@/Components/pages/transactions'
+import { Link, Spacer } from '@/Components/utility'
 
 const Transaction = () => {
     const { user } = useAuth()
@@ -20,10 +21,12 @@ const Transaction = () => {
     useEffect(() => {
         setLoading(true)
         onSnapshot(doc(db, 'users', user.uid, 'transactions', transactionID), (doc) => {
-            setTransactionData({
-                id: doc.id,
-                ...doc.data()
-            })
+            if (doc.exists()) {
+                setTransactionData({
+                    id: doc.id,
+                    ...doc.data()
+                })
+            }
         })
         onSnapshot(collection(db, 'users', user.uid, 'accounts'), (snapshot) => {
             setAccounts(snapshot.docs.map(doc => ({
@@ -45,15 +48,26 @@ const Transaction = () => {
     }, [transactionID, user.uid])
     return (
         <PageScreen
-            title={`Transaction`}
+            title={`Transaction Details`}
             className={'px-4 py-5'}
         >
             {
                 loading ? (
                     <ViewTransactionSkeleton />
-                ) : (
+                ) : (transactionData.id ? (
                     <ViewTransaction txn={transactionData} accounts={accounts} categories={categories} />
-                )
+                ) : (
+                    <div className={'w-full h-full flex flex-col justify-center items-center text-center text-layout-500'}>
+                        <h1 className={'text-lg font-medium'}>Transaction #{transactionID} does not exist</h1>
+                        <Spacer h={'18px'} />
+                        <Link
+                            href={'/transactions'}
+                            color='primary'
+                        >
+                            Go Back
+                        </Link>
+                    </div>
+                ))
             }
 
         </PageScreen>
