@@ -3,7 +3,8 @@ import React from 'react'
 import { FiArrowLeft } from 'react-icons/fi'
 
 const PageTopBar = ({
-    title
+    title,
+    actions,
 }) => {
     const router = useRouter()
     // Go back to previous page
@@ -29,6 +30,9 @@ const PageTopBar = ({
                 >
                     {title}
                 </span>
+            </div>
+            <div className='flex flex-1 justify-end items-center gap-2'>
+                {actions}
             </div>
         </div>
     )

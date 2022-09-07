@@ -7,6 +7,7 @@ const PageScreen = ({
     children,
     className,
     title,
+    actions,
 }) => {
     return (
         <Container
@@ -16,10 +17,10 @@ const PageScreen = ({
             <Head>
                 <title>{title}</title>
             </Head>
-            <PageTopBar title={title} />
+            <PageTopBar title={title} actions={actions} />
             <Container
                 className={[
-                    'flex flex-col gap-2 w-full h-[85vh]',
+                    'flex flex-col gap-2 w-full h-[95vh]',
                     'p-2 pb-[64px]',
                     'relative',
                     'overflow-y-scroll',
