@@ -139,7 +139,7 @@ const AccountAddForm = ({
                                                             layout='fixed'
                                                         />
                                                     </div>
-                                                    <div className='text-lg font-semibold text-layout-700'>
+                                                    <div className='text-sm font-semibold text-layout-700'>
                                                         {account}
                                                     </div>
                                                 </div>
