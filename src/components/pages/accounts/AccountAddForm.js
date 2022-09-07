@@ -89,7 +89,7 @@ const AccountAddForm = ({
     }, [accountType])
 
     return (
-        <div className='w-full h-full flex flex-col'>
+        <div className='w-full h-[80%] flex flex-col'>
             <div className="flex-1">
                 <div className='w-full h-full flex flex-col items-center justify-center'>
                     <h2 className='text-lg flex gap-2 w-[90%] font-medium items-center'>
