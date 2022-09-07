@@ -66,7 +66,7 @@ const Account = () => {
     }, [transactions])
     return (
         <PageScreen
-            title={`Account Details`}
+            title={`Account`}
             className={'px-4 py-5'}
         >
             {

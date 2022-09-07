@@ -49,7 +49,7 @@ const Transaction = () => {
     }, [transactionID, user.uid])
     return (
         <PageScreen
-            title={`Transaction Details`}
+            title={`Transaction`}
             className={'px-4 py-5'}
         >
             {
