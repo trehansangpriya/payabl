@@ -26,12 +26,12 @@ const PageTopBar = ({
                     <FiArrowLeft size={22} />
                 </span>
                 <span
-                    className='font-semibold text-xl'
+                    className='font-semibold text-xl whitespace-nowrap'
                 >
                     {title}
                 </span>
             </div>
-            <div className='flex flex-1 justify-end items-center gap-2'>
+            <div className='flex justify-end items-center gap-2'>
                 {actions}
             </div>
         </div>
