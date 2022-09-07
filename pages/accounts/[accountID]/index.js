@@ -7,6 +7,7 @@ import useAuth from '@/Contexts/useAuth';
 import useAccountCalculations from '@/Hooks/useAccountCalculations';
 import { ViewAccount, ViewAccountSkeleton } from '@/Components/pages/accounts';
 import { Link, Spacer } from '@/Components/utility';
+import { privateRoute } from '@/Routes/privateRoute';
 
 const Account = () => {
     const { user } = useAuth()
@@ -97,4 +98,4 @@ const Account = () => {
     )
 }
 
-export default Account
+export default privateRoute(Account)
