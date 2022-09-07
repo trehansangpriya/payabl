@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-const Form = ({ children, onSubmit = () => { }, allowSubmit = true, setAllowSubmit = () => { }, errors = {}, className = '', ...formProps }) => {
+const Form = ({ children, onSubmit = () => { }, allowSubmit = true, setAllowSubmit = () => { }, errors = {}, className = '', wFull = false, ...formProps }) => {
     const handleSubmit = (e) => {
         e.preventDefault()
         if (allowSubmit) {
@@ -13,7 +13,11 @@ const Form = ({ children, onSubmit = () => { }, allowSubmit = true, setAllowSubm
     }, [errors])
     return (
         <form
-            className={`w-full max-w-[80%] min-w-[300px] ${className}`}
+            className={[
+                'w-full min-w-[300px] ',
+                wFull ? 'w-full' : 'max-w-[80%]',
+                className
+            ].join(' ')}
             onSubmit={handleSubmit}
             autoComplete='off'
             {...formProps}

@@ -108,47 +108,48 @@ const AccountAddForm = ({
                         </span>
                     </h2>
                     <Spacer h='24px' />
-                    <Form className=' w-full max-w-full flex flex-col justify-center items-center' errors={errors} allowSubmit={allowSubmit} setAllowSubmit={setAllowSubmit} onSubmit={handleAddAccount}>
-                        {
-                            pageIndex === 0 && (
-                                <>
-                                    <div className="flex flex-wrap w-full gap-2 justify-center select-none">
-                                        {
-                                            accountTypes.map((account, index) => (
-                                                <div className={[
-                                                    'flex flex-col items-start p-3 w-[45%] rounded cursor-pointer gap-2 transition-all duration-300',
-                                                    ' border-2 border-layout-200',
-                                                    'hover:bg-primary-50',
-                                                    'active:scale-95',
-                                                    accountType === account && 'bg-primary-50 border-2 border-primary-500',
-                                                ].join(' ')}
-                                                    key={index}
-                                                    onClick={() => {
-                                                        setAccountType(account)
-                                                        setPageIndex(p => p + 1)
-                                                        setAccountCreditLimit('')
-                                                        setAccountOpeningBalance('')
-                                                    }}
-                                                >
-                                                    <div className='flex justify-center items-center'>
-                                                        <Image
-                                                            src={`/assets/icons/accountTypes/${account.replace(/\s/g, '').toLowerCase()}.png`}
-                                                            width={36}
-                                                            height={36}
-                                                            alt={account}
-                                                            layout='fixed'
-                                                        />
-                                                    </div>
-                                                    <div className='text-sm font-semibold text-layout-700'>
-                                                        {account}
-                                                    </div>
+
+                    {
+                        pageIndex === 0 && (
+                            <>
+                                <div className="flex flex-wrap w-full gap-2 justify-center select-none">
+                                    {
+                                        accountTypes.map((account, index) => (
+                                            <div className={[
+                                                'flex flex-col items-start p-3 w-[45%] rounded cursor-pointer gap-2 transition-all duration-300',
+                                                ' border-2 border-layout-200',
+                                                'hover:bg-primary-50',
+                                                'active:scale-95',
+                                                accountType === account && 'bg-primary-50 border-2 border-primary-500',
+                                            ].join(' ')}
+                                                key={index}
+                                                onClick={() => {
+                                                    setAccountType(account)
+                                                    setPageIndex(p => p + 1)
+                                                    setAccountCreditLimit('')
+                                                    setAccountOpeningBalance('')
+                                                }}
+                                            >
+                                                <div className='flex justify-center items-center'>
+                                                    <Image
+                                                        src={`/assets/icons/accountTypes/${account.replace(/\s/g, '').toLowerCase()}.png`}
+                                                        width={36}
+                                                        height={36}
+                                                        alt={account}
+                                                        layout='fixed'
+                                                    />
                                                 </div>
-                                            ))
-                                        }
-                                    </div>
-                                </>
-                            )
-                        }
+                                                <div className='text-sm font-semibold text-layout-700'>
+                                                    {account}
+                                                </div>
+                                            </div>
+                                        ))
+                                    }
+                                </div>
+                            </>
+                        )
+                    }
+                    <Form className=' w-full max-w-full flex flex-col justify-center items-center' wFull errors={errors} allowSubmit={allowSubmit} setAllowSubmit={setAllowSubmit} onSubmit={handleAddAccount}>
                         {
                             pageIndex === 1 && (
                                 <div className='w-[90%] flex flex-col gap-3'>
