@@ -69,6 +69,9 @@ module.exports = {
           '800': 'hsla(210, 50%, 20%, 1)',
         },
       },
+      boxShadow: {
+        'card': '0 0 2px 1px hsla(0, 0%, 0%, 0.1)',
+      },
       keyframes: {
         'infinite-progress': {
           ' 0%': {

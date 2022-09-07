@@ -3,8 +3,9 @@ import useAuth from '@/Contexts/useAuth'
 import { privateRoute } from '@/Routes/privateRoute'
 import { PageScreen } from '@/Components/app'
 import { Button, Modal, Seperator, Spacer } from '@/Components/utility'
-import { FiLogOut } from 'react-icons/fi'
+import { FiLogOut, FiArrowRight } from 'react-icons/fi'
 import { PhoneNumberForm, ProfilePictureUpload, UserProfile } from '@/Components/pages/profile'
+import Link from 'next/link'
 
 const Profile = () => {
     // Auth Context 
@@ -21,6 +22,21 @@ const Profile = () => {
 
             {/* User Profile */}
             <UserProfile userData={userData} addPhoneBannerOnClick={() => setAddPhoneNumberModal(!addPhoneNumberModal)} profilePictureOnClick={() => setEditProfilePictureModal(!editProfilePictureModal)} />
+
+            <Seperator h='24px' />
+
+            {/* User Category page link */}
+            <Link href='/profile/categories' passHref>
+                <div className='cursor-pointer w-full hover:bg-layout-200 p-2 rounded flex justify-between items-center'>
+                    <span>
+                        Manage Categories
+                    </span>
+                    <span>
+                        <FiArrowRight />
+                    </span>
+                </div>
+            </Link>
+
             <Seperator h='24px' />
 
             {/* Logout Button */}
