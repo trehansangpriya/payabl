@@ -6,6 +6,7 @@ const Pill = ({
     icon = null,
     size = '14px',
     className,
+    textClassName,
     ...props
 }) => {
     const pillColors = {
@@ -36,10 +37,12 @@ const Pill = ({
 
             {icon && (
                 <div className='flex justify-center items-center'>
-                   {icon}
+                    {icon}
                 </div>
             )}
-            {children}
+            <span>
+                {children}
+            </span>
         </div>
     )
 }
