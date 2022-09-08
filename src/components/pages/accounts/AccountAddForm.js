@@ -160,6 +160,7 @@ const AccountAddForm = ({
                                         name={'accountName'}
                                         type={'text'}
                                         value={accountName}
+                                        maxLength={15}
                                         onChange={(e) => {
                                             setAccountName(e.target.value)
                                             checkEmpty(e.target.value, 'accountName', errors, setErrors)

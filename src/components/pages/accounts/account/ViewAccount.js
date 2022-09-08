@@ -34,16 +34,16 @@ const ViewAccount = ({
             }
         })
         deleteDoc(doc(db, 'users', user.uid, 'accounts', accountID))
-        .then(() => {
-            displayAlert(true,'success', 'Account deleted successfully')
-        })
+            .then(() => {
+                displayAlert(true, 'success', 'Account deleted successfully')
+            })
         router.push('/accounts')
     }
     return (
         <div className={'flex flex-col gap-2'}>
-            <div className="flex justify-between items-center">
-                <div className={'flex items-center gap-2'}>
-                    <h1 className={'font-semibold text-2xl'}>{accountData.accountName}</h1>
+            <div className="flex justify-between items-start">
+                <div className={'flex flex-col gap-2 w-[75%]'}>
+                    <h1 className={'font-semibold text-2xl whitespace-nowrap overflow-x-scroll'}>{accountData.accountName}</h1>
                     <Pill
                         size='18px'
                         color={accountPillColors[accountData?.accountType]}
@@ -59,7 +59,7 @@ const ViewAccount = ({
                         {accountData.accountType}
                     </Pill>
                 </div>
-                <div className={'flex items-center gap-1'}>
+                <div className={'flex items-center justify-end gap-1 w-[25%]'}>
                     <Button color='info' circle onClick={() => setShowEditModal(true)}>
                         <FiEdit2 size={14} />
                     </Button>

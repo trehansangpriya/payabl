@@ -55,7 +55,7 @@ const AccountCard = ({
                     ].join(' ')} >
                     <div className={'flex w-full gap-2 items-center justify-between'} >
                         <div className="flex flex-col gap-1">
-                            <h5 className='font-semibold'>
+                            <h5 className='font-semibold whitespace-nowrap'>
                                 {accountName}
                             </h5>
                             <Pill
@@ -67,6 +67,7 @@ const AccountCard = ({
                                         width={10}
                                         height={10}
                                         alt={accountType}
+                                        layout='fixed'
                                     />
                                 }  >
                                 {accountType}
@@ -112,7 +113,9 @@ export const AccountSkeleton = ({
                     </div>
                 </div>
             </Card>
-            <Seperator className='mt-1' />
+            {
+                i !== items - 1 && <Seperator className='mt-1' />
+            }
         </div>
     ))
 }
