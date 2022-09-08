@@ -5,9 +5,11 @@ import { AccountsGlance, RecentTransactions } from '@/Components/pages/home'
 import useAuth from '@/Contexts/useAuth'
 import { collection, onSnapshot } from 'firebase/firestore'
 import { db } from '@/Firebase/index';
+import { useRouter } from 'next/router'
 
 const Home = () => {
   const { user } = useAuth()
+  const router = useRouter()
   // All Transactions
   const [transactions, setTransactions] = useState([])
   // All Accounts
@@ -43,7 +45,7 @@ const Home = () => {
   }, [user.uid])
   return (
     <AppScreen title={'Dashboard'}>
-      <div className='w-full flex flex-col gap-4 p-1'>
+      <div className='w-full flex flex-col gap-4 p-1 select-none'>
         {/* Budget Manager */}
         {/* Accounts at a Glance */}
         <AccountsGlance transactions={transactions} accounts={accounts} dataLoading={loading} />
@@ -52,7 +54,7 @@ const Home = () => {
         {/* My Categories */}
       </div>
       <FAB
-        label='Add'
+        onClick={() => router.push('/transactions/add')}
       />
     </AppScreen>
   )
