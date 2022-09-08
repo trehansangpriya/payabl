@@ -40,9 +40,7 @@ const Pill = ({
                     {icon}
                 </div>
             )}
-            <span>
-                {children}
-            </span>
+            {children}
         </div>
     )
 }
