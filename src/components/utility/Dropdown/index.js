@@ -141,7 +141,7 @@ export const DropdownMegaMenu = ({
                             categories.map((category, index) => (
                                 <span
                                     className={[
-                                        'cursor-pointer hover:text-primary-500 p-1 select-none',
+                                        'cursor-pointer hover:bg-layout-100 p-1 select-none rounded',
                                         categoryIndex === index ? 'text-primary-500' : ''
                                     ].join(' ')}
                                     key={index}
@@ -152,7 +152,7 @@ export const DropdownMegaMenu = ({
                             ))
                         }
                     </div>
-                    <div className="flex flex-col w-full overflow-y-scroll border-l p-1">
+                    <div className="flex flex-col w-full overflow-y-scroll border-l px-2">
                         {components[categoryIndex]}
                     </div>
                 </div>
@@ -187,7 +187,10 @@ export const DropdownItem = ({
                     </div>
                 )}
                 <div className="flex items-center gap-1" >
-                    <span className='whitespace-nowrap'>
+                    <span className={[
+                        'whitespace-nowrap',
+                        selected && 'text-primary-500',
+                    ].join(' ')}>
                         {children}
                     </span>
                 </div>
