@@ -106,7 +106,7 @@ const TransactionCard = ({ txn = {}, account = {}, category = {}, showAccount = 
 export default TransactionCard
 
 export const TransactionSkeleton = ({
-    items = 4
+    items = 3
 }) => {
     // render items
     return [...Array(items)].map((_, index) => (
@@ -134,7 +134,11 @@ export const TransactionSkeleton = ({
                     </div>
                 </div>
             </Card>
-            <Seperator className='mt-1' />
+            {
+                index !== items - 1 && (
+                    <Seperator className='mt-1' />
+                )
+            }
         </div>
     ))
 }

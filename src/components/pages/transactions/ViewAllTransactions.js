@@ -11,7 +11,7 @@ const ViewAllTransactions = ({ transactions, accounts, categories, loading }) =>
                     ? <TransactionSkeleton /> : (
                         transactions.length !== 0 ? transactions.sort((a, b) =>
                             a.transactionDate.toDate() > b.transactionDate.toDate() ? -1 : 1
-                        ).map((transaction) => (
+                        ).map((transaction, index) => (
                             <div key={transaction.id}>
                                 <TransactionCard
                                     txn={transaction}
@@ -22,7 +22,9 @@ const ViewAllTransactions = ({ transactions, accounts, categories, loading }) =>
                                         categories.find(category => category.id === transaction.transactionCategoryID)
                                     }
                                 />
-                                <Seperator className='mt-1' />
+                                {
+                                    index !== transactions.length - 1 && <Seperator className='mt-1' />
+                                }
                             </div>
                         ))
                             :
