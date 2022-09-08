@@ -58,7 +58,7 @@ const AccountGlanceCard = ({
     }, [transactions])
     return (
         <Link href={`/accounts/${id}`}>
-            <div className='min-w-[100px] w-fit flex flex-col p-2 rounded border justify-end gap-1'>
+            <div className='min-w-[100px] w-fit flex flex-col p-2 rounded border justify-end gap-1 transition-all cursor-pointer bg-layout-100 hover:brightness-95 active:scale-95'>
                 <Image
                     src={`/assets/icons/accountTypes/${accountType.replace(/\s/g, '').toLowerCase()}.png`}
                     width={24}
@@ -70,7 +70,7 @@ const AccountGlanceCard = ({
                     {accountName}
                 </span>
                 <span className='font-semibold text-lg leading-6'>
-                    {balance}
+                    ₹{balance}
                 </span>
             </div>
         </Link>
