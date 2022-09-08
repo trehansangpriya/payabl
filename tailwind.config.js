@@ -70,7 +70,7 @@ module.exports = {
         },
       },
       boxShadow: {
-        'card': '0 0 2px 1px hsla(0, 0%, 0%, 0.1)',
+        'card': '0 0 10px 1px hsla(0, 0%, 0%, 0.1)',
       },
       keyframes: {
         'infinite-progress': {
