@@ -41,9 +41,9 @@ const Link = ({
                 disabled={disabled}
                 id='link'
             >
-                {iconLeft && <span className={`mr-[8px]`}>{iconLeft}</span>}
+                {iconLeft && <span className={`mr-[4px]`}>{iconLeft}</span>}
                 {children}
-                {iconRight && <span className={`ml-[8px]`}>{iconRight}</span>}
+                {iconRight && <span className={`ml-[4px]`}>{iconRight}</span>}
             </a>
         </NextLink>
     )
