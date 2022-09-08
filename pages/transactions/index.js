@@ -86,20 +86,19 @@ const Transactions = () => {
 
     return (
         <AppScreen title={'Transactions'}>
-            <div className="flex justify-between items-center px-1 gap-1">
-                {/* Date Filters */}
-                {
-                    !loading && transactions.length !== 0 && (
+            {
+                !loading && transactions.length !== 0 && (
+                    <div className="flex justify-between items-center px-1 gap-1">
+                        {/* Date Filters */}
+
                         <DateFilter filter={dateFilter} setFilter={setDateFilter} />
-                    )
-                }
-                {/* Filters */}
-                {
-                    !loading && transactions.length !== 0 && (
+
+                        {/* Filters */}
+
                         <Filters accounts={accounts} categories={categories} filters={filters} setFilters={setFilters} />
-                    )
-                }
-            </div>
+                    </div>
+                )
+            }
 
 
             {/* Filter Overview */}
