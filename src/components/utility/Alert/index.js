@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FiXCircle, FiAlertTriangle, FiCheckCircle, FiInfo } from 'react-icons/fi'
 import useGlobals from '@/Contexts/useGlobals'
 
-const Alert = ({ show, message, variant, dummy }) => {
+const Alert = ({ show, message, variant, dummy, options = {} }) => {
     const { alert } = useGlobals()
     const [alertVariant, setAlertVariant] = useState('')
     const [alertIcon, setAlertIcon] = useState(null)
@@ -38,9 +38,9 @@ const Alert = ({ show, message, variant, dummy }) => {
 
     return (
         <div className={[
-            'p-[16px] m-1',
+            !dummy ? 'p-[16px] m-1' : 'p-[16px]',
             'flex justify-center items-center gap-2',
-            'w-fit max-w-[320px]',
+            dummy ? 'w-full' : 'w-fit max-w-[320px]',
             'text-sm font-medium',
             'shadow-default rounded cursor-pointer',
             alertVariant,
@@ -49,6 +49,7 @@ const Alert = ({ show, message, variant, dummy }) => {
         ].join(' ')}
             onClick={() => {
                 !dummy && setAlertShow(!alertShow)
+                dummy && options.onClick && options.onClick()
             }}
             id='alert'
         >

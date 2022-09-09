@@ -18,6 +18,8 @@ const Progress = ({
     progressBarClassName,
     badgeClassName,
     valueClassName,
+    wFull = false,
+    showPercentage = true,
     ...props
 }) => {
     const progressColors = {
@@ -65,7 +67,8 @@ const Progress = ({
     }, [color, status])
     return (
         <div className={[
-            'flex flex-col gap-2 w-full min-w-[300px] max-w-[80%] ',
+            'flex flex-col gap-2 w-full min-w-[300px]',
+            wFull ? 'w-full' : 'max-w-[80%]',
             wrapperClassName,
         ].join(' ')}>
             {
@@ -104,7 +107,8 @@ const Progress = ({
                                     valueClassName,
                                     infinite && 'hidden'
                                 ].join(' ')}>
-                                    {value}%
+                                    {showPercentage ? value : `${value}/${max}`}
+                                    {showPercentage && '%'}
                                 </div>
                             )
                         }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { privateRoute } from '@/Routes/privateRoute'
 import { AppScreen, FAB } from '@/Components/app'
-import { AccountsGlance, RecentTransactions } from '@/Components/pages/home'
+import { AccountsGlance, CurrentMonthBudget, RecentTransactions } from '@/Components/pages/home'
 import useAuth from '@/Contexts/useAuth'
 import { collection, onSnapshot } from 'firebase/firestore'
 import { db } from '@/Firebase/index';
@@ -47,6 +47,7 @@ const Home = () => {
     <AppScreen title={'Dashboard'}>
       <div className='w-full flex flex-col gap-4 p-1 select-none'>
         {/* Budget Manager */}
+        <CurrentMonthBudget transactions={transactions} dataLoading={loading} />
         {/* Accounts at a Glance */}
         <AccountsGlance transactions={transactions} accounts={accounts} dataLoading={loading} />
         {/* Recent Transactions */}
