@@ -2,7 +2,7 @@ import React from 'react'
 
 const EditTransactionForm = () => {
     return (
-        <div>EditTransactionForm</div>
+        <div>EditTransaction Form is being added soon</div>
     )
 }
 
