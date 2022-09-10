@@ -27,7 +27,7 @@ const AccountsGlance = ({
                                 <AccountGlanceCard
                                     key={account.id}
                                     account={account}
-                                    transactions={transactions.filter(txn => txn.transactionAccountID === account.id)}
+                                    transactions={transactions?.filter(txn => txn.transactionAccountID === account.id)}
                                 />
                             ))
                         )
@@ -49,7 +49,7 @@ const AccountGlanceCard = ({
     const [balance, setBalance] = useState(0)
 
     useEffect(() => {
-        const txns = transactions.map(txn => ({
+        const txns = transactions?.map(txn => ({
             txnAmount: txn.transactionAmount,
             txnType: txn.transactionType,
         }))
