@@ -49,9 +49,13 @@ const Home = () => {
         {/* Budget Manager */}
         <CurrentMonthBudget transactions={transactions} dataLoading={loading} />
         {/* Accounts at a Glance */}
-        <AccountsGlance transactions={transactions} accounts={accounts} dataLoading={loading} />
+        {
+          accounts.length > 0 && <AccountsGlance accounts={accounts} dataLoading={loading} />
+        }
         {/* Recent Transactions */}
-        <RecentTransactions accounts={accounts} transactions={transactions} categories={categories} dataLoading={loading} />
+        {
+          transactions.length > 0 && <RecentTransactions accounts={accounts} transactions={transactions} categories={categories} dataLoading={loading} />
+        }
         {/* My Categories */}
       </div>
       <FAB
