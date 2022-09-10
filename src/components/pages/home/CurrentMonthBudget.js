@@ -24,7 +24,6 @@ const CurrentMonthBudget = ({
     const [spent, setSpent] = useState(0)
     const [remaining, setRemaining] = useState(0)
     const [percentageRemaining, setPercentageRemaining] = useState(0)
-    console.log(percentageRemaining)
 
     const [addBudgetModalOpen, setAddBudgetModalOpen] = useState(false)
 

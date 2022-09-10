@@ -38,7 +38,7 @@ const BudgetVisualizer = ({
                 <CircularProgressbar
                     value={spent}
                     maxValue={budget}
-                    text={`${(100 - percentageRemaining).toPrecision(1)}% spent`}
+                    text={`${((spent / budget) * 100).toFixed(1)}%`}
                     styles={buildStyles({
                         // rotation 90deg
                         rotation: 0.50,
