@@ -13,7 +13,7 @@ const AppScreen = ({
     return (
         <Container
             id='appScreen'
-            className={'lg:w-[40%] lg:border-2 h-screen w-full'}
+            className={'lg:w-[40%] md:w-[60%] md:border-2 h-screen w-full'}
         >
             <Head>
                 <title>{title}</title>

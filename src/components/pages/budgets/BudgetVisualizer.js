@@ -1,12 +1,15 @@
+import { Link } from '@/Components/utility';
 import React from 'react'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import { FiEdit2 } from 'react-icons/fi';
 
 
 const BudgetVisualizer = ({
     budget,
     spent,
-    percentageRemaining
+    percentageRemaining,
+    openModal,
 }) => {
     //  (percentageRemaining >= 0 && percentageRemaining <= 20) ? 'error' :
     // (percentageRemaining > 20 && percentageRemaining <= 50) ? 'warn' :
@@ -14,8 +17,8 @@ const BudgetVisualizer = ({
     // (percentageRemaining > 80 && percentageRemaining <= 100) ? 'success' : 'error'
     return (
         // Circle visualizer progress bar
-        <div className='w-full flex gap-5 justify-center items-center py-2'>
-            <div className="w-1/2 h-fit flex flex-col gap-2 text-layout-600" >
+        <div className='w-full flex gap-5 justify-start items-center py-2'>
+            <div className="w-1/2 h-fit flex flex-col gap-2 justify-center text-layout-600" >
                 <div className='w-full h-fit flex flex-col justify-center p-2 rounded border gap-1'>
                     <span className='text-sm'>
                         Spent
@@ -24,17 +27,27 @@ const BudgetVisualizer = ({
                         ₹{spent}
                     </span>
                 </div>
-                <div className='w-full h-fit flex flex-col justify-center p-2 rounded border gap-1'>
-                    <span className='text-sm'>
-                        Budget
-                    </span>
-                    <span className='text-xl font-semibold'>
-                        ₹{budget}
-                    </span>
+                <div className='w-full h-fit flex justify-center p-2 rounded border'>
+                    <div className="flex-1 flex flex-col gap-1">
+                        <span className='text-sm'>
+                            Budget
+                        </span>
+                        <span className='text-xl font-semibold'>
+                            ₹{budget}
+                        </span>
+                    </div>
+                    <div className="flex justify-center items-center p-2 cursor-pointer text-layout-500 hover:text-primary-600 active:text-primary-600" onClick={() => openModal(
+                        b => ({
+                            ...b,
+                            isOpen: true,
+                            task: 'edit',
+                        })
+                    )}>
+                        <FiEdit2 size={18} />
+                    </div>
                 </div>
-
             </div>
-            <div className="w-1/2 ">
+            <div className="w-1/2 max-w-[180px]">
                 <CircularProgressbar
                     value={spent}
                     maxValue={budget}

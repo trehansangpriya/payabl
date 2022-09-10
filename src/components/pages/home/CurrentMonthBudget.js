@@ -1,4 +1,4 @@
-import { Alert, Button, Form, Input, Loading, Modal, Progress } from '@/Components/utility'
+import { Alert, Button, Form, Input, Link, Loading, Modal, Progress } from '@/Components/utility'
 import useAuth from '@/Contexts/useAuth'
 import useGlobals from '@/Contexts/useGlobals'
 import { db } from '@/Firebase/index'
@@ -6,7 +6,7 @@ import useValidation from '@/Hooks/useValidation'
 import dayjs from 'dayjs'
 import { doc, onSnapshot, serverTimestamp, setDoc } from 'firebase/firestore'
 import React, { useEffect, useState } from 'react'
-import { FiInfo, FiLoader } from 'react-icons/fi'
+import { FiChevronRight, FiInfo, FiLoader } from 'react-icons/fi'
 import { BudgetVisualizer } from '@/Components/pages/budgets'
 
 const CurrentMonthBudget = ({
@@ -25,7 +25,10 @@ const CurrentMonthBudget = ({
     const [remaining, setRemaining] = useState(0)
     const [percentageRemaining, setPercentageRemaining] = useState(0)
 
-    const [addBudgetModalOpen, setAddBudgetModalOpen] = useState(false)
+    const [addBudgetModalOpen, setAddBudgetModalOpen] = useState({
+        isOpen: false,
+        task: ''
+    })
 
     useEffect(() => {
         setLoading(true)
@@ -72,13 +75,13 @@ const CurrentMonthBudget = ({
         <div className={[
             'w-full rounded flex flex-col'
         ].join(' ')}>
-            <div className="flex justify-between">
+            {/* <div className="flex justify-between">
                 <span className='font-medium text-sm'>
                     My Budget
                 </span>
-            </div>
+            </div> */}
             {
-                loading ? (
+                (dataLoading || loading) ? (
                     <Loading inline />
                 ) : (
 
@@ -103,21 +106,16 @@ const CurrentMonthBudget = ({
                                     </div>
                                 )
                             }
-
-                            {/* <Progress
-                                color={
-                                    (percentageRemaining >= 0 && percentageRemaining <= 20) ? 'error' :
-                                        (percentageRemaining > 20 && percentageRemaining <= 50) ? 'warn' :
-                                            (percentageRemaining > 50 && percentageRemaining <= 80) ? 'info' :
-                                                (percentageRemaining > 80 && percentageRemaining <= 100) ? 'success' : 'error'
-                                }
-                                max={budget.amount}
-                                min={0}
-                                value={spent}
-                                wFull={true}
-                                showPercentage={false}
-                            /> */}
-                            <BudgetVisualizer budget={budget.amount} spent={spent} percentageRemaining={percentageRemaining} />
+                            <BudgetVisualizer budget={budget.amount} spent={spent} percentageRemaining={percentageRemaining} openModal={setAddBudgetModalOpen} />
+                            {/* {
+                                !dataLoading && !loading && (
+                                    <div className='w-full flex justify-end'>
+                                        <Link href={'/budgets'} iconRight={<FiChevronRight />} color='primary' className={'text-sm mt-2'} >
+                                            Manage my budget
+                                        </Link>
+                                    </div>
+                                )
+                            } */}
                         </div>
                     ) : (
                         <div className='w-full flex flex-col gap-1 py-2'>
@@ -143,14 +141,27 @@ const CurrentMonthBudget = ({
                             {/* <span className='text-sm'>
                                 No Budget Set for this Month
                             </span> */}
-                            <span className='text-primary-600 cursor-pointer font-medium self-center text-sm mt-2' onClick={() => setAddBudgetModalOpen(true)}>
+                            <span className='text-primary-600 cursor-pointer font-medium self-center text-sm mt-2' onClick={() => setAddBudgetModalOpen(b =>
+                            ({
+                                ...b,
+                                isOpen: true,
+                                task: 'add'
+                            }))}>
                                 Set a Budget
                             </span>
                         </div>
                     )
                 )
             }
-            <AddMonthlyBudgetModal title={'Add Budget'} currentMonth={currentMonth} isOpen={addBudgetModalOpen} onClose={() => setAddBudgetModalOpen(false)} />
+            <AddMonthlyBudgetModal title={'Add Budget'} currentMonth={currentMonth} isOpen={addBudgetModalOpen.isOpen} task={addBudgetModalOpen.task} onClose={() => setAddBudgetModalOpen(b =>
+            ({
+                ...b,
+                isOpen: false,
+                task: ''
+            })
+            )}
+                budget={budget?.amount}
+            />
         </div>
     )
 }
@@ -161,7 +172,8 @@ const AddMonthlyBudgetModal = ({
     isOpen,
     title,
     onClose,
-    currentMonth
+    currentMonth,
+    task = 'add',
 }) => {
     const { user } = useAuth()
     const { displayAlert } = useGlobals()
@@ -175,22 +187,62 @@ const AddMonthlyBudgetModal = ({
 
     const { checkNumber } = useValidation()
 
+    useEffect(() => {
+        if (task !== 'add') {
+            setLoading(true)
+            onSnapshot(doc(db, 'users', user.uid, 'budgets', currentMonth), (doc) => {
+                if (doc.exists()) {
+                    setAmount(doc.data().amount)
+                }
+                else {
+                    setAmount('')
+                }
+            })
+            setTimeout(() => {
+                setLoading(false)
+            }, 500)
+        }
+    }, [user.uid, currentMonth, task])
+
     const handleAddBudget = () => {
         setLoading(true)
-        setDoc(doc(db, 'users', user.uid, 'budgets', currentMonth), {
-            amount: Number(amount),
-            createdAt: serverTimestamp(),
-            updatedAt: serverTimestamp()
-        }, {
-            merge: true
-        }).then(() => {
-            setLoading(false)
-            displayAlert(true, 'success', 'Budget Added')
-            onClose()
-        }).catch((error) => {
-            setLoading(false)
-            displayAlert(true, 'error', error.message)
-        })
+        if (task === 'add') {
+            setDoc(doc(db, 'users', user.uid, 'budgets', currentMonth), {
+                amount: Number(amount),
+                createdAt: serverTimestamp(),
+                updatedAt: serverTimestamp()
+            }, {
+                merge: true
+            }).then(() => {
+                setLoading(false)
+                displayAlert(true, 'success', 'Budget Added')
+                setAmount('')
+                setErrors({})
+                setAllowSubmit(false)
+                onClose()
+            }).catch((error) => {
+                setLoading(false)
+                displayAlert(true, 'error', error.message)
+            })
+        }
+        else {
+            setDoc(doc(db, 'users', user.uid, 'budgets', currentMonth), {
+                amount: Number(amount),
+                updatedAt: serverTimestamp()
+            }, {
+                merge: true
+            }).then(() => {
+                setLoading(false)
+                displayAlert(true, 'success', 'Budget Edited')
+                setAmount('')
+                setErrors({})
+                setAllowSubmit(false)
+                onClose()
+            }).catch((error) => {
+                setLoading(false)
+                displayAlert(true, 'error', error.message)
+            })
+        }
     }
 
     return (
@@ -231,7 +283,9 @@ const AddMonthlyBudgetModal = ({
                 >
                     {
 
-                        !loading && 'Add Budget'
+                        !loading && (
+                            task === 'add' ? 'Add Budget' : 'Edit Budget'
+                        )
                     }
 
                 </Button>

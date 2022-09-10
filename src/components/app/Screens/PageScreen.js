@@ -12,7 +12,7 @@ const PageScreen = ({
     return (
         <Container
             id='pageScreen'
-            className={'lg:w-[40%] relative lg:border-2 h-screen w-full'}
+            className={'relative lg:w-[40%] md:w-[60%] md:border-2 h-screen w-full'}
         >
             <Head>
                 <title>{title}</title>

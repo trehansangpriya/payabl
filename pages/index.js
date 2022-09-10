@@ -45,7 +45,7 @@ const Home = () => {
   }, [user.uid])
   return (
     <AppScreen title={'Dashboard'}>
-      <div className='w-full flex flex-col gap-4 p-1 select-none'>
+      <div className='w-full flex flex-col gap-5 p-1 select-none'>
         {/* Budget Manager */}
         <CurrentMonthBudget transactions={transactions} dataLoading={loading} />
         {/* Accounts at a Glance */}
