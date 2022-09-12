@@ -42,9 +42,14 @@ const Budgets = () => {
                     : (
                         <div className={'flex flex-col gap-2'}>
                             {
-                                pastBudgets.map(budget => (
-                                    <BudgetCard key={budget.id} budget={budget} />
-                                ))
+                                pastBudgets.length > 0 ?
+                                    pastBudgets.map(budget => (
+                                        <BudgetCard key={budget.id} budget={budget} />
+                                    )) : (
+                                        <div className={'text-center text-gray-500'}>
+                                            No budget history found
+                                        </div>
+                                    )
                             }
                         </div>
                     )
