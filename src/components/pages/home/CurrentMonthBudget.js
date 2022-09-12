@@ -1,4 +1,4 @@
-import { Alert, Button, Form, Input, Link, Loading, Modal, Progress } from '@/Components/utility'
+import { Button, Form, Input, Loading, Modal } from '@/Components/utility'
 import useAuth from '@/Contexts/useAuth'
 import useGlobals from '@/Contexts/useGlobals'
 import { db } from '@/Firebase/index'
@@ -6,8 +6,8 @@ import useValidation from '@/Hooks/useValidation'
 import dayjs from 'dayjs'
 import { doc, onSnapshot, serverTimestamp, setDoc } from 'firebase/firestore'
 import React, { useEffect, useState } from 'react'
-import { FiChevronRight, FiInfo, FiLoader } from 'react-icons/fi'
-import { BudgetVisualizer } from '@/Components/pages/budgets'
+import { FiInfo, FiLoader } from 'react-icons/fi'
+import { BudgetVisualizer } from '@/Components/pages/home'
 
 const CurrentMonthBudget = ({
     transactions,
@@ -49,25 +49,37 @@ const CurrentMonthBudget = ({
     }, [user.uid, currentMonth])
 
     useEffect(() => {
+        setLoading(true)
         setCurrentMonthTransactions(transactions.filter((transaction) => {
             return dayjs(transaction.transactionDate.toDate()).format('MM-YYYY') === currentMonth
         }))
+        setTimeout(() => {
+            setLoading(false)
+        }, 500)
     }, [transactions, currentMonth])
 
     useEffect(() => {
+        setLoading(true)
         setSpent(currentMonthTransactions.reduce((acc, transaction) => {
             if (transaction.transactionType === 'Expense') {
                 return acc + transaction.transactionAmount
             }
             return acc
         }, 0))
+        setTimeout(() => {
+            setLoading(false)
+        }, 500)
     }, [currentMonthTransactions])
 
     useEffect(() => {
+        setLoading(true)
         if (budget) {
             setRemaining(budget.amount - spent)
             setPercentageRemaining(((budget.amount - spent) / budget.amount) * 100)
         }
+        setTimeout(() => {
+            setLoading(false)
+        }, 500)
     }, [budget, spent])
 
 
@@ -107,15 +119,6 @@ const CurrentMonthBudget = ({
                                 )
                             }
                             <BudgetVisualizer budget={budget.amount} spent={spent} percentageRemaining={percentageRemaining} openModal={setAddBudgetModalOpen} />
-                            {/* {
-                                !dataLoading && !loading && (
-                                    <div className='w-full flex justify-end'>
-                                        <Link href={'/budgets'} iconRight={<FiChevronRight />} color='primary' className={'text-sm mt-2'} >
-                                            Manage my budget
-                                        </Link>
-                                    </div>
-                                )
-                            } */}
                         </div>
                     ) : (
                         <div className='w-full flex flex-col gap-1 py-2'>
@@ -127,20 +130,12 @@ const CurrentMonthBudget = ({
                                 'shadow-default rounded cursor-pointer',
                                 'bg-warn-100 text-warn-600',
                             ].join(' ')}
-                                onClick={() => {
-
-                                }}
                             >
                                 <FiInfo size='20px' />
                                 <span className='whitespace-nowrap'>
                                     No Budget Set for this Month.
                                 </span>
                             </div>
-                            {/* <Alert dummy variant={'info'} message={'No Budget Set for this Month.'} /> */}
-                            {/* <Button>Set Now!</Button> */}
-                            {/* <span className='text-sm'>
-                                No Budget Set for this Month
-                            </span> */}
                             <span className='text-primary-600 cursor-pointer font-medium self-center text-sm mt-2' onClick={() => setAddBudgetModalOpen(b =>
                             ({
                                 ...b,
@@ -168,7 +163,7 @@ const CurrentMonthBudget = ({
 
 export default CurrentMonthBudget
 
-const AddMonthlyBudgetModal = ({
+export const AddMonthlyBudgetModal = ({
     isOpen,
     title,
     onClose,

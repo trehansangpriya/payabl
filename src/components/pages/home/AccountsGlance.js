@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react'
 import useAccountCalculations from '@/Hooks/useAccountCalculations'
 import Image from 'next/image'
 import Link from 'next/link'
+import { FiChevronRight } from 'react-icons/fi'
 
 
 const AccountsGlance = ({
-    accounts,
-    transactions,
+    accounts = [],
+    transactions = [],
     dataLoading,
 }) => {
     return (
@@ -23,13 +24,24 @@ const AccountsGlance = ({
                         dataLoading ? (
                             <AccountGlanceCardSkeleton />
                         ) : (
-                            accounts.map(account => (
-                                <AccountGlanceCard
-                                    key={account.id}
-                                    account={account}
-                                    transactions={transactions?.filter(txn => txn.transactionAccountID === account.id)}
-                                />
-                            ))
+                            accounts.length > 0 ? (
+                                accounts.map(account => (
+                                    <AccountGlanceCard
+                                        key={account.id}
+                                        account={account}
+                                        transactions={transactions?.filter(txn => txn.transactionAccountID === account.id)}
+                                    />
+                                ))
+                            ) : (
+                                <Link href='/accounts/add'>
+                                    <div className="text-blue-500 flex gap-1 items-center cursor-pointer hover:brightness-95">
+                                        <span >
+                                            Add an Account to get started
+                                        </span>
+                                        <FiChevronRight />
+                                    </div>
+                                </Link>
+                            )
                         )
                     }
                 </div>

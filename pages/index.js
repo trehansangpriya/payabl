@@ -6,6 +6,8 @@ import useAuth from '@/Contexts/useAuth'
 import { collection, onSnapshot } from 'firebase/firestore'
 import { db } from '@/Firebase/index';
 import { useRouter } from 'next/router'
+import { FiChevronRight } from 'react-icons/fi'
+import { Link } from '@/Components/utility'
 
 const Home = () => {
   const { user } = useAuth()
@@ -49,14 +51,26 @@ const Home = () => {
         {/* Budget Manager */}
         <CurrentMonthBudget transactions={transactions} dataLoading={loading} />
         {/* Accounts at a Glance */}
-        {
-          accounts.length > 0 && <AccountsGlance accounts={accounts} dataLoading={loading} />
-        }
+        <AccountsGlance accounts={accounts} dataLoading={loading} />
         {/* Recent Transactions */}
-        {
-          transactions.length > 0 && <RecentTransactions accounts={accounts} transactions={transactions} categories={categories} dataLoading={loading} />
-        }
+        <RecentTransactions transactions={transactions} dataLoading={loading} />
         {/* My Categories */}
+        {
+          !loading && (
+            <>
+              <div className="flex justify-start">
+                <Link href={'/profile/categories'} iconRight={<FiChevronRight />} className={'text-sm hover:text-primary-600'} >
+                  Manage my categories
+                </Link>
+              </div>
+              <div className="flex justify-start">
+                <Link href={'/budgets'} iconRight={<FiChevronRight />} className={'text-sm hover:text-primary-600'} >
+                  See Budget History
+                </Link>
+              </div>
+            </>
+          )
+        }
       </div>
       <FAB
         onClick={() => router.push('/transactions/add')}
