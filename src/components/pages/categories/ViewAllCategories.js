@@ -1,4 +1,6 @@
-import { Seperator } from '@/Components/utility'
+import { NotFound } from '@/Components/app'
+import { Seperator, Spacer } from '@/Components/utility'
+import Image from 'next/image'
 import React from 'react'
 import CategoryCard from './CategoryCard'
 
@@ -15,9 +17,7 @@ const ViewAllCategories = ({
             </div>
         ))
     ) : (
-        <div className='text-center text-layout-500'>
-            No categories found
-        </div>
+        <NotFound message='No categories found' />
     )
 }
 

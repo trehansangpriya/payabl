@@ -23,9 +23,6 @@ const Overview = ({
                     <span className='text-lg'>
                         ₹{totalIncome}
                     </span>
-                    {/* <span className='text-xs'>
-                        Income
-                    </span> */}
                 </div>
                 <div className='text-layout-300'>
                     |
@@ -35,9 +32,6 @@ const Overview = ({
                     <span className='text-lg'>
                         ₹{totalExpense}
                     </span>
-                    {/* <span className='text-xs'>
-                        Expense
-                    </span> */}
                 </div>
             </div>
             <Seperator />

@@ -4,7 +4,7 @@ import { privateRoute } from '@/Routes/privateRoute'
 import useAuth from '@/Contexts/useAuth'
 import { collection, onSnapshot } from 'firebase/firestore'
 import { db } from '@/Firebase/index'
-import { CategoryAddForm, ViewAllCategories } from '@/Components/pages/profile'
+import { CategoryAddForm, ViewAllCategories } from '@/Components/pages/categories'
 import { Modal } from '@/Components/utility'
 import { FiPlus } from 'react-icons/fi'
 

@@ -1,5 +1,5 @@
 import { PageScreen } from '@/Components/app'
-import { TransactionForm } from '@/Components/pages/transactions'
+import { AddTransactionForm, TransactionForm } from '@/Components/pages/transactions'
 import { privateRoute } from '@/Routes/privateRoute'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -9,12 +9,13 @@ const AddTransaction = () => {
     return (
         <PageScreen
             title={'Add Transaction'}
-            className={'items-center pt-4'}
+            className={'items-center pt-4 justify-center'}
         >
-            <TransactionForm
+            <AddTransactionForm afterSubmitActions={() => router.push('/transactions')} />
+            {/* <TransactionForm
                 task={'add'}
                 afterSubmitActions={() => router.push('/transactions')}
-            />
+            /> */}
         </PageScreen>
     )
 }

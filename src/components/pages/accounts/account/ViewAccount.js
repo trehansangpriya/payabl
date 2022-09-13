@@ -10,6 +10,7 @@ import { deleteDoc, doc } from 'firebase/firestore'
 import { db } from '@/Firebase/index'
 import useAuth from '@/Contexts/useAuth'
 import useGlobals from '@/Contexts/useGlobals'
+import { NotFound } from '@/Components/app'
 
 
 const ViewAccount = ({
@@ -106,7 +107,11 @@ const ViewAccount = ({
                             }
                         </div>
                     )
-                    : <div className={'text-center'}>No Transactions</div>
+                    :
+                    <>
+                        <Seperator />
+                        <NotFound message={'No Transactions Found'} />
+                    </>
             }
             {/* Edit Modal */}
             <Modal title='Edit Account' isOpen={showEditModal} onClose={() => setShowEditModal(false)} >

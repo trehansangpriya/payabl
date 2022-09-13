@@ -8,3 +8,5 @@ export { default as DateFilter } from './DateFilter'
 
 export { default as ViewTransaction, ViewTransactionSkeleton } from './transaction/ViewTransaction'
 export { default as EditTransactionForm } from './transaction/EditTransactionForm'
+
+export { default as AddTransactionForm } from './add/AddTransactionForm'

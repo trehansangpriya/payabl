@@ -1,6 +1,7 @@
 import React from 'react'
 import { Container, Seperator } from '@/Components/utility'
 import TransactionCard, { TransactionSkeleton } from './TransactionCard'
+import { NotFound } from '@/Components/app'
 
 
 const ViewAllTransactions = ({ transactions, accounts, categories, loading }) => {
@@ -28,9 +29,7 @@ const ViewAllTransactions = ({ transactions, accounts, categories, loading }) =>
                             </div>
                         ))
                             :
-                            <div className='text-center text-layout-500 p-3'>
-                                No transactions found
-                            </div>
+                            <NotFound message='No transactions found' />
                     )
             }
         </Container>

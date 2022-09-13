@@ -59,7 +59,7 @@ const Home = () => {
           !loading && (
             <>
               <div className="flex justify-start">
-                <Link href={'/profile/categories'} iconRight={<FiChevronRight />} className={'text-sm hover:text-primary-600'} >
+                <Link href={'/categories'} iconRight={<FiChevronRight />} className={'text-sm hover:text-primary-600'} >
                   Manage my categories
                 </Link>
               </div>

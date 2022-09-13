@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Form, Input, Pill, SearchSelect, Spacer } from '@/Components/utility'
+import { Button, Form, Input, Link, Pill, SearchSelect, Spacer } from '@/Components/utility'
 import useAuth from '@/Contexts/useAuth'
 import useGlobals from '@/Contexts/useGlobals'
 import useValidation from '@/Hooks/useValidation'
 import { FiArrowLeft, FiDownload, FiLoader, FiUpload, FiX } from 'react-icons/fi'
-import { addDoc, collection, doc, onSnapshot, serverTimestamp, setDoc } from 'firebase/firestore'
+import { addDoc, collection, doc, onSnapshot, setDoc } from 'firebase/firestore'
 import { db } from '@/Firebase/index'
 import useAccountCalculations from '@/Hooks/useAccountCalculations'
 import Image from 'next/image'
 import CategoryModalForm from '../CategoryModalForm'
 import { accountPillColors } from '@/Data/accountTypes'
 import dayjs from 'dayjs'
+import { NotFound } from '@/Components/app'
 
-const EditTransactionForm = ({
+const AddTransactionForm = ({
     afterSubmitActions = () => { },
-    transaction,
 }) => {
     // Auth Context
     const { user } = useAuth()
@@ -63,28 +63,21 @@ const EditTransactionForm = ({
 
     // States - title, date, amount, type, accountID, category, notes
     // Form Data States
-    const [transactionTitle, setTransactionTitle] = useState(transaction.transactionTitle)
+    const [transactionTitle, setTransactionTitle] = useState('')
     const [transactionDate, setTransactionDate] = useState(
-        dayjs(transaction.transactionDate.toDate()).format('YYYY-MM-DD')
+        dayjs().format('YYYY-MM-DD')
     )
-    const [transactionAmount, setTransactionAmount] = useState(transaction.transactionAmount)
-    const [transactionType, setTransactionType] = useState(transaction.transactionType)
+    const [transactionAmount, setTransactionAmount] = useState('')
+    const [transactionType, setTransactionType] = useState('')
     const [transactionAccount, setTransactionAccount] = useState('')
     const [transactionCategory, setTransactionCategory] = useState('')
-    console.log('transactionCategory', transactionCategory)
-    const [transactionNote, setTransactionNote] = useState(transaction.transactionNote)
+    const [transactionNote, setTransactionNote] = useState('')
 
     // useValidation Hook
     const { checkEmpty, checkAmount } = useValidation()
 
     // useAccountCalculations Hook
     const { accountBalance } = useAccountCalculations()
-
-
-    useEffect(() => {
-        setTransactionAccount(accounts.find(account => account?.id === transaction.transactionAccountID))
-        setTransactionCategory(categories.find(category => category?.id === transaction.transactionCategoryID) ? categories.find(category => category?.id === transaction.transactionCategoryID) : '')
-    }, [transaction, accounts, categories])
 
     useEffect(() => {
         setLoading(true)
@@ -117,7 +110,7 @@ const EditTransactionForm = ({
     }, [user?.uid])
 
     useEffect(() => {
-        setSelectedAccountBalance(accountBalance(allTransactions.filter(txn => txn.txnAccount === transactionAccount.id), transactionAccount?.type === 'Credit Card' ? transactionAccount?.creditLimit : transactionAccount?.openingBalance))
+        setSelectedAccountBalance(accountBalance(allTransactions.filter(txn => txn.txnAccount === transactionAccount.id), transactionAccount.type === 'Credit Card' ? transactionAccount.creditLimit : transactionAccount.openingBalance))
         // setSelectedAccountBalance(transactionAccount.type === 'Credit Card' ? transactionAccount.creditLeft : transactionAccount.balance)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [transactionAccount])
@@ -154,7 +147,7 @@ const EditTransactionForm = ({
     }, [tempCategoryName, transactionCategory])
 
     // Handle Form Submit : Add Transaction to Firebase
-    const handleEditTransaction = (e) => {
+    const handleAddTransaction = (e) => {
         setLoading(true)
         setErrors({})
         setAllowSubmit(false)
@@ -169,9 +162,9 @@ const EditTransactionForm = ({
             setLoading(false)
             return
         };
-        // Edit Transaction to Firebase
+        // Add Transaction to Firebase
         // console.log('add transaction')
-        setDoc(doc(db, 'users', user.uid, 'transactions', transaction.id), {
+        addDoc(collection(db, 'users', user.uid, 'transactions'), {
             transactionTitle: transactionTitle,
             transactionDate: new Date(transactionDate),
             transactionAmount: +transactionAmount,
@@ -179,11 +172,8 @@ const EditTransactionForm = ({
             transactionAccountID: transactionAccount.id,
             transactionCategoryID: transactionCategory.id,
             transactionNote: transactionNote,
-            updatedAt: serverTimestamp(),
-        }, {
-            merge: true
         }).then(() => {
-            displayAlert(true, 'success', 'Transaction Edited')
+            displayAlert(true, 'success', 'Transaction Added')
         }).catch(err => {
             displayAlert(true, 'error', err.message)
             // console.log(err)
@@ -202,11 +192,12 @@ const EditTransactionForm = ({
     }
 
 
-    return (
+    return accounts.length !== 0 ? (
         <div className='w-full h-[100%] flex flex-col'>
+            <Spacer h={'24px'} />
             <div className="flex-1 h-full overflow-y-scroll">
                 <div className='w-full h-full  flex flex-col items-center'>
-                    <h2 className='text-lg flex gap-2 w-full font-medium items-center'>
+                    <h2 className='text-lg flex gap-2 w-[90%] font-medium items-center'>
                         {
                             pageIndex > 0 && (
                                 <span
@@ -227,7 +218,7 @@ const EditTransactionForm = ({
                     {
                         pageIndex === 0 && (
                             <>
-                                <div className="flex flex-col select-none gap-2 w-full">
+                                <div className="flex flex-col select-none gap-2 w-[90%]">
                                     {
                                         transactionTypes.map((type, index) => (
                                             <div className={[
@@ -268,7 +259,7 @@ const EditTransactionForm = ({
                     {
                         pageIndex === 1 && (
                             <>
-                                <div className="flex flex-col select-none gap-2 w-full">
+                                <div className="flex flex-col select-none gap-2 w-[90%]">
                                     {
                                         accounts.map((account, index) => (
                                             <div className={[
@@ -276,7 +267,7 @@ const EditTransactionForm = ({
                                                 ' border-2 border-layout-200 hover:brightness-95',
                                                 'hover:bg-primary-50',
                                                 'active:scale-95',
-                                                transactionAccount?.id === account.id && 'bg-primary-50 border-2 border-primary-500',
+                                                transactionAccount.id === account.id && 'bg-primary-50 border-2 border-primary-500',
                                             ].join(' ')}
                                                 key={index}
                                                 onClick={() => {
@@ -304,11 +295,11 @@ const EditTransactionForm = ({
                         )
                     }
                     {/* Page 3 - Enter Transaction Details */}
-                    <Form className=' w-full max-w-full flex flex-col justify-center items-center' wFull errors={errors} allowSubmit={allowSubmit} setAllowSubmit={setAllowSubmit} onSubmit={handleEditTransaction}>
+                    <Form className=' w-full max-w-full flex flex-col justify-center items-center' wFull errors={errors} allowSubmit={allowSubmit} setAllowSubmit={setAllowSubmit} onSubmit={handleAddTransaction}>
                         {
                             pageIndex === 2 && (
                                 <>
-                                    <div className='w-full flex flex-col gap-3'>
+                                    <div className='w-[90%] flex flex-col gap-3'>
                                         <div className='flex w-full gap-2 items-center'>
                                             {
                                                 transactionType && (
@@ -476,7 +467,7 @@ const EditTransactionForm = ({
                                                         iconLeft={loading && <FiLoader size={18} className='animate-spin' />}
                                                     >
                                                         {
-                                                            !loading && 'Edit Transaction'
+                                                            !loading && 'Add Transaction'
                                                         }
                                                     </Button>
                                                 </>
@@ -504,7 +495,22 @@ const EditTransactionForm = ({
                 }
             </div>
         </div>
+    ) : (
+        <div className='text-center text-gray-500 p-3'>
+            <NotFound message={
+                <>
+                    No accounts found! <br /> Please add an account first.
+                </>
+            } />
+            <br />
+            <Link
+                href={'/accounts/add'}
+                color='primary'
+            >
+                Add Account
+            </Link>
+        </div>
     )
 }
 
-export default EditTransactionForm
+export default AddTransactionForm

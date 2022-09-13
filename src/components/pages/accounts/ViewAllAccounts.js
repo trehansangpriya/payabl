@@ -4,6 +4,7 @@ import { collection, onSnapshot } from 'firebase/firestore'
 import useAuth from '@/Contexts/useAuth'
 import AccountCard, { AccountSkeleton } from './AccountCard'
 import { Container, Seperator } from '@/Components/utility'
+import { NotFound } from '@/Components/app'
 
 const ViewAllAccounts = () => {
     // Local Loading
@@ -36,9 +37,7 @@ const ViewAllAccounts = () => {
                             }
                         </div>
                     ))
-                        : <div className='text-center text-gray-500 p-3'>
-                            No accounts found
-                        </div>
+                        : <NotFound message='No accounts found' />
                 )}
         </Container>
     )

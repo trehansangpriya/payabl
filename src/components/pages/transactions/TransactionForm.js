@@ -370,8 +370,8 @@ const TransactionForm = ({
     ) : (
         <div className='text-center text-gray-500 p-3'>
             No accounts found! <br /> Please add an account first.
-            <br/>
-            <br/>
+            <br />
+            <br />
             <Link
                 href={'/accounts/add'}
                 color='primary'

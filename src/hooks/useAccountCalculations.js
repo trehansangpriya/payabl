@@ -15,8 +15,8 @@ const useAccountCalculations = () => {
     }
     const getTotalIncome = (txns = []) => {
         return txns.reduce((acc, txn) => {
-            if (txn.txnType === 'Income') {
-                const balance = acc + txn.txnAmount
+            if (txn.transactionType === 'Income') {
+                const balance = acc + txn.transactionAmount
                 return balance
             }
             return acc

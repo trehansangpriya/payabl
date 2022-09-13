@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { PageScreen } from '@/Components/app'
+import { NotFound, PageScreen } from '@/Components/app'
 import useAuth from '@/Contexts/useAuth'
 import dayjs from 'dayjs'
 import { collection, onSnapshot } from 'firebase/firestore'
@@ -46,9 +46,7 @@ const Budgets = () => {
                                     pastBudgets.map(budget => (
                                         <BudgetCard key={budget.id} budget={budget} />
                                     )) : (
-                                        <div className={'text-center text-gray-500'}>
-                                            No budget history found
-                                        </div>
+                                        <NotFound message={'No budget history found'} />
                                     )
                             }
                         </div>

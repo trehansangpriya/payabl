@@ -5,7 +5,7 @@ import { deleteDoc, doc } from 'firebase/firestore'
 import { db } from '@/Firebase/index'
 import useAuth from '@/Contexts/useAuth'
 import useGlobals from '@/Contexts/useGlobals'
-import { CategoryEditForm } from '..'
+import CategoryEditForm from './CategoryEditForm'
 
 const CategoryCard = ({
     category,
