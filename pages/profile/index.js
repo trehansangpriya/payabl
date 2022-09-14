@@ -4,10 +4,11 @@ import { privateRoute } from '@/Routes/privateRoute'
 import { PageScreen } from '@/Components/app'
 import { Button, Link, Modal, Seperator, Spacer } from '@/Components/utility'
 import { FiInfo, FiLogOut } from 'react-icons/fi'
-import { MdOutlineBugReport } from 'react-icons/Md'
+import { MdOutlineBugReport } from 'react-icons/md'
 import { PhoneNumberForm, ProfilePictureUpload, UserProfile } from '@/Components/pages/profile'
 
 const Profile = () => {
+
     // Auth Context 
     const { logOut, userData } = useAuth()
 
@@ -21,7 +22,11 @@ const Profile = () => {
                 <Spacer h='24px' />
 
                 {/* User Profile */}
-                <UserProfile userData={userData} addPhoneBannerOnClick={() => setAddPhoneNumberModal(!addPhoneNumberModal)} profilePictureOnClick={() => setEditProfilePictureModal(!editProfilePictureModal)} />
+                <UserProfile
+                    userData={userData}
+                    addPhoneBannerOnClick={() => setAddPhoneNumberModal(!addPhoneNumberModal)}
+                    profilePictureOnClick={() => setEditProfilePictureModal(!editProfilePictureModal)}
+                />
 
                 <Seperator h='24px' />
 
