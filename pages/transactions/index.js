@@ -27,7 +27,7 @@ const Transactions = () => {
         transactionCategoryID: '',
         transactionType: '',
     })
-    console.log(filters)
+    // console.log(filters)
     // Date Filter
     const [dateFilter, setDateFilter] = useState({
         startDate: dayjs().startOf('day'),
