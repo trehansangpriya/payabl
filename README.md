@@ -32,7 +32,7 @@ Payabl is licensed under the [MIT License](https://github.com/trehansangpriya/pa
 Made with ❤️ by Trehan Sangpriya
 
 
-[Website](https://trehansangpriya.github.io) | [Twitter](https://twitter.com/trehansangpriya) | [LinkedIn](https://www.linkedin.com/in/trehan-sangpriya/) | [GitHub](https://github.com/trehansangpriya) | [Newsletter](https://notes.trehansangpriya.in/) | [Blog](https://blog.trehansangpriya.in/)
+[Website](https://trehansangpriya.in) | [Twitter](https://twitter.com/trehansangpriya) | [LinkedIn](https://www.linkedin.com/in/trehan-sangpriya/) | [GitHub](https://github.com/trehansangpriya) | [Newsletter](https://notes.trehansangpriya.in/) | [Blog](https://blog.trehansangpriya.in/)
 
 <!-- ### Screenshots -->
 <!-- App Screenshots -->
