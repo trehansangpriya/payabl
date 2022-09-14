@@ -1,7 +1,8 @@
 import { Dropdown, DropdownItem, DropdownMegaMenu, DropdownTrigger, Pill } from '@/Components/utility'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
-import { FiFilter, FiX } from 'react-icons/fi'
+import { FiDownload, FiFilter, FiUpload, FiX } from 'react-icons/fi'
+import transactionTypes from '@/Data/transactionTypes'
 
 const Filters = ({
     accounts,
@@ -12,9 +13,11 @@ const Filters = ({
     const [showFilter, setShowFilter] = useState(false)
     const [selectedAccount, setSelectedAccount] = useState(filters.transactionAccountID)
     const [selectedCategory, setSelectedCategory] = useState(filters.transactionCategoryID)
+    const [selectedType, setSelectedType] = useState(filters.transactionType)
     useEffect(() => {
         setSelectedAccount(filters.transactionAccountID)
         setSelectedCategory(filters.transactionCategoryID)
+        setSelectedType(filters.transactionType)
     }, [filters])
     return (
         <div className='flex gap-1 items-center'>
@@ -33,7 +36,7 @@ const Filters = ({
                 <DropdownMegaMenu
                     show={showFilter}
                     setShow={setShowFilter}
-                    categories={['Account', 'Category']}
+                    categories={['Account', 'Category', 'Type']}
                     components={[
                         <>
                             <DropdownItem
@@ -92,12 +95,38 @@ const Filters = ({
                                 ))
                             }
                         </>
+                        ,
+                        <>
+                            <DropdownItem
+                                onClick={() => {
+                                    setSelectedType('')
+                                }}
+                                selected={selectedType === ''}
+                            >
+                                All
+                            </DropdownItem>
+                            {
+                                transactionTypes.map((type, index) => (
+                                    <DropdownItem
+                                        key={index}
+                                        icon={type === 'Income' ? <FiDownload className='text-success-600' /> : <FiUpload className='text-error-600' />}
+                                        onClick={() => {
+                                            setSelectedType(type)
+                                        }}
+                                        selected={selectedType === type}
+                                    >
+                                        {type}
+                                    </DropdownItem>
+                                ))
+                            }
+                        </>
                     ]}
                     action={() => {
                         setFilters({
                             ...filters,
                             transactionAccountID: selectedAccount,
                             transactionCategoryID: selectedCategory,
+                            transactionType: selectedType,
                         })
                         setShowFilter(false)
                     }}
@@ -106,13 +135,13 @@ const Filters = ({
             {/* Clear Filters */}
             {/* show if any filters are applied */}
             {
-                (filters.transactionAccountID !== '' || filters.transactionCategoryID !== '') && (
+                (filters.transactionAccountID !== '' || filters.transactionCategoryID !== '' || filters.transactionType !== '') && (
                     <Pill
                         size='12px'
                         color='error'
                         className='cursor-pointer font-medium'
                         onClick={() => {
-                            setFilters({ ...filters, transactionAccountID: '', transactionCategoryID: '' })
+                            setFilters({ ...filters, transactionAccountID: '', transactionCategoryID: '', transactionType: '' })
                         }}
                     >
                         Clear <FiX />

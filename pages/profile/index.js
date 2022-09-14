@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import useAuth from '@/Contexts/useAuth'
 import { privateRoute } from '@/Routes/privateRoute'
 import { PageScreen } from '@/Components/app'
-import { Button, Modal, Seperator, Spacer } from '@/Components/utility'
-import { FiLogOut } from 'react-icons/fi'
+import { Button, Link, Modal, Seperator, Spacer } from '@/Components/utility'
+import { FiInfo, FiLogOut } from 'react-icons/fi'
+import { MdOutlineBugReport } from 'react-icons/Md'
 import { PhoneNumberForm, ProfilePictureUpload, UserProfile } from '@/Components/pages/profile'
 
 const Profile = () => {
@@ -16,22 +17,40 @@ const Profile = () => {
 
     return (
         <PageScreen title='Profile' className='items-center'>
+            <div className="flex-1 w-full">
+                <Spacer h='24px' />
 
-            <Spacer h='24px' />
+                {/* User Profile */}
+                <UserProfile userData={userData} addPhoneBannerOnClick={() => setAddPhoneNumberModal(!addPhoneNumberModal)} profilePictureOnClick={() => setEditProfilePictureModal(!editProfilePictureModal)} />
 
-            {/* User Profile */}
-            <UserProfile userData={userData} addPhoneBannerOnClick={() => setAddPhoneNumberModal(!addPhoneNumberModal)} profilePictureOnClick={() => setEditProfilePictureModal(!editProfilePictureModal)} />
+                <Seperator h='24px' />
 
-            <Seperator h='24px' />
-
-            {/* Logout Button */}
-            <Button
-                color='error'
-                iconLeft={<FiLogOut />}
-                onClick={logOut}
-                className='w-full self-start'>
-                Log Out
-            </Button>
+                {/* Logout Button */}
+                <Button
+                    color='error'
+                    iconLeft={<FiLogOut />}
+                    onClick={logOut}
+                    className='w-full self-start'>
+                    Log Out
+                </Button>
+            </div>
+            <div className="flex flex-col gap-2">
+                <Link
+                    href={'/app-info'}
+                    color='secondary'
+                    iconLeft={<FiInfo />}
+                >
+                    app info
+                </Link>
+                <Link
+                    href={'https://twitter.com/trehansangpriya'}
+                    color='secondary'
+                    target='_blank'
+                    iconLeft={<MdOutlineBugReport size={18} />}
+                >
+                    report a bug
+                </Link>
+            </div>
 
             {/* PhoneNumber Form Modal */}
             <Modal

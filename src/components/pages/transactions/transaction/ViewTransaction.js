@@ -103,7 +103,7 @@ const ViewTransaction = ({
                 </Button>
             </div>
             {/* Edit Modal */}
-            <Modal title='Edit Account' isOpen={showEditModal} onClose={() => setShowEditModal(false)} >
+            <Modal title='Edit Transaction' isOpen={showEditModal} onClose={() => setShowEditModal(false)} >
                 <EditTransactionForm afterSubmitActions={() => setShowEditModal(false)}
                     transaction={txn}
                 />

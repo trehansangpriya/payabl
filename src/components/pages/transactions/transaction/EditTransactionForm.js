@@ -71,7 +71,7 @@ const EditTransactionForm = ({
     const [transactionType, setTransactionType] = useState(transaction.transactionType)
     const [transactionAccount, setTransactionAccount] = useState('')
     const [transactionCategory, setTransactionCategory] = useState('')
-    console.log('transactionCategory', transactionCategory)
+    // console.log('transactionCategory', transactionCategory)
     const [transactionNote, setTransactionNote] = useState(transaction.transactionNote)
 
     // useValidation Hook

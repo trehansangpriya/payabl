@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
+import { PropTypes } from 'prop-types'
 import NextLink from 'next/link'
+
+
 
 const Link = ({
     children,
@@ -22,6 +25,7 @@ const Link = ({
             success: 'text-success-500 hover:text-success-600 active:text-success-600',
             warning: 'text-warning-500 hover:text-warning-600 active:text-warning-600',
             info: 'text-info-500 hover:text-info-600 active:text-info-600',
+            secondary: 'text-layout-400 hover:text-layout-500 active:text-layout-500',
             none: '',
         }
         setLinkColor(linkColors[color])
@@ -50,3 +54,15 @@ const Link = ({
 }
 
 export default Link
+
+Link.propTypes = {
+    children: PropTypes.node,
+    color: PropTypes.oneOf(['default', 'primary', 'error', 'success', 'warning', 'info', 'secondary', 'none']),
+    className: PropTypes.string,
+    href: PropTypes.string,
+    as: PropTypes.string,
+    target: PropTypes.string,
+    disabled: PropTypes.bool,
+    iconLeft: PropTypes.node,
+    iconRight: PropTypes.node,
+}

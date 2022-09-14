@@ -25,7 +25,9 @@ const Transactions = () => {
     const [filters, setFilters] = useState({
         transactionAccountID: '',
         transactionCategoryID: '',
+        transactionType: '',
     })
+    console.log(filters)
     // Date Filter
     const [dateFilter, setDateFilter] = useState({
         startDate: dayjs().startOf('day'),
@@ -58,8 +60,8 @@ const Transactions = () => {
     }, [user.uid])
 
     useEffect(() => {
-        if (filters.transactionAccountID !== '' && filters.transactionCategoryID !== '') {
-            setFilteredTransactions(transactions.filter(transaction => transaction.transactionAccountID === filters.transactionAccountID && transaction.transactionCategoryID === filters.transactionCategoryID))
+        if (filters.transactionAccountID !== '' && filters.transactionCategoryID !== '' && filters.transactionType !== '') {
+            setFilteredTransactions(transactions.filter(transaction => transaction.transactionAccountID === filters.transactionAccountID && transaction.transactionCategoryID === filters.transactionCategoryID && transaction.transactionType === filters.transactionType))
             return
         }
         else if (filters.transactionAccountID !== '') {
@@ -70,7 +72,10 @@ const Transactions = () => {
             setFilteredTransactions(transactions.filter(transaction => transaction.transactionCategoryID === filters.transactionCategoryID))
             return
         }
-        else {
+        else if (filters.transactionType !== '') {
+            setFilteredTransactions(transactions.filter(transaction => transaction.transactionType === filters.transactionType))
+            return
+        } else {
             setFilteredTransactions(transactions)
             return
         }
