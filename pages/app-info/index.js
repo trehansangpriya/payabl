@@ -4,6 +4,7 @@ import { Pill, Spacer } from '@/Components/utility'
 import { FiHeart } from 'react-icons/fi'
 import Image from 'next/image'
 import { socialLinks } from '@/Data/devSocialLinks'
+import { privateRoute } from '@/Routes/privateRoute'
 
 const AppInfo = () => {
     return (
@@ -69,4 +70,4 @@ const AppInfo = () => {
     )
 }
 
-export default AppInfo
+export default privateRoute(AppInfo)

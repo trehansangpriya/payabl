@@ -5,6 +5,7 @@ import dayjs from 'dayjs'
 import { collection, onSnapshot } from 'firebase/firestore'
 import { db } from '@/Firebase/index'
 import { BudgetCard, BudgetCardSkeleton } from '@/Components/pages/budgets'
+import { privateRoute } from '@/Routes/privateRoute'
 
 const Budgets = () => {
     const { user } = useAuth()
@@ -56,4 +57,4 @@ const Budgets = () => {
     )
 }
 
-export default Budgets
+export default privateRoute(Budgets)
