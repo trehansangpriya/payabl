@@ -74,7 +74,7 @@ const CurrentMonthBudget = ({
     useEffect(() => {
         setLoading(true)
         if (budget) {
-            setRemaining(budget.amount - spent)
+            setRemaining((budget.amount - spent).toFixed(2))
             setPercentageRemaining(((budget.amount - spent) / budget.amount) * 100)
         }
         setTimeout(() => {
@@ -109,7 +109,7 @@ const CurrentMonthBudget = ({
                                             (percentageRemaining > 50 && percentageRemaining <= 80) && 'text-info-500',
                                             (percentageRemaining > 80 && percentageRemaining <= 100) && 'text-success-600',
                                         ].join(' ')}>
-                                            ₹{remaining.toFixed(2)}
+                                            ₹{remaining}
                                         </span> this month!
                                     </div>
                                 ) : (

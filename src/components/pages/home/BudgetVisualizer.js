@@ -24,7 +24,7 @@ const BudgetVisualizer = ({
                         Spent
                     </span>
                     <span className='text-xl font-semibold'>
-                        ₹{spent.toFixed(2)}
+                        ₹{spent?.toFixed(2)}
                     </span>
                 </div>
                 <div className='w-full h-fit flex justify-center p-2 rounded border'>

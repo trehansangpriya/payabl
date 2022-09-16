@@ -57,11 +57,15 @@ const Account = () => {
     }, [accountID, user.uid])
 
     useEffect(() => {
+        setLoading(true)
         const txns = transactions.map((transaction) => ({
             txnType: transaction.transactionType,
             txnAmount: transaction.transactionAmount,
         }))
         setBalance(accountBalance(txns, accountData.accountType === 'Credit Card' ? accountData.accountCreditLimit : accountData.accountOpeningBalance))
+        setTimeout(() => {
+            setLoading(false)
+        }, 500)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [transactions])
     return (
