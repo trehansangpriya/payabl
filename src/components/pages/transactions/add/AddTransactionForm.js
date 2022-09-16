@@ -344,7 +344,7 @@ const AddTransactionForm = ({
                                                                 ? <span>Credit Left:</span>
                                                                 : <span>Balance:</span>
                                                         }
-                                                        ₹{selectedAccountBalance}
+                                                        ₹{selectedAccountBalance.toFixed(2)}
                                                     </Pill>
                                                 )
                                             }

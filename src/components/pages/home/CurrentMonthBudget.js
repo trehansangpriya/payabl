@@ -109,7 +109,7 @@ const CurrentMonthBudget = ({
                                             (percentageRemaining > 50 && percentageRemaining <= 80) && 'text-info-500',
                                             (percentageRemaining > 80 && percentageRemaining <= 100) && 'text-success-600',
                                         ].join(' ')}>
-                                            ₹{remaining}
+                                            ₹{remaining.toFixed(2)}
                                         </span> this month!
                                     </div>
                                 ) : (

@@ -79,7 +79,7 @@ const ViewAccount = ({
                         : <span>Balance</span>
                 }
                 <span className='text-3xl font-semibold'>
-                    ₹{balance}
+                    ₹{balance.toFixed(2)}
                 </span>
             </h2>
             <Spacer h={'8px'} />
