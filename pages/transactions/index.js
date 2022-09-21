@@ -64,6 +64,18 @@ const Transactions = () => {
             setFilteredTransactions(transactions.filter(transaction => transaction.transactionAccountID === filters.transactionAccountID && transaction.transactionCategoryID === filters.transactionCategoryID && transaction.transactionType === filters.transactionType))
             return
         }
+        else if (filters.transactionAccountID !== '' && filters.transactionCategoryID !== '') {
+            setFilteredTransactions(transactions.filter(transaction => transaction.transactionAccountID === filters.transactionAccountID && transaction.transactionCategoryID === filters.transactionCategoryID))
+            return
+        }
+        else if (filters.transactionAccountID !== '' && filters.transactionType !== '') {
+            setFilteredTransactions(transactions.filter(transaction => transaction.transactionAccountID === filters.transactionAccountID && transaction.transactionType === filters.transactionType))
+            return
+        }
+        else if (filters.transactionCategoryID !== '' && filters.transactionType !== '') {
+            setFilteredTransactions(transactions.filter(transaction => transaction.transactionCategoryID === filters.transactionCategoryID && transaction.transactionType === filters.transactionType))
+            return
+        }
         else if (filters.transactionAccountID !== '') {
             setFilteredTransactions(transactions.filter(transaction => transaction.transactionAccountID === filters.transactionAccountID))
             return
@@ -75,7 +87,8 @@ const Transactions = () => {
         else if (filters.transactionType !== '') {
             setFilteredTransactions(transactions.filter(transaction => transaction.transactionType === filters.transactionType))
             return
-        } else {
+        }
+        else {
             setFilteredTransactions(transactions)
             return
         }

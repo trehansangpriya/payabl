@@ -25,7 +25,7 @@ const Filters = ({
                 <DropdownTrigger
                     containerClassName={[
                         'border border-layout-200 rounded-full',
-                        (filters.transactionAccountID !== '' || filters.transactionCategoryID !== '') && 'bg-primary-50 text-primary-700 font-medium border-primary-50',
+                        (filters.transactionAccountID !== '' || filters.transactionCategoryID !== '' || filters.transactionType !== '') && 'bg-primary-50 text-primary-700 font-medium border-primary-50',
                     ].join(' ')}
                     iconPosition='right'
                     onClick={() => {

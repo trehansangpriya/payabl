@@ -132,7 +132,7 @@ export const DropdownMegaMenu = ({
             'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-2xl w-full h-full bg-black bg-opacity-50 z-50',
             'flex flex-col justify-center items-center gap-1',
         ].join(' ')}>
-            <div className="flex flex-col gap-2 bg-white p-2 rounded w-full max-w-[80%] md:max-w-[38%]" ref={dropdown}>
+            <div className="flex flex-col gap-2 bg-white p-2 rounded w-full max-w-[90%] md:max-w-[38%]" ref={dropdown}>
                 <div className={[
                     'w-full flex gap-2 min-h-[200px] h-fit max-h-[200px]'
                 ].join(' ')} >
