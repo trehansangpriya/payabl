@@ -8,7 +8,8 @@ const Form = ({ children, onSubmit = () => { }, allowSubmit = true, setAllowSubm
         }
     }
     useEffect(() => {
-        setAllowSubmit(!Object.values(errors).filter(err => err.status !== 'success').length > 0)
+        // setAllowSubmit(!Object.values(errors).filter(err => err.status !== 'success').length > 0)
+        setAllowSubmit(Object.values(errors).every(error => error.status === 'success'))
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [errors])
     return (
