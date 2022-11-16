@@ -4,7 +4,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { FiChevronRight } from 'react-icons/fi'
 
-
 const AccountsGlance = ({
     accounts = [],
     transactions = [],
@@ -65,7 +64,6 @@ const AccountGlanceCard = ({
             txnAmount: txn.transactionAmount,
             txnType: txn.transactionType,
         }))
-        console.log(txns)
         setBalance(truncateAmount(accountBalance(txns, accountType === 'Credit Card' ? accountCreditLimit : accountOpeningBalance)))
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [transactions])
