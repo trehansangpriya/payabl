@@ -19,6 +19,13 @@ const DateFilter = ({
 
     const dropdownValues = [
         {
+            label: 'Last 3 Days',
+            value: {
+                startDate: dayjs(today).subtract(3, 'day').startOf('day'),
+                endDate: dayjs(today).endOf('day'),
+            },
+        },
+        {
             label: 'Today',
             value: {
                 startDate: dayjs(today).startOf('day'),

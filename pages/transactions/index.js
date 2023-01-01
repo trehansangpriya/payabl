@@ -30,7 +30,7 @@ const Transactions = () => {
     // console.log(filters)
     // Date Filter
     const [dateFilter, setDateFilter] = useState({
-        startDate: dayjs().startOf('day'),
+        startDate: dayjs().subtract(3, 'day').startOf('day'),
         endDate: dayjs().endOf('day'),
     })
 
