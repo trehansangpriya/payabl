@@ -61,7 +61,7 @@ const CurrentMonthBudget = ({
     useEffect(() => {
         setLoading(true)
         setSpent(currentMonthTransactions.reduce((acc, transaction) => {
-            if (transaction.transactionType === 'Expense') {
+            if (transaction.transactionType === 'Expense' && transaction.includeInBudget) {
                 return acc + transaction.transactionAmount
             }
             return acc

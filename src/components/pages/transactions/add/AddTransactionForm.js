@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Form, Input, Link, Pill, SearchSelect, Spacer } from '@/Components/utility'
+import { Button, Form, Input, Link, Pill, SearchSelect, Spacer, Switch } from '@/Components/utility'
 import useAuth from '@/Contexts/useAuth'
 import useGlobals from '@/Contexts/useGlobals'
 import useValidation from '@/Hooks/useValidation'
@@ -72,6 +72,7 @@ const AddTransactionForm = ({
     const [transactionAccount, setTransactionAccount] = useState('')
     const [transactionCategory, setTransactionCategory] = useState('')
     const [transactionNote, setTransactionNote] = useState('')
+    const [includeInBudget, setIncludeInBudget] = useState(true)
 
     // useValidation Hook
     const { checkEmpty, checkAmount } = useValidation()
@@ -172,6 +173,7 @@ const AddTransactionForm = ({
             transactionAccountID: transactionAccount.id,
             transactionCategoryID: transactionCategory.id,
             transactionNote: transactionNote,
+            includeInBudget: includeInBudget,
         }).then(() => {
             displayAlert(true, 'success', 'Transaction Added')
         }).catch(err => {
@@ -460,6 +462,15 @@ const AddTransactionForm = ({
                                                         disabled={loading}
                                                         required={false}
                                                     />
+                                                    <div
+                                                        className='flex items-center w-full gap-2 my-2'
+                                                    >
+                                                        <span className='text-sm'>Include in Budget</span>
+                                                        <Switch
+                                                            state={includeInBudget}
+                                                            onChange={(state) => setIncludeInBudget(state)}
+                                                        />
+                                                    </div>
                                                     <Button
                                                         disabled={loading || !allowSubmit}
                                                         type='submit'

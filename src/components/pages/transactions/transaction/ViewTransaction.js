@@ -1,4 +1,4 @@
-import { Button, Modal, Pill, Spacer } from '@/Components/utility'
+import { Button, Modal, Pill, Spacer, Switch } from '@/Components/utility'
 import useAuth from '@/Contexts/useAuth'
 import useGlobals from '@/Contexts/useGlobals'
 import dayjs from 'dayjs'
@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { FiDownload, FiEdit2, FiLoader, FiTrash, FiUpload } from 'react-icons/fi'
-import { deleteDoc, doc } from 'firebase/firestore'
+import { deleteDoc, doc, updateDoc } from 'firebase/firestore'
 import { db } from '@/Firebase/index'
 import EditTransactionForm from './EditTransactionForm'
 
@@ -23,6 +23,9 @@ const ViewTransaction = ({
     const [showEditModal, setShowEditModal] = useState(false)
     const [showDeleteModal, setShowDeleteModal] = useState(false)
 
+    const [includeInBudget, setIncludeInBudget] = useState(txn.includeInBudget)
+    console.log(txn.includeInBudget)
+
     useEffect(() => {
         setTxnID(txn.id)
     }, [txn])
@@ -32,6 +35,15 @@ const ViewTransaction = ({
                 displayAlert(true, 'success', 'Transaction deleted successfully')
             })
         router.push('/transactions')
+    }
+
+    const handleIncludeInBudget = (state) => {
+        setIncludeInBudget(state)
+        updateDoc(doc(db, 'users', user.uid, 'transactions', txnID), {
+            includeInBudget: state
+        }).then(() => {
+            displayAlert(true, 'success', 'Transaction updated successfully')
+        })
     }
 
     return (
@@ -102,6 +114,7 @@ const ViewTransaction = ({
                     <FiTrash size={18} />
                 </Button>
             </div>
+
             {/* Edit Modal */}
             <Modal title='Edit Transaction' isOpen={showEditModal} onClose={() => setShowEditModal(false)} >
                 <EditTransactionForm afterSubmitActions={() => setShowEditModal(false)}
@@ -124,6 +137,15 @@ const ViewTransaction = ({
                     </div>
                 </div>
             </Modal>
+            <div
+                className='flex flex-col items-center justify-center w-full gap-2 absolute bottom-10 left-0 p-3'
+            >
+                <span className='text-sm'>Include in Budget</span>
+                <Switch
+                    state={includeInBudget}
+                    onChange={(state) => handleIncludeInBudget(state)}
+                />
+            </div>
         </div>
     )
 }

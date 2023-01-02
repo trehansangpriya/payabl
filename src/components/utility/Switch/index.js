@@ -28,7 +28,9 @@ const Switch = ({
                 disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer',
                 state ? switchColor : 'bg-layout-200',
             ].join(' ')}
-            onClick={!disabled ? () => { onChange(!state) } : () => { }}
+            onClick={!disabled ? () => {
+                onChange(!state)
+            } : () => { }}
             {...props}
         >
             <div className={[
