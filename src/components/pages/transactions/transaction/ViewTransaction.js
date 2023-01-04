@@ -137,15 +137,19 @@ const ViewTransaction = ({
                     </div>
                 </div>
             </Modal>
-            <div
-                className='flex flex-col items-center justify-center w-full gap-2 absolute bottom-10 left-0 p-3'
-            >
-                <span className='text-sm'>Include in Budget</span>
-                <Switch
-                    state={includeInBudget}
-                    onChange={(state) => handleIncludeInBudget(state)}
-                />
-            </div>
+            {
+                txn.transactionType === 'Expense' && (
+                    <div
+                        className='flex flex-col items-center justify-center w-full gap-2 absolute bottom-10 left-0 p-3'
+                    >
+                        <span className='text-sm'>Include in Budget</span>
+                        <Switch
+                            state={includeInBudget}
+                            onChange={(state) => handleIncludeInBudget(state)}
+                        />
+                    </div>
+                )
+            }
         </div>
     )
 }
