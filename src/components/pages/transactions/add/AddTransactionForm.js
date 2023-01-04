@@ -462,15 +462,19 @@ const AddTransactionForm = ({
                                                         disabled={loading}
                                                         required={false}
                                                     />
-                                                    <div
-                                                        className='flex items-center w-full gap-2 my-2'
-                                                    >
-                                                        <span className='text-sm'>Include in Budget</span>
-                                                        <Switch
-                                                            state={includeInBudget}
-                                                            onChange={(state) => setIncludeInBudget(state)}
-                                                        />
-                                                    </div>
+                                                    {
+                                                        transactionType === 'Expense' && (
+                                                            <div
+                                                                className='flex items-center w-full gap-2 my-2'
+                                                            >
+                                                                <span className='text-sm'>Include in Budget</span>
+                                                                <Switch
+                                                                    state={includeInBudget}
+                                                                    onChange={(state) => setIncludeInBudget(state)}
+                                                                />
+                                                            </div>
+                                                        )
+                                                    }
                                                     <Button
                                                         disabled={loading || !allowSubmit}
                                                         type='submit'
