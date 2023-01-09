@@ -59,7 +59,7 @@ const AddTransactionForm = ({
     // Show Add Category Modal
     const [showAddCategoryModal, setShowAddCategoryModal] = useState(false)
     const [tempCategoryName, setTempCategoryName] = useState('')
-    // console.log('tempCategoryName', tempCategoryName)
+    console.log('tempCategoryName', tempCategoryName)
 
     // States - title, date, amount, type, accountID, category, notes
     // Form Data States
@@ -71,6 +71,7 @@ const AddTransactionForm = ({
     const [transactionType, setTransactionType] = useState('')
     const [transactionAccount, setTransactionAccount] = useState('')
     const [transactionCategory, setTransactionCategory] = useState('')
+    console.log('transactionCategory', transactionCategory);
     const [transactionNote, setTransactionNote] = useState('')
     const [includeInBudget, setIncludeInBudget] = useState(true)
 
@@ -124,7 +125,7 @@ const AddTransactionForm = ({
                 return rest
             })
         }
-        if (tempCategoryName.length > 0 && transactionCategory === '') {
+        if (tempCategoryName.length > 0 && (transactionCategory === '' || transactionCategory === undefined)) {
             setErrors({
                 ...errors,
                 transactionCategory: {

@@ -114,20 +114,22 @@ const SearchSelect = ({
                 onKeyDown={(e) => {
                     if (e.key === 'Enter' && enterToSelect) {
                         e.preventDefault()
-                        if (searchResults.length > 0) {
+                        if (searchResults.length > 0 && searchValue !== '') {
                             select(searchResults[highlightedIndex])
                             setSearchValue('')
                             setSearchResults(data)
+                            setHighlightedIndex(0)
                         }
-                        if (searchResults.length === 0) {
+                        if (searchResults.length === 0 || highlightedIndex === searchResults.length) {
                             noResults()
                             setSearchValue('')
                             setSearchResults(data)
+                            setHighlightedIndex(0)
                         }
                     }
                     if (e.key === 'ArrowDown' && enterToSelect) {
                         e.preventDefault()
-                        if (highlightedIndex < searchResults.length - 1) {
+                        if (highlightedIndex < searchResults.length) {
                             setHighlightedIndex(highlightedIndex + 1)
                         }
                     }
@@ -186,22 +188,20 @@ const SearchSelect = ({
                                 )
                             })
                         }
-                        {
-                            searchResults.length === 0 && (
-                                <div
-                                    className={['flex items-center justify-center p-2 w-full font-medium rounded cursor-pointer',
-                                        enterToSelect ? 'bg-primary-100' : 'hover:bg-primary-100'
-                                    ].join(' ')}
-                                    onClick={() => {
-                                        noResults()
-                                        setSearchValue('')
-                                        setSearchResults(data)
-                                    }}
-                                >
-                                    {noResultsText}! Click to Add New.
-                                </div>
-                            )
-                        }
+
+                        <div
+                            className={['flex items-center justify-center p-2 w-full font-medium rounded cursor-pointer',
+                                enterToSelect && highlightedIndex === searchResults.length ? 'bg-primary-100' : 'hover:bg-primary-100'
+                            ].join(' ')}
+                            onClick={() => {
+                                noResults()
+                                setSearchValue('')
+                                setSearchResults(data)
+                            }}
+                        >
+                            {noResultsText}! Click to Add New.
+                        </div>
+
                     </div>
                 )
             }
