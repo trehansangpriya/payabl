@@ -92,7 +92,7 @@ const AccountsSummary = ({
                     <span className='text-lg'>
                         ₹{totalBalance}
                     </span>
-                    <span className='text-xs'>
+                    <span className='text-[10px]'>
                         Balance
                     </span>
                 </div>
@@ -103,7 +103,7 @@ const AccountsSummary = ({
                     <span className='text-lg'>
                         ₹{totalCreditLeft}
                     </span>
-                    <span className='text-xs'>
+                    <span className='text-[10px]'>
                         Credit Left
                     </span>
                 </div>
@@ -114,7 +114,7 @@ const AccountsSummary = ({
                     <span className='text-lg'>
                         ₹{totalCreditSpent}
                     </span>
-                    <span className='text-xs'>
+                    <span className='text-[10px]'>
                         Credit Spent
                     </span>
                 </div>
