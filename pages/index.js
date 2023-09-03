@@ -8,6 +8,7 @@ import { db } from '@/Firebase/index';
 import { useRouter } from 'next/router'
 import { FiChevronRight } from 'react-icons/fi'
 import { Link } from '@/Components/utility'
+import { AccountsSummary } from '@/Components/pages/accounts'
 
 const Home = () => {
   const { user } = useAuth()
@@ -48,6 +49,12 @@ const Home = () => {
   return (
     <AppScreen title={'Dashboard'}>
       <div className='w-full flex flex-col gap-5 p-1 select-none'>
+        {/* Accounts Summary */}
+        {
+          !loading && (
+            <AccountsSummary accounts={accounts} />
+          )
+        }
         {/* Budget Manager */}
         <CurrentMonthBudget transactions={transactions} dataLoading={loading} />
         {/* Accounts at a Glance */}
@@ -71,6 +78,7 @@ const Home = () => {
             </>
           )
         }
+
       </div>
       <FAB
         onClick={() => router.push('/transactions/add')}
