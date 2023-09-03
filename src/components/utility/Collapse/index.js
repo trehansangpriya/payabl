@@ -37,6 +37,7 @@ const Collapse = ({
         ].join(' ')}
             style={{
                 width: width ? width : '300px',
+                maxWidth: width ? width : '80%',
             }}
         >
             <div

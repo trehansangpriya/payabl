@@ -5,6 +5,7 @@ import useAuth from '@/Contexts/useAuth'
 import AccountCard, { AccountSkeleton } from './AccountCard'
 import { Container, Seperator } from '@/Components/utility'
 import { NotFound } from '@/Components/app'
+import AccountsSummary from './AccountsSummary'
 
 const ViewAllAccounts = () => {
     // Local Loading
@@ -29,15 +30,18 @@ const ViewAllAccounts = () => {
                 <AccountSkeleton />
             </>
                 : (
-                    accounts.length !== 0 ? accounts.map((account, index) => (
-                        <div key={account.id}>
-                            <AccountCard account={account} />
-                            {
-                                index !== accounts.length - 1 && <Seperator className='mt-1' />
-                            }
-                        </div>
-                    ))
-                        : <NotFound message='No accounts found' />
+                    <>
+                        <AccountsSummary accounts={accounts} />
+                        {accounts.length !== 0 ? accounts.map((account, index) => (
+                            <div key={account.id}>
+                                <AccountCard account={account} />
+                                {
+                                    index !== accounts.length - 1 && <Seperator className='mt-1' />
+                                }
+                            </div>
+                        ))
+                            : <NotFound message='No accounts found' />}
+                    </>
                 )}
         </Container>
     )
