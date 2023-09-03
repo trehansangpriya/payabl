@@ -72,16 +72,28 @@ const ViewAccount = ({
             <div className='text-sm text-layout-500'>
                 {accountData.accountDescription}
             </div>
-            <h2 className='flex flex-col'>
+            <div className="flex justify-between">
+                <h2 className='flex flex-col'>
+                    {
+                        accountData.accountType === 'Credit Card'
+                            ? <span>Credit Left</span>
+                            : <span>Balance</span>
+                    }
+                    <span className='text-3xl font-semibold'>
+                        ₹{balance?.toFixed(2)}
+                    </span>
+                </h2>
+                {/* Show Credit Spent if Credit Card */}
                 {
-                    accountData.accountType === 'Credit Card'
-                        ? <span>Credit Left</span>
-                        : <span>Balance</span>
+                    accountData.accountType === 'Credit Card' &&
+                    <h2 className='flex flex-col'>
+                        <span>Credit Spent</span>
+                        <span className='text-3xl font-semibold text-error-600'>
+                            ₹{(accountData.accountCreditLimit - balance)?.toFixed(2)}
+                        </span>
+                    </h2>
                 }
-                <span className='text-3xl font-semibold'>
-                    ₹{balance?.toFixed(2)}
-                </span>
-            </h2>
+            </div>
             <Spacer h={'8px'} />
             {
                 transactions.length > 0
