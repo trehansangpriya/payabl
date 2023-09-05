@@ -78,7 +78,7 @@ const AccountCard = ({
                                 {accountType === 'Credit Card' ? 'Limit Remaining' : 'Current Balance'}
                             </small>
                             <p className='text-lg font-semibold'>
-                                ₹{truncateAmount(balance)}
+                                ₹{balance}
                             </p>
                         </div>
                     </div>
